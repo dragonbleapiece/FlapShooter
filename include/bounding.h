@@ -13,7 +13,7 @@
 #include <stdio.h>
 
 typedef enum boundingShape {
-  BOUNDING_SQUARE = 's'
+  BOUNDING_SQUARE = 's',
   BOUNDING_CIRCLE = 'c'
 } BoundingShape;
 
