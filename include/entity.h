@@ -9,6 +9,7 @@
 #ifndef ENTITY_H
 #define ENTITY_H
 
+#include <GL/gl.h>
 #include "bounding.h"
 
 typedef struct entity {
@@ -36,15 +37,22 @@ typedef struct entity {
  * <*boundingBox> : Pointeur sur la/les bounding box de l'entité
  * Retourne un pointeur sur l'entité
  */
-Entity* allocEntity(float x, float y, float sizeX, float sizeY, int maxLife, int attack, GLuint textureID, BoundingBox* boundingBox);
+Entity* allocEntity(float x, float y, float sizeX, float sizeY, int maxLife, int attack, GLuint textureID, BoundingBoxList boundingBox);
 
 /*
  * addEntityToList
- * Ajoute l'entité <*E> à la liste <*L> triée par position x puis y
+ * Ajoute l'entité <*E> à la liste <*L> triée par position x
  * <*L> : Pointeur de la liste triée d'entité
  * <*E> : Entité a ajouter, supposé dans aucune liste
  */
-void addEntityToList(EntityList *L, EntityList *E);
+void addEntityToList(EntityList *L, Entity *E);
+
+/*
+ * printEntityList
+ * Affiche récursivement la liste d'entité pour debugage
+ * <L> : Pointeur de la liste triée d'entité
+ */
+void printEntityList(EntityList L);
 
 /*
  * removeEntityToList
