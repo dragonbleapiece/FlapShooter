@@ -2,7 +2,7 @@ CC = gcc
 CFLAGS = -Wall -O2 -g
 LDFLAGS = -lSDL -lm
 
-APP_BIN = raytracer
+APP_BIN = FlapShooter
 
 SRC_PATH = src
 OBJ_PATH = obj
