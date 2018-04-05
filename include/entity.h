@@ -1,7 +1,7 @@
 /*
  * entity.h
  * Déclaration de la structure et des fonctions de gestion des entités (vaiseaux, obstacles, bonus etc...)
- * 
+ *
  * Auteur : Nicolas CUSUMANO & Nicolas SENECAL
  * IMAC1 - S2 - Promotion 2020
  */
@@ -56,11 +56,12 @@ void printEntityList(EntityList L);
 
 /*
  * removeEntityToList
- * Enleve l'entité <*E> de la liste <*L> et libére la mémoire occupée
+ * Enleve l'entité <E> de la liste <*L> et libére la mémoire occupée
  * <*L> : Pointeur de la liste triée d'entité
- * <*E> : Entité a supprimer, supposé dans la liste
+ * <E> : Entité a supprimer, supposé dans la liste
+ * retourne 1 si l'entité a été enlevée, 0 sinon
  */
-void removeEntityToList(EntityList *L, EntityList *E);
+int removeEntityToList(EntityList *L, EntityList E);
 
 /*
  * freeEntityList

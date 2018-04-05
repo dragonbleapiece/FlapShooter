@@ -1,7 +1,7 @@
 /*
  * bounding.h
  * Déclaration de la structure et des fonctions de gestion des bounding box
- * 
+ *
  * Auteur : Nicolas CUSUMANO & Nicolas SENECAL
  * IMAC1 - S2 - Promotion 2020
  */
@@ -39,10 +39,31 @@ BoundingBox* allocBoundingBox(float xMin, float yMin, float xMax, float yMax, Bo
 
 /*
  * addBoundingBoxToList
- * Ajoute la BoundingBox <*B> à la liste <*L> 
+ * Ajoute la BoundingBox <*B> à la liste <*L>
  * <*L> : Pointeur de la liste de BoundingBox
  * <*E> : BoundingBox a ajouter, supposé dans aucune liste
  */
 void addBoundingBoxToList(BoundingBoxList *L, BoundingBoxList *B);
+
+/*
+ * collisionPointWithCircle
+ * Teste si les coordonnées sont comprises au sein de la bounding box suivant les caractéristiques d'un cercle
+ * <x> : coordonnée en x
+ * <y> : coordonnée en y
+ * <box> : bounding box
+ * Retourne 1 si les coordonnées sont comprises au sein de la bounding box, 0 sinon
+*/
+int collisionPointWithCircle(float x, float y, BoundingBox box);
+
+
+/*
+ * collisionPointWithSquare
+ * Teste si les coordonnées sont comprises au sein de la bounding box suivant les caractéristiques d'un carré
+ * <x> : coordonnée en x
+ * <y> : coordonnée en y
+ * <box> : bounding box
+ * Retourne 1 si les coordonnées sont comprises au sein de la bounding box, 0 sinon
+*/
+int collisionPointWithSquare(float x, float y, BoundingBox box);
 
 #endif
