@@ -30,12 +30,6 @@ Entity* allocEntity(float x, float y, float sizeX, float sizeY, int maxLife, int
   return tmp;
 }
 
-/*
- * addEntityToList
- * Ajoute l'entité <*E> à la liste <*L> triée par position x
- * <*L> : Pointeur de la liste triée d'entité
- * <*E> : Entité a ajouter, supposé dans aucune liste
- */
 void addEntityToList(EntityList *L, Entity *E) {
   EntityList cursor = *L;
   EntityList cursorPrev = NULL;
@@ -75,26 +69,19 @@ void printEntityList(EntityList L) {
   printEntityList(L->next);
 }
 
-/*
- * removeEntityToList
- * Enleve l'entité <E> de la liste <*L> et libére la mémoire occupée
- * <*L> : Pointeur de la liste triée d'entité
- * <E> : Entité a supprimer, supposé dans la liste
- * retourne 1 si l'entité a été enlevée, 0 sinon
-*/
 int removeEntityToList(EntityList *L, EntityList E) {
   EntityList cursor = *L;
   EntityList cursorPrev = NULL;
 
-  while(cursor != NULL && cursor != E) {
+  while (cursor != NULL && cursor != E) {
     cursorPrev = cursor;
     cursor = cursor->next;
   }
 
   /*Si une fois sorti de la boucle, le cursor est à E*/
-  if(cursor == E) {
+  if (cursor == E) {
     /*Si le cursorPrev est à NULL alors, *E est en tête de liste*/
-    if(cursorPrev != NULL) cursorPrev->next = E->next;
+    if (cursorPrev != NULL) cursorPrev->next = E->next;
     else *L = E->next;
     /*On libère l'entité*/
     free(E);
@@ -104,14 +91,8 @@ int removeEntityToList(EntityList *L, EntityList E) {
   return 0;
 }
 
-/*
- * freeEntityList
- * Libére la mémoire occupée par toutes les entités de la liste <*L>
- * <*L> : Pointeur de la liste triée d'entité
-*/
-
 void freeEntityList(EntityList *L) {
-  if(*L != NULL) {
+  if (*L != NULL) {
     freeEntityList(&(*L)->next);
     free(*L);
     /*Lui assigne NULL, prévient de bugs*/
@@ -119,22 +100,16 @@ void freeEntityList(EntityList *L) {
   }
 }
 
-/*
- * isColliding
- * Test si l'entité <E1> et en collision avec l'entité <E2>
- * Retourne 1 si collision, 0 sinon
-*/
-
 /*Fait Seulement Pour le carré !!!!*/
 int isColliding(Entity E1, Entity E2) {
   BoundingBoxList B1 = E1.boundingBox, B2 = E2.boundingBox;
   int r = 0;
-  while(B1 != NULL && !r) {
-    while(B2 != NULL && !r) {
-      r = !((B2->xMin + E2.x >= B1.xMax + E1.x)  // trop à droite
-        	|| (B2.xMax + E2.x <= B1.xMin + E1.x) // trop à gauche
-        	|| (B2.yMin + E2.y >= B1.yMax + E1.y) // trop en bas
-        	|| (box2.yMax + E2.y <= box1.yMin + E1.y));  // trop en haut
+  while (B1 != NULL && !r) {
+    while (B2 != NULL && !r) {
+      r = !((B2->xMin + E2.x >= B1->xMax + E1.x) // trop à droite
+          || (B2->xMax + E2.x <= B1->xMin + E1.x) // trop à gauche
+          || (B2->yMin + E2.y >= B1->yMax + E1.y) // trop en bas
+          || (B2->yMax + E2.y <= B1->yMin + E1.y)); // trop en haut
 
       B2 = B2->next;
     }
