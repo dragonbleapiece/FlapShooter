@@ -107,25 +107,24 @@ int isColliding(Entity E1, Entity E2) {
   while (B1 != NULL && !r) {
     while (B2 != NULL && !r) {
       r = !((B2->xMin + E2.x >= B1->xMax + E1.x) // trop à droite
-          || (B2->xMax + E2.x <= B1->xMin + E1.x) // trop à gauche
-          || (B2->yMin + E2.y >= B1->yMax + E1.y) // trop en bas
-          || (B2->yMax + E2.y <= B1->yMin + E1.y)); // trop en haut
+              || (B2->xMax + E2.x <= B1->xMin + E1.x) // trop à gauche
+              || (B2->yMin + E2.y >= B1->yMax + E1.y) // trop en bas
+              || (B2->yMax + E2.y <= B1->yMin + E1.y)); // trop en haut
 
       B2 = B2->next;
     }
 
     B1 = B1->next;
   }
-
   return r;
 }
 
-/*
- * isCollidingWith
- * Test si l'entité <E> et en collision avec l'une des entités de la liste <L>
- * <maxX> : Coordonnée maximum en x des entités a tester
- * Retourne un pointeur sur la première entité qui est en collision, NULL sinon
+Entity* isCollidingWith(Entity E, EntityList L, float maxX) {
+  while (L != NULL && L->x <= maxX) {
+    if (isColliding(E, *L))
+      return L;
+    L = L->next;
+  }
+  return NULL;
+}
 
-Entity* isCollidingWith(Entity E, EntityList L, float maxX);
-
- */
