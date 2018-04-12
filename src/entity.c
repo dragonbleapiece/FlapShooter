@@ -100,26 +100,24 @@ void freeEntityList(EntityList *L) {
   }
 }
 
-/*Fait Seulement Pour le carré !!!!*/
 int isColliding(Entity E1, Entity E2) {
   BoundingBoxList B1 = E1.boundingBox, B2 = E2.boundingBox;
+  BoundingShape S1, S2;
+
   int r = 0;
   while (B1 != NULL && !r) {
+    S1 = convertShapeToAbsolute(B1->shape, B1->type, E1.x, E1.y, E1.sizeX, E1.sizeY);
     while (B2 != NULL && !r) {
-      r = !((B2->xMin + E2.x >= B1->xMax + E1.x) // trop à droite
-              || (B2->xMax + E2.x <= B1->xMin + E1.x) // trop à gauche
-              || (B2->yMin + E2.y >= B1->yMax + E1.y) // trop en bas
-              || (B2->yMax + E2.y <= B1->yMin + E1.y)); // trop en haut
-
+      S1 = convertShapeToAbsolute(B2->shape, B2->type, E2.x, E2.y, E2.sizeX, E2.sizeY);
+      r = isCollidingShape(S1, B1->type, S2, B2->type);
       B2 = B2->next;
     }
-
     B1 = B1->next;
   }
   return r;
 }
 
-Entity* isCollidingWith(Entity E, EntityList L, float maxX) {
+Entity * isCollidingWith(Entity E, EntityList L, float maxX) {
   while (L != NULL && L->x <= maxX) {
     if (isColliding(E, *L))
       return L;
