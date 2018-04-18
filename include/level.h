@@ -27,5 +27,11 @@ typedef struct level {
  */
 Level generateLevelFromFile(char fileName[]);
 
+/*
+ * freeLevel
+ * Libére la mémoire occupée par toutes les listes du niveau
+ * <*L> : Pointeur de la liste triée d'entité
+ */
+void freeLevel(Level L);
 
 #endif

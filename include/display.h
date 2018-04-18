@@ -30,4 +30,11 @@ typedef struct camera {
  */
 void displayLevel(Level lvl, Camera cam);
 
+/*
+ * displayEntity
+ * Affiche une entité 
+ * <entity> : Pointeur sur l'entité
+ */
+void displayEntity(Entity* entity);
+
 #endif
