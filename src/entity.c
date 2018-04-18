@@ -65,7 +65,7 @@ void printEntityList(EntityList L) {
   if (L == NULL)
     return;
   printf("- Entité (%f;%f) | taille: %fx%f | vie: %d/%d | Attaque: %d \n",
-          L->x, L->y, L->sizeX, L->sizeY, L->life, L->maxLife, L->attack;
+          L->x, L->y, L->sizeX, L->sizeY, L->life, L->maxLife, L->attack);
   printEntityList(L->next);
 }
 
@@ -95,7 +95,7 @@ void freeEntityList(EntityList *L) {
   if (*L != NULL) {
     freeEntityList(&(*L)->next);
     free(*L);
-    /*Lui assigne NULL, prévient de bugs*/
+    /*Lui assigne NULL, prévient de bugs */
     *L = NULL;
   }
 }

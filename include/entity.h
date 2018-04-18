@@ -8,7 +8,7 @@
 
 #ifndef ENTITY_H
 #define ENTITY_H
-
+#include "settings.h"
 #include "bounding.h"
 #include "texture.h"
 
@@ -16,6 +16,8 @@ typedef struct entity {
   float x, y; /* Coordonnées de position en bas a gauche de l'entité */
   float sizeX, sizeY; /* Hauteur et largeur de l'entité */
   Texture *texture;
+  int verticalDiv; /* Division vertical actuel de l'image pour les sprites, 1 si aucune */
+  int horizontalDiv; /* Division horizontal actuel de l'image pour les "sprites", 1 si aucune */
   int life; /* Vie actuelle de l'entité, -1 si invinsible */
   int maxLife; /* Vie maximal de l'entité (???) */
   int attack; /* Point d'attaque de l'entité */
