@@ -16,8 +16,8 @@ typedef struct entity {
   float x, y; /* Coordonnées de position en bas a gauche de l'entité */
   float sizeX, sizeY; /* Hauteur et largeur de l'entité */
   Texture *texture;
-  int verticalDiv; /* Division vertical actuel de l'image pour les sprites, 1 si aucune */
-  int horizontalDiv; /* Division horizontal actuel de l'image pour les "sprites", 1 si aucune */
+  int xTextureIndice; /* Division vertical actuel de l'image pour les sprites, 0 par défaut (1er sprite) */
+  int yTextureIndice; /* Division horizontal actuel de l'image pour les "sprites",  0 par défaut (1er sprite) */
   int life; /* Vie actuelle de l'entité, -1 si invinsible */
   int maxLife; /* Vie maximal de l'entité (???) */
   int attack; /* Point d'attaque de l'entité */

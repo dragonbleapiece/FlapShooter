@@ -25,6 +25,8 @@ Entity* allocEntity(float x, float y, float sizeX, float sizeY, int maxLife, int
   tmp->life = maxLife;
   tmp->attack = attack;
   tmp->texture = texture;
+  tmp->xTextureIndice = 0;
+  tmp->yTextureIndice = 0;
   tmp->boundingBox = boundingBox;
   tmp->next = NULL;
   return tmp;
