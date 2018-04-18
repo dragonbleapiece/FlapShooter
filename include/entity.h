@@ -9,13 +9,13 @@
 #ifndef ENTITY_H
 #define ENTITY_H
 
-#include <GL/gl.h>
 #include "bounding.h"
+#include "texture.h"
 
 typedef struct entity {
   float x, y; /* Coordonnées de position en bas a gauche de l'entité */
   float sizeX, sizeY; /* Hauteur et largeur de l'entité */
-  GLuint textureID;
+  Texture *texture;
   int life; /* Vie actuelle de l'entité, -1 si invinsible */
   int maxLife; /* Vie maximal de l'entité (???) */
   int attack; /* Point d'attaque de l'entité */
@@ -37,7 +37,7 @@ typedef struct entity {
  * <*boundingBox> : Pointeur sur la/les bounding box de l'entité
  * Retourne un pointeur sur l'entité
  */
-Entity* allocEntity(float x, float y, float sizeX, float sizeY, int maxLife, int attack, GLuint textureID, BoundingBoxList boundingBox);
+Entity* allocEntity(float x, float y, float sizeX, float sizeY, int maxLife, int attack, Texture *texture, BoundingBoxList boundingBox);
 
 /*
  * addEntityToList

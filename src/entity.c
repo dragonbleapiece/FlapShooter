@@ -10,7 +10,7 @@
 
 #include "entity.h"
 
-Entity* allocEntity(float x, float y, float sizeX, float sizeY, int maxLife, int attack, GLuint textureID, BoundingBoxList boundingBox) {
+Entity* allocEntity(float x, float y, float sizeX, float sizeY, int maxLife, int attack, Texture *texture, BoundingBoxList boundingBox) {
   Entity* tmp;
   tmp = (Entity*) malloc(sizeof (Entity));
   if (!tmp) {
@@ -24,7 +24,7 @@ Entity* allocEntity(float x, float y, float sizeX, float sizeY, int maxLife, int
   tmp->maxLife = maxLife;
   tmp->life = maxLife;
   tmp->attack = attack;
-  tmp->textureID = textureID;
+  tmp->texture = texture;
   tmp->boundingBox = boundingBox;
   tmp->next = NULL;
   return tmp;
@@ -64,8 +64,8 @@ void addEntityToList(EntityList *L, Entity *E) {
 void printEntityList(EntityList L) {
   if (L == NULL)
     return;
-  printf("- Entité (%f;%f) | taille: %fx%f | vie: %d/%d | Attaque: %d | textureId: %d\n",
-          L->x, L->y, L->sizeX, L->sizeY, L->life, L->maxLife, L->attack, (int) L->textureID);
+  printf("- Entité (%f;%f) | taille: %fx%f | vie: %d/%d | Attaque: %d \n",
+          L->x, L->y, L->sizeX, L->sizeY, L->life, L->maxLife, L->attack;
   printEntityList(L->next);
 }
 
