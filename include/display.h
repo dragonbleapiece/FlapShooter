@@ -14,13 +14,14 @@
 #include <GL/glu.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <math.h>
 #include "settings.h"
 
 #include "level.h"
 
 typedef struct camera {
-  float xMin,yMin; /* Position en bas à gauche de la caméra */
-  float xMax,yMax; /* Position en haut à droite de la caméra */
+  float xMin, yMin; /* Position en bas à gauche de la caméra */
+  float xMax, yMax; /* Position en haut à droite de la caméra */
 } Camera;
 
 /*
@@ -33,9 +34,35 @@ void displayLevel(Level lvl, Camera cam);
 
 /*
  * displayEntity
- * Affiche une entité 
- * <entity> : Pointeur sur l'entité
+ * Affiche une entité
+ * Affiche également sa bounding box si l'option est activé dans settings.h
+ * <*E> : Pointeur sur l'entité
  */
-void displayEntity(Entity* entity);
+void displayEntity(Entity* E);
+
+/*
+ * displayEntityList
+ * Affiche toutes les entités d'une liste jusqu'à <maxX> 
+ * <L> : La liste triée des entités
+ * <maxX> : Coordonnée maximum en x des entités a afficher
+ */
+void displayEntityList(EntityList L, float maxX);
+
+/*
+ * displayBoundingBox
+ * Affiche une bounding box en transparance par rapport a son entité
+ * <*B> : Pointeur sur la bounding box
+ * <*E> : Pointeur sur l'entité
+ */
+void displayBoundingBox(BoundingBox *B, Entity* E);
+
+/*
+ * displayBoundingBoxList
+ * Affiche toutes les bounding box d'une liste en transparance par rapport a leur entité
+ * <L> : La liste des bounding box
+ * <*E> : Pointeur sur l'entité
+ */
+void displayBoundingBoxList(BoundingBoxList L, Entity* E);
+
 
 #endif
