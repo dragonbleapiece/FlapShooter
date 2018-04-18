@@ -8,8 +8,14 @@
 
 #ifndef TEXTURE_H
 #define TEXTURE_H
-
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include <SDL/SDL_image.h>
 #include <GL/gl.h>
+
+#include "settings.h"
+#include "tools.h"
 
 typedef struct texture {
   char *fileName; /* Chaine de caractère représentant le nom et l'extention de l'image, sert d'identifiant */
@@ -35,7 +41,7 @@ Texture* allocTexture(char fileName[], GLuint *id, GLint format, int verticalDiv
 
 /*
  * createTexture
- * Créer une texture et l'alloue dans l'espace mémoire :
+ * Charge une texture et l'alloue dans l'espace mémoire :
  *    - Charge l'image
  *    - Détermine son format en fonction de son extention
  *    - Créer l'objet texture en OpenGL et envoie les données au GPU
@@ -47,7 +53,6 @@ Texture* allocTexture(char fileName[], GLuint *id, GLint format, int verticalDiv
  * Retourne un pointeur sur la texture alloué avec allocTexture
  */
 Texture* createTexture(char fileName[], int verticalDiv, int horizontalDiv);
-
 
 /*
  * createTextureToList
@@ -68,15 +73,14 @@ Texture* createTextureToList(TextureList *L, char fileName[], int verticalDiv, i
  */
 void freeTextureList(TextureList *L);
 
-
 /*
  * getTextureFromList
  * Cherche et retourne la texture de la liste <*L> correspondant à <fileName>
- * <*L> : Pointeur de la liste triée de texture
+ * <L> : Liste triée de texture
  * <fileName[]> : Nom et extention de l'image
  * Returne un pointeur sur la texture, NULL si inexistante
  */
-Texture* getTextureFromList(TextureList *L, char fileName[]);
+Texture* getTextureFromList(TextureList L, char fileName[]);
 
 
 #endif
