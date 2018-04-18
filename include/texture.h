@@ -62,11 +62,11 @@ Texture* createTexture(char fileName[], int verticalDiv, int horizontalDiv);
 Texture* createTextureToList(TextureList *L, char fileName[], int verticalDiv, int horizontalDiv);
 
 /*
- * freeEntityList
+ * freeTextureList
  * Libére la mémoire occupée (OpenGL et structure) par toutes les textures de la liste <*L>
- * <*L> : Pointeur de la liste triée d'entité
+ * <*L> : Pointeur de la liste triée de textures
  */
-void freeEntityList(EntityList *L);
+void freeTextureList(TextureList *L);
 
 
 /*
