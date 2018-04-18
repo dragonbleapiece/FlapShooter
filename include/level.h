@@ -8,7 +8,9 @@
 
 #ifndef LEVEL_H
 #define LEVEL_H
-
+#include <stdlib.h>
+#include <stdio.h>
+#include "settings.h"
 #include "entity.h"
 
 typedef struct level {

@@ -11,6 +11,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include "settings.h"
 
 typedef struct {
   float xMin, yMin; /* Point en bas à gauche du carré */

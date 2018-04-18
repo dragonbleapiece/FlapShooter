@@ -14,6 +14,7 @@
 #include <GL/glu.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include "settings.h"
 
 #include "level.h"
 

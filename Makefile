@@ -1,6 +1,6 @@
 CC = gcc
 CFLAGS = -Wall -O2 -g
-LDFLAGS = -lSDL -lm
+LDFLAGS = -lSDL -lGLU -lGL -lm -lSDL_image
 
 APP_BIN = FlapShooter
 
