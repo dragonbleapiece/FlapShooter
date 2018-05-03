@@ -11,14 +11,22 @@
 #include "display.h"
 
 void displayLevel(Level lvl, Camera cam) {
+  int nextSprite = 0;
+  static int lastTime = 0;
+  int time = SDL_GetTicks();
+  // Si le temps entre 2 sprites est écoulé
+  if (time - lastTime > 1000/SPRITES_PER_SECOND) {
+    nextSprite = 1; // On passe a la sprite suivante
+    lastTime = time;
+  }
   glPushMatrix();
   glTranslatef(cam.xMin, 0, 0);
-  displayEntityList(lvl.player, cam.xMax);
+  displayEntityList(&(lvl.player), cam.xMax, nextSprite);
   glPopMatrix();
-  displayEntityList(lvl.obstacles, cam.xMax);
-  displayEntityList(lvl.ennemies, cam.xMax);
-  displayEntityList(lvl.projectiles, cam.xMax);
-  displayEntityList(lvl.bonus, cam.xMax);
+  displayEntityList(&(lvl.player), cam.xMax, nextSprite);
+  displayEntityList(&(lvl.player), cam.xMax, nextSprite);
+  displayEntityList(&(lvl.player), cam.xMax, nextSprite);
+  displayEntityList(&(lvl.player), cam.xMax, nextSprite);
 }
 
 void displayTexturedEntity(Entity* E) {
@@ -63,13 +71,25 @@ void displayEntity(Entity* E) {
     displayBoundingBoxList(E->boundingBox, E);
 }
 
-void displayEntityList(EntityList L, float xMax) {
-  while (L != NULL && L->x <= xMax) {
-    if (isTextured(*L))
-      displayTexturedEntity(L);
-    else
-      displayEntity(L);
-    L = L->next;
+void displayEntityList(EntityList *L, float xMax, int nextSprite) {
+  EntityList cursor = *L;
+  EntityList cursorPrev = NULL;
+
+  while (cursor != NULL && cursor->x <= xMax) {
+    if (isTextured(*cursor)) {
+      if (nextSprite) {
+        if (upXSpriteEntity(cursor) && cursor->life == 0) {// dernière sprite de destruction
+          removeEntityToList(L, cursor);
+          cursor = cursorPrev;
+        } else {
+          displayTexturedEntity(cursor);
+        }
+      }
+    } else {
+      displayEntity(cursor);
+    }
+    cursorPrev = cursor;
+    cursor = cursor->next;
   }
 }
 
@@ -98,7 +118,6 @@ void displayBoundingBox(BoundingBox *B, Entity* E) {
       glPopMatrix();
       break;
   }
-
 }
 
 void displayBoundingBoxList(BoundingBoxList L, Entity* E) {

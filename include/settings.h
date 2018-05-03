@@ -14,9 +14,13 @@
 
 #define CERCLE_LIGNES 50 /* Nombre de polygones d'un cercle */
 
+#define UNTEXTURED_BOX_COLOR 255,0,255,255 /* Couleur RGBA des objets non texturé */
+
+#define SPRITES_PER_SECOND 30 /* Nombre de sprite par seconde */
+
 /* DEBUG */
 #define SHOW_BOUNDING_BOX 1 /* Afficher les bounding box en violet sur les entités */
 #define BOUNDING_BOX_COLOR 148,0,211,100 /* Couleur RGBA des bounding box */
-#define UNTEXTURED_BOX_COLOR 255,0,255,255 /* Couleur RGBA des objets non texturé */
+
 
 #endif
