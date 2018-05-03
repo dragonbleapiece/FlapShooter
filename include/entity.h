@@ -16,8 +16,8 @@ typedef struct entity {
   float x, y; /* Coordonnées de position en bas a gauche de l'entité */
   float sizeX, sizeY; /* Hauteur et largeur de l'entité */
   Texture *texture;
-  int xTextureIndice; /* Division vertical actuel de l'image pour les sprites, 0 par défaut (1er sprite) */
-  int yTextureIndice; /* Division horizontal actuel de l'image pour les "sprites",  0 par défaut (1er sprite) */
+  int xTextureIndice; /* Division horizontal actuel de l'image pour les sprites, 0 par défaut (1er sprite) */
+  int yTextureIndice; /* Division vertical actuel de l'image pour les "sprites",  0 par défaut (1er sprite) */
   int life; /* Vie actuelle de l'entité, -1 si invinsible */
   int maxLife; /* Vie maximal de l'entité (???) */
   int attack; /* Point d'attaque de l'entité */
@@ -71,7 +71,7 @@ int removeEntityToList(EntityList *L, EntityList E);
  * et libére la mémoire occupée
  * <*L> : Pointeur de la liste triée d'entité
  */
-int removeEntityBehind(EntityList *L, int xMax);
+void removeEntityBehind(EntityList *L, int xMax);
 
 /*
  * freeEntityList
@@ -103,15 +103,22 @@ int isTextured(Entity E);
 
 /*
  * upXSpriteEntity
+ * Passe a la sprite horizontale suivante pour l'entité <*E>
  * Si on est à la fin de la ligne, le sprite revient a l'état de repos (0,0)
+ * <*E> : Entité a modifier
  * Retourne 1 si on est revenu a l'êtat de repos, 0 sinon
  */
-
+int upXSpriteEntity(Entity *E);
 
 
 /*
  * setSpriteEntity
+ * Redéfinis la sprite actuelle de l'entité 
+ * <*E> : Entité a modifier
+ * <x> : Nouvelle division horizontale de l'image pour les sprites, 0 = 1ere sprite
+ * <y> : Nouvelle division verticale de l'image pour les sprites, 0 = 1ere sprite
+ * Retourne 0 si la nouvelle sprite n'existe pas, 1 sinon
  */
-
+int setSpriteEntity(Entity *E, int x, int y);
 
 #endif

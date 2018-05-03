@@ -93,6 +93,13 @@ int removeEntityToList(EntityList *L, EntityList E) {
   return 0;
 }
 
+void removeEntityBehind(EntityList *L, int xMax) {
+  while (*L != NULL && (*L)->x <= xMax) {
+    free(*L);
+    *L = (*L)->next;
+  }
+}
+
 void freeEntityList(EntityList *L) {
   if (*L != NULL) {
     freeEntityList(&(*L)->next);
@@ -130,4 +137,22 @@ Entity * isCollidingWith(Entity E, EntityList L, float maxX) {
 
 int isTextured(Entity E) {
   return (E.texture != NULL);
+}
+
+int upXSpriteEntity(Entity *E) {
+  E->xTextureIndice++;
+  if (E->xTextureIndice >= E->texture->horizontalDiv) {
+    E->xTextureIndice = 0;
+    E->yTextureIndice = 0;
+    return 1;
+  }
+  return 0;
+}
+
+int setSpriteEntity(Entity *E, int x, int y) {
+  if (x >= E->texture->horizontalDiv || y >= E->texture->verticalDiv)
+    return 0;
+  E->xTextureIndice = x;
+  E->yTextureIndice = y;
+  return 1;
 }
