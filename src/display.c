@@ -21,7 +21,11 @@ void displayLevel(Level lvl, Camera cam) {
   displayEntityList(lvl.bonus, cam.xMax);
 }
 
-void displayEntity(Entity* E) {
+void displayTexturedEntity(Entity* E) {
+  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+  glEnable(GL_TEXTURE_2D);
+  glBindTexture(GL_TEXTURE_2D, *(E->texture->id));
+
   glBegin(GL_QUADS);
   glTexCoord2f(
           (E->xTextureIndice + 0.) / E->texture->horizontalDiv,
@@ -40,13 +44,31 @@ void displayEntity(Entity* E) {
           (E->yTextureIndice + 1.) / E->texture->verticalDiv);
   glVertex2f(E->x, E->y);
   glEnd();
+
+  glDisable(GL_TEXTURE_2D);
+  glBindTexture(GL_TEXTURE_2D, 0);
   if (SHOW_BOUNDING_BOX)
     displayBoundingBoxList(E->boundingBox, E);
 }
 
-void displayEntityList(EntityList L, float maxX) {
-  while (L != NULL && L->x <= maxX) {
-    displayEntity(L);
+void displayEntity(Entity* E) {
+  glBegin(GL_QUADS);
+  glColor4ub(UNTEXTURED_BOX_COLOR);
+  glVertex2f(E->x, E->y + E->sizeY);
+  glVertex2f(E->x + E->sizeX, E->y + E->sizeY);
+  glVertex2f(E->x + E->sizeX, E->y);
+  glVertex2f(E->x, E->y);
+  glEnd();
+  if (SHOW_BOUNDING_BOX)
+    displayBoundingBoxList(E->boundingBox, E);
+}
+
+void displayEntityList(EntityList L, float xMax) {
+  while (L != NULL && L->x <= xMax) {
+    if (isTextured(*L))
+      displayTexturedEntity(L);
+    else
+      displayEntity(L);
     L = L->next;
   }
 }

@@ -128,3 +128,6 @@ Entity * isCollidingWith(Entity E, EntityList L, float maxX) {
   return NULL;
 }
 
+int isTextured(Entity E) {
+  return (E.texture != NULL);
+}

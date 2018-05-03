@@ -41,12 +41,22 @@ void displayLevel(Level lvl, Camera cam);
 void displayEntity(Entity* E);
 
 /*
+ * displayTexturedEntity
+ * Affiche une entité avec sa texture
+ * Affiche également sa bounding box si l'option est activé dans settings.h
+ * <*E> : Pointeur sur l'entité
+ */
+void displayTexturedEntity(Entity* E);
+
+/*
  * displayEntityList
- * Affiche toutes les entités d'une liste jusqu'à <maxX> 
+ * Affiche toutes les entités d'une liste jusqu'à <xMax> 
+ * Gère les destructions d'entité si elles arrivent à la dernière sprite de destruction
  * <L> : La liste triée des entités
  * <maxX> : Coordonnée maximum en x des entités a afficher
+ * <nextSprite> : afficher la sprite suivante (0 = non, 1 = oui)
  */
-void displayEntityList(EntityList L, float maxX);
+void displayEntityList(EntityList L, float xMax);//, int nextSprite);
 
 /*
  * displayBoundingBox

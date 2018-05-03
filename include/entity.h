@@ -66,6 +66,14 @@ void printEntityList(EntityList L);
 int removeEntityToList(EntityList *L, EntityList E);
 
 /*
+ * removeEntityBehind
+ * Enleve toutes les entités de la liste <*L> jusqu'à xMax
+ * et libére la mémoire occupée
+ * <*L> : Pointeur de la liste triée d'entité
+ */
+int removeEntityBehind(EntityList *L, int xMax);
+
+/*
  * freeEntityList
  * Libére la mémoire occupée par toutes les entités de la liste <*L>
  * <*L> : Pointeur de la liste triée d'entité
@@ -87,6 +95,23 @@ int isColliding(Entity E1, Entity E2);
  */
 Entity* isCollidingWith(Entity E, EntityList L, float maxX);
 
+/*
+ * isTextured
+ * Retourne 1 si l'entité <E> a une texture, 0 sinon
+ */
+int isTextured(Entity E);
+
+/*
+ * upXSpriteEntity
+ * Si on est à la fin de la ligne, le sprite revient a l'état de repos (0,0)
+ * Retourne 1 si on est revenu a l'êtat de repos, 0 sinon
+ */
+
+
+
+/*
+ * setSpriteEntity
+ */
 
 
 #endif
