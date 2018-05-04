@@ -16,9 +16,15 @@ typedef struct entity {
   float x, y; /* Coordonnées de position en bas a gauche de l'entité */
   float sizeX, sizeY; /* Hauteur et largeur de l'entité */
   Texture *texture;
+<<<<<<< HEAD
   int xTextureIndice; /* Division vertical actuel de l'image pour les sprites, 0 par défaut (1er sprite) */
   int yTextureIndice; /* Division horizontal actuel de l'image pour les "sprites",  0 par défaut (1er sprite) */
   int life; /* Vie actuelle de l'entité, -1 si invincible */
+=======
+  int xTextureIndice; /* Division horizontal actuel de l'image pour les sprites, 0 par défaut (1er sprite) */
+  int yTextureIndice; /* Division vertical actuel de l'image pour les "sprites",  0 par défaut (1er sprite) */
+  int life; /* Vie actuelle de l'entité, -1 si invinsible */
+>>>>>>> 0bfa362e6214d461bfc6cd760c4dd5ca0abd2a50
   int maxLife; /* Vie maximal de l'entité (???) */
   int attack; /* Point d'attaque de l'entité */
   BoundingBoxList boundingBox; /* Pointeur sur la liste de bounding box de l'entité */
@@ -66,6 +72,14 @@ void printEntityList(EntityList L);
 int removeEntityToList(EntityList *L, EntityList E);
 
 /*
+ * removeEntityBehind
+ * Enleve toutes les entités de la liste <*L> jusqu'à xMax
+ * et libére la mémoire occupée
+ * <*L> : Pointeur de la liste triée d'entité
+ */
+void removeEntityBehind(EntityList *L, int xMax);
+
+/*
  * freeEntityList
  * Libére la mémoire occupée par toutes les entités de la liste <*L>
  * <*L> : Pointeur de la liste triée d'entité
@@ -87,6 +101,30 @@ int isColliding(Entity E1, Entity E2);
  */
 Entity* isCollidingWith(Entity E, EntityList L, float maxX);
 
+/*
+ * isTextured
+ * Retourne 1 si l'entité <E> a une texture, 0 sinon
+ */
+int isTextured(Entity E);
 
+/*
+ * upXSpriteEntity
+ * Passe a la sprite horizontale suivante pour l'entité <*E>
+ * Si on est à la fin de la ligne, le sprite revient a l'état de repos (0,0)
+ * <*E> : Entité a modifier
+ * Retourne 1 si on est revenu a l'êtat de repos, 0 sinon
+ */
+int upXSpriteEntity(Entity *E);
+
+
+/*
+ * setSpriteEntity
+ * Redéfinis la sprite actuelle de l'entité 
+ * <*E> : Entité a modifier
+ * <x> : Nouvelle division horizontale de l'image pour les sprites, 0 = 1ere sprite
+ * <y> : Nouvelle division verticale de l'image pour les sprites, 0 = 1ere sprite
+ * Retourne 0 si la nouvelle sprite n'existe pas, 1 sinon
+ */
+int setSpriteEntity(Entity *E, int x, int y);
 
 #endif
