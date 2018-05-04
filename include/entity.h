@@ -18,7 +18,7 @@ typedef struct entity {
   Texture *texture;
   int xTextureIndice; /* Division vertical actuel de l'image pour les sprites, 0 par défaut (1er sprite) */
   int yTextureIndice; /* Division horizontal actuel de l'image pour les "sprites",  0 par défaut (1er sprite) */
-  int life; /* Vie actuelle de l'entité, -1 si invinsible */
+  int life; /* Vie actuelle de l'entité, -1 si invincible */
   int maxLife; /* Vie maximal de l'entité (???) */
   int attack; /* Point d'attaque de l'entité */
   BoundingBoxList boundingBox; /* Pointeur sur la liste de bounding box de l'entité */

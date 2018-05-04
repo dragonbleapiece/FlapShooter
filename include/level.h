@@ -1,7 +1,7 @@
 /*
  * level.h
  * Déclaration de la structure et des fonctions de gestion des niveaux
- * 
+ *
  * Auteur : Nicolas CUSUMANO & Nicolas SENECAL
  * IMAC1 - S2 - Promotion 2020
  */
@@ -27,7 +27,17 @@ typedef struct level {
  * <fileName[]> : nom du fichier au format PPM décrivant le niveau
  * Retourne une structure Level
  */
-Level generateLevelFromFile(char fileName[]);
+Level generateLevelFromFile(const char fileName[]);
+
+
+
+/*
+ * addElementToLevel
+ * ajoute des éléments selon le code ajouté
+ * <code> : code de l'élément à ajouter
+ * Retourne false si l'élément n'a pas pu être alloué, true sinon
+ */
+int addElementToLevel(int code, Level *level);
 
 /*
  * freeLevel
