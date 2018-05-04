@@ -27,6 +27,7 @@ typedef struct camera {
 /*
  * displayLevel
  * Affiche toutes les entités d'un niveau qui sont dans le champs de la camera
+ * Appelé à chaque frame
  * <lvl> : Structure du niveau
  * <cam> : Structure de la camera 
  */
@@ -41,12 +42,22 @@ void displayLevel(Level lvl, Camera cam);
 void displayEntity(Entity* E);
 
 /*
- * displayEntityList
- * Affiche toutes les entités d'une liste jusqu'à <maxX> 
- * <L> : La liste triée des entités
- * <maxX> : Coordonnée maximum en x des entités a afficher
+ * displayTexturedEntity
+ * Affiche une entité avec sa texture
+ * Affiche également sa bounding box si l'option est activé dans settings.h
+ * <*E> : Pointeur sur l'entité
  */
-void displayEntityList(EntityList L, float maxX);
+void displayTexturedEntity(Entity* E);
+
+/*
+ * displayEntityList
+ * Affiche toutes les entités d'une liste jusqu'à <xMax> 
+ * Gère les destructions d'entité si elles arrivent à la dernière sprite de destruction
+ * <*L> : Pointeur sur la liste triée des entités
+ * <maxX> : Coordonnée maximum en x des entités a afficher
+ * <nextSprite> : afficher la sprite suivante (0 = non, 1 = oui)
+ */
+void displayEntityList(EntityList *L, float xMax, int nextSprite);
 
 /*
  * displayBoundingBox
