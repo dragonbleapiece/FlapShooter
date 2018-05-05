@@ -16,15 +16,9 @@ typedef struct entity {
   float x, y; /* Coordonnées de position en bas a gauche de l'entité */
   float sizeX, sizeY; /* Hauteur et largeur de l'entité */
   Texture *texture;
-<<<<<<< HEAD
   int xTextureIndice; /* Division vertical actuel de l'image pour les sprites, 0 par défaut (1er sprite) */
   int yTextureIndice; /* Division horizontal actuel de l'image pour les "sprites",  0 par défaut (1er sprite) */
   int life; /* Vie actuelle de l'entité, -1 si invincible */
-=======
-  int xTextureIndice; /* Division horizontal actuel de l'image pour les sprites, 0 par défaut (1er sprite) */
-  int yTextureIndice; /* Division vertical actuel de l'image pour les "sprites",  0 par défaut (1er sprite) */
-  int life; /* Vie actuelle de l'entité, -1 si invinsible */
->>>>>>> 0bfa362e6214d461bfc6cd760c4dd5ca0abd2a50
   int maxLife; /* Vie maximal de l'entité (???) */
   int attack; /* Point d'attaque de l'entité */
   BoundingBoxList boundingBox; /* Pointeur sur la liste de bounding box de l'entité */
@@ -119,7 +113,7 @@ int upXSpriteEntity(Entity *E);
 
 /*
  * setSpriteEntity
- * Redéfinis la sprite actuelle de l'entité 
+ * Redéfinis la sprite actuelle de l'entité
  * <*E> : Entité a modifier
  * <x> : Nouvelle division horizontale de l'image pour les sprites, 0 = 1ere sprite
  * <y> : Nouvelle division verticale de l'image pour les sprites, 0 = 1ere sprite

@@ -67,7 +67,7 @@ void printEntityList(EntityList L) {
   if (L == NULL)
     return;
   printf("- Entité (%f;%f) | taille: %fx%f | vie: %d/%d | Attaque: %d \n",
-          L->x, L->y, L->sizeX, L->sizeY, L->life, L->maxLife, L->attack);
+          L->x / UNITE, L->y / UNITE, L->sizeX, L->sizeY, L->life, L->maxLife, L->attack);
   printEntityList(L->next);
 }
 

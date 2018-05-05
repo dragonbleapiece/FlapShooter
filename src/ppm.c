@@ -8,15 +8,13 @@
 
  #include "ppm.h"
 
-PPMImage *generatePPMImageFromFile(const char fileName[]) {
+PPMImage *generatePPMImageFromFile(const char filename[]) {
 
 
    char buff[3], c;
    PPMImage *img;
-   Level level;
-   File *fp;
+   FILE *fp;
    int temp, comp, i = 0, j = 0;
-   long int size;
    /*ouvre le fichier PPM en lecture*/
    fp = fopen(filename, "r");
    if(!fp) {
@@ -64,12 +62,22 @@ PPMImage *generatePPMImageFromFile(const char fileName[]) {
    }
 
    /*allocation mémoire pour les données des pixels*/
-   img->data = (int*)malloc(img->x * img->y * sizeof(int));
+   img->data = (int**)malloc(img->x * sizeof(int*));
 
    if (!img->data) {
      fprintf(stderr, "Unable to allocate memory\n");
      return NULL;
    }
+
+   for(i = 0; i < img->x; ++i) {
+     img->data[i] = (int*)malloc(img->y * sizeof(int));
+     if (!img->data[i]) {
+       fprintf(stderr, "Unable to allocate memory\n");
+       return NULL;
+     }
+   }
+
+   i = 0;
 
    /*lit les données des pixels du fichier*/
    while(j < img->y && fscanf(fp, " %d", &temp) == 1 && temp <= comp) {
@@ -89,4 +97,13 @@ PPMImage *generatePPMImageFromFile(const char fileName[]) {
    fclose(fp);
 
    return img;
+ }
+
+ void freePPMImage(PPMImage *ppm) {
+   int i;
+   for(i = 0; i < ppm->x; ++i) {
+     free(ppm->data[i]);
+   }
+   free(ppm->data);
+   free(ppm);
  }

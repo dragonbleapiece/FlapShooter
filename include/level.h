@@ -21,28 +21,48 @@ typedef struct level {
   EntityList projectiles;
 } Level;
 
+typedef enum entityCode {
+  VOID_CODE,
+  PLAYER_CODE,
+  ENNEMYONE_CODE,
+  ENNEMYTWO_CODE,
+  OBSTACLE_CODE,
+  DESTRUCTIBLE_CODE,
+  BONUS_CODE,
+  PROJECTILE_CODE
+} EntityCode;
+
 /*
  * generateLevelFromFile
  * Génére toutes les entités d'un niveau depuis un fichier PPM
  * <fileName[]> : nom du fichier au format PPM décrivant le niveau
  * Retourne une structure Level
  */
-Level generateLevelFromFile(const char fileName[]);
+Level generateLevelFromFile(const char filename[]);
 
 
+/*
+ * initialiseLevel
+ * Initialise les attributs de la variable Level à NULL
+ * <*level> : pointeur vers le Level
+ */
+void initialiseLevel(Level *level);
 
 /*
  * addElementToLevel
  * ajoute des éléments selon le code ajouté
  * <code> : code de l'élément à ajouter
+ * <*level> : pointeur sur le level dans lequel on ajoute
+ * <x> : position en x UNITE
+ * <y> : position en Y UNITE
  * Retourne false si l'élément n'a pas pu être alloué, true sinon
  */
-int addElementToLevel(int code, Level *level);
+int addElementToLevel(EntityCode code, Level *level, float x, float y);
 
 /*
  * freeLevel
- * Libére la mémoire occupée par toutes les listes du niveau
- * <*L> : Pointeur de la liste triée d'entité
+ * Libère la mémoire occupée par toutes les listes du niveau
+ * <*L> : Pointeur de la liste triée d'entités
  */
 void freeLevel(Level L);
 

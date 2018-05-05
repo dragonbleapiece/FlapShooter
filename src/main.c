@@ -9,23 +9,14 @@ float rand_a_b(int a, int b) {
 }
 
 int main(int argc, char** argv) {
-  float x = 0;
-  float y = 0;
-  EntityList lst = NULL;
 
-  for (int i = 0; i < 10; i++) {
-    x = rand_a_b(0, 1000);
-    y = rand_a_b(0, 50);
-    printf("Ajout (%f;%f)\n", x, y);
-    addEntityToList(&lst, allocEntity(x, y, rand_a_b(10, 50), rand_a_b(10, 50), (int) rand_a_b(1, 5), (int) rand_a_b(1, 5), (GLuint) rand_a_b(1, 5), NULL));
-  }
-  printEntityList(lst);
-  printf("Remove first \n");
-  removeEntityToList(&lst, lst);
-  printEntityList(lst);
-  printf("Remove all \n");
-  freeEntityList(&lst);
-  printEntityList(lst);
+  Level level = generateLevelFromFile("ressources/levelOne.ppm");
+
+  printEntityList(level.player);
+  printEntityList(level.ennemies);
+  printEntityList(level.obstacles);
+  printEntityList(level.bonus);
+  printEntityList(level.projectiles);
 
   return EXIT_SUCCESS;
 }
