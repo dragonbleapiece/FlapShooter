@@ -62,7 +62,7 @@ Texture* createTexture(char fileName[], int verticalDiv, int horizontalDiv);
  * <fileName[]> : Nom et extention de l'image
  * <verticalDiv> : Division vertical de l'image
  * <horizontalDiv> : Division horizontal de l'image
- * Returne un pointeur sur la texture ajouté ou dejà présente
+ * Returne un pointeur sur la texture ajouté ou celle dejà présente
  */
 Texture* createTextureToList(TextureList *L, char fileName[], int verticalDiv, int horizontalDiv);
 

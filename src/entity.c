@@ -93,7 +93,7 @@ int removeEntityToList(EntityList *L, EntityList E) {
   return 0;
 }
 
-void removeEntityBehind(EntityList *L, int xMax) {
+void removeEntityBehind(EntityList *L, float xMax) {
   while (*L != NULL && (*L)->x <= xMax) {
     free(*L);
     *L = (*L)->next;
@@ -126,8 +126,8 @@ int isColliding(Entity E1, Entity E2) {
   return r;
 }
 
-Entity * isCollidingWith(Entity E, EntityList L, float maxX) {
-  while (L != NULL && L->x <= maxX) {
+Entity * isCollidingWith(Entity E, EntityList L, float xMax) {
+  while (L != NULL && L->x <= xMax) {
     if (isColliding(E, *L))
       return L;
     L = L->next;
@@ -155,4 +155,16 @@ int setSpriteEntity(Entity *E, int x, int y) {
   E->xTextureIndice = x;
   E->yTextureIndice = y;
   return 1;
+}
+
+void translateEntity(Entity *E, float x, float y) {
+  E->x += x;
+  E->y += y;
+}
+
+void translateEntityList(EntityList L, float x, float y, float xMax) {
+  while (L != NULL && L->x <= xMax) {
+    translateEntity(L, x, y);
+    L = L->next;
+  }
 }

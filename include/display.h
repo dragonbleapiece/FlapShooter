@@ -54,7 +54,7 @@ void displayTexturedEntity(Entity* E);
  * Affiche toutes les entités d'une liste jusqu'à <xMax> 
  * Gère les destructions d'entité si elles arrivent à la dernière sprite de destruction
  * <*L> : Pointeur sur la liste triée des entités
- * <maxX> : Coordonnée maximum en x des entités a afficher
+ * <xMax> : Coordonnée maximum en x des entités a afficher
  * <nextSprite> : afficher la sprite suivante (0 = non, 1 = oui)
  */
 void displayEntityList(EntityList *L, float xMax, int nextSprite);

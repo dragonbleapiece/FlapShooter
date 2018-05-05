@@ -71,7 +71,7 @@ int removeEntityToList(EntityList *L, EntityList E);
  * et libére la mémoire occupée
  * <*L> : Pointeur de la liste triée d'entité
  */
-void removeEntityBehind(EntityList *L, int xMax);
+void removeEntityBehind(EntityList *L, float xMax);
 
 /*
  * freeEntityList
@@ -90,10 +90,10 @@ int isColliding(Entity E1, Entity E2);
 /*
  * isCollidingWith
  * Test si l'entité <E> et en collision avec l'une des entités de la liste <L>
- * <maxX> : Coordonnée maximum en x des entités a tester
+ * <xMax> : Coordonnée maximum en x des entités a tester
  * Retourne un pointeur sur la première entité qui est en collision, NULL sinon
  */
-Entity* isCollidingWith(Entity E, EntityList L, float maxX);
+Entity* isCollidingWith(Entity E, EntityList L, float xMax);
 
 /*
  * isTextured
@@ -110,7 +110,6 @@ int isTextured(Entity E);
  */
 int upXSpriteEntity(Entity *E);
 
-
 /*
  * setSpriteEntity
  * Redéfinis la sprite actuelle de l'entité
@@ -120,5 +119,24 @@ int upXSpriteEntity(Entity *E);
  * Retourne 0 si la nouvelle sprite n'existe pas, 1 sinon
  */
 int setSpriteEntity(Entity *E, int x, int y);
+
+/*
+ * translateEntity
+ * Déplace l'entité <*E> de <x> et <y> unité
+ * <*E> : Entité a déplacer
+ * <x> : Déplacement en x de l'entité
+ * <y> : Déplacement en y de l'entité
+ */
+void translateEntity(Entity *E, float x, float y);
+
+/*
+ * translateEntityList
+ * Déplace toutes les entités de la liste <L> de <x> et <y> unité
+ * <L> : La liste d'entité a déplacer
+ * <x> : Déplacement en x de l'entité
+ * <y> : Déplacement en y de l'entité
+ * <xMax> : Coordonnée maximum en x des entités a déplacer
+ */
+void translateEntityList(EntityList L, float x, float y, float xMax);
 
 #endif
