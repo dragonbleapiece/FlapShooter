@@ -19,10 +19,7 @@ void displayLevel(Level lvl, Camera cam) {
     nextSprite = 1; // On passe a la sprite suivante
     lastTime = time;
   }
-  glPushMatrix();
-  glTranslatef(cam.xMin, 0, 0);
   displayEntityList(&(lvl.player), cam.xMax, nextSprite);
-  glPopMatrix();
   displayEntityList(&(lvl.player), cam.xMax, nextSprite);
   displayEntityList(&(lvl.player), cam.xMax, nextSprite);
   displayEntityList(&(lvl.player), cam.xMax, nextSprite);
