@@ -28,6 +28,42 @@ void addBoundingBoxToList(BoundingBoxList *L, BoundingBox *B) {
   *L = B;
 }
 
+BoundingBox* createAABBBoundingBox(float w, float h) {
+  BoundingShape shape;
+  shape.box.xMin = 0.5 - w / 2;
+  shape.box.xMax = 0.5 + w / 2;
+  shape.box.yMin = 0.5 - h / 2;
+  shape.box.yMax = 0.5 + h / 2;
+  return allocBoundingBox(shape, AABB_SHAPE);
+}
+
+BoundingBox* createSquareBoundingBox(float size) {
+  return createAABBBoundingBox(size, size);
+}
+
+BoundingBox* createCircleBoundingBox(float radius) {
+  BoundingShape shape;
+  shape.circle.x = 0.5;
+  shape.circle.y = 0.5;
+  shape.circle.r = radius;
+  return allocBoundingBox(shape, CIRCLE_SHAPE);
+}
+
+BoundingBox* createCapsuleBoundingBox(float w, float h) {
+  BoundingBoxList list = NULL;
+  BoundingShape s1, s2;
+  s1.circle.x = 0.5 - (w - h) / 2;
+  s1.circle.y = 0.5;
+  s1.circle.r = h / 2;
+  s2.circle.x = 0.5 + (w - h) / 2;
+  s2.circle.y = 0.5;
+  s2.circle.r = h / 2;
+  addBoundingBoxToList(&list, allocBoundingBox(s1, CIRCLE_SHAPE));
+  addBoundingBoxToList(&list, allocBoundingBox(s2, CIRCLE_SHAPE));
+  addBoundingBoxToList(&list, createAABBBoundingBox(w - h, h));
+  return list;
+}
+
 BoundingShape convertShapeToAbsolute(BoundingShape shape, ShapeType type, float x, float y, float sizeX, float sizeY) {
   BoundingShape res;
   switch (type) {

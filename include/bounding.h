@@ -36,14 +36,20 @@ union BoundingShape {
 };
 
 typedef struct boundingBox {
-  ShapeType type; /* Sélecteur de la forme de la bounding box */
-  BoundingShape shape; /* Forme de la bounding box dans le repère de l'entité (ex: 0, 0 pour le point en bas a gauche) */
+  /* Sélecteur de la forme de la bounding box */
+  ShapeType type;
+  /* 
+   * Forme de la bounding box dans le repère de l'entité 
+   *  - (0,0) pour le point en bas a gauche
+   *  - (1,1) pour le point en haut a droite
+   */
+  BoundingShape shape;
   struct boundingBox* next;
 } BoundingBox, *BoundingBoxList;
 
 /*
  * allocBoundingBox
- * Alloue une entité dans l'espace mémoire et initialise ses paramétres
+ * Alloue une BoundingBox dans l'espace mémoire et initialise ses paramétres
  * Quitte le programme en cas d'erreur d'allocation
  * <shape> : Forme de la bounding box (structure AABB ou Circle)
  * <type> : Type de la forme (AABB_SHAPE, CIRCLE_SHAPE)
@@ -58,6 +64,44 @@ BoundingBox* allocBoundingBox(BoundingShape shape, ShapeType type);
  * <*E> : BoundingBox a ajouter, supposé dans aucune liste
  */
 void addBoundingBoxToList(BoundingBoxList *L, BoundingBox *B);
+
+/*
+ * createAABBBoundingBox
+ * Créée et alloue une BoundingBox AABB, centré sur le milieu,
+ * de hauteur <h> et de largeur <w>
+ * <w> : Largeur dans le repère de l'entité (ex: 1 = taille de l'entité)
+ * <h> : Hauteur dans le repère de l'entité (ex: 1 = taille de l'entité)
+ * Retourne un pointeur sur la BoundingBox
+ */
+BoundingBox* createAABBBoundingBox(float w, float h);
+
+/*
+ * createSquareBoundingBox
+ * Créée et alloue une BoundingBox AABB carré, 
+ * centré sur le milieu et de hauteur <size>
+ * <size> : Taille dans le repère de l'entité (ex: 1 = taille de l'entité)
+ * Retourne un pointeur sur la BoundingBox
+ */
+BoundingBox* createSquareBoundingBox(float size);
+
+/*
+ * createCircleBoundingBox
+ * Créée et alloue une BoundingBox circulaire, 
+ * centré sur le milieu et de rayon <radius>
+ * <radius> : Rayon dans le repère de l'entité (ex: 1 = taille de l'entité)
+ * Retourne un pointeur sur la BoundingBox
+ */
+BoundingBox* createCircleBoundingBox(float radius);
+
+/*
+ * createCapsuleBoundingBox
+ * Créée et alloue une BoundingBox type capsule collider, centré sur le milieu,
+ * de hauteur <h> et de largeur <w>
+ * <w> : Largeur dans le repère de l'entité (ex: 1 = taille de l'entité)
+ * <h> : Hauteur dans le repère de l'entité (ex: 1 = taille de l'entité)
+ * Retourne un pointeur sur la BoundingBox (BoundingBoxList de 3 éléments)
+ */
+BoundingBox* createCapsuleBoundingBox(float w, float h);
 
 /*
  * convertShapeToAbsolute
