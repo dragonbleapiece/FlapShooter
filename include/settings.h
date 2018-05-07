@@ -9,6 +9,7 @@
 #ifndef SETTINGS_H
 #define SETTINGS_H
 
+
 #define RGBA_EXTENSION (const char *[3]){"png","gif","bpm"} /* Les différentes extensions des images en RGBA */
 #define RGBA_EXTENSION_SIZE (int) 3 /* Taille du tableau ci-dessus */
 
@@ -24,5 +25,14 @@
 #define SHOW_BOUNDING_BOX 1 /* Afficher les bounding box en violet sur les entités */
 #define BOUNDING_BOX_COLOR 148,0,211,100 /* Couleur RGBA des bounding box */
 
+/* Dimensions de la fenêtre */
+#define WINDOW_WIDTH 400
+#define WINDOW_HEIGHT 400
+
+/* Nombre de bits par pixel de la fenêtre */
+#define BIT_PER_PIXEL 32
+
+/* Nombre minimal de millisecondes separant le rendu de deux images */
+#define FRAMERATE_MILLISECONDS 1000 / 60
 
 #endif

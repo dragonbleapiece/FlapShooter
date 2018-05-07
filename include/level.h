@@ -29,7 +29,8 @@ typedef enum entityCode {
   OBSTACLE_CODE,
   DESTRUCTIBLE_CODE,
   BONUS_CODE,
-  PROJECTILE_CODE
+  PROJECTILE_CODE,
+  END_CODE
 } EntityCode;
 
 /*
