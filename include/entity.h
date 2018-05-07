@@ -68,7 +68,7 @@ int removeEntityToList(EntityList *L, EntityList E);
 /*
  * removeEntityBehind
  * Enleve toutes les entités de la liste <*L> jusqu'à xMax
- * et libére la mémoire occupée
+ * et libére la mémoire occupée. Prend en compte la taille des entités.
  * <*L> : Pointeur de la liste triée d'entité
  */
 void removeEntityBehind(EntityList *L, float xMax);

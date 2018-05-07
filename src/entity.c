@@ -94,7 +94,7 @@ int removeEntityToList(EntityList *L, EntityList E) {
 }
 
 void removeEntityBehind(EntityList *L, float xMax) {
-  while (*L != NULL && (*L)->x <= xMax) {
+  while (*L != NULL && (*L)->x <= xMax + (*L)->sizeX) {
     free(*L);
     *L = (*L)->next;
   }
