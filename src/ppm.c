@@ -1,6 +1,6 @@
 /*
  * ppm.c
- * Déclaration de la structure et des fonctions de gestion des entités (vaiseaux, obstacles, bonus etc...)
+ * Déclaration de la structure et des fonctions de gestion de fichier au format PPM
  *
  * Auteur : Nicolas CUSUMANO & Nicolas SENECAL
  * IMAC1 - S2 - Promotion 2020
@@ -97,6 +97,16 @@ PPMImage *generatePPMImageFromFile(const char filename[]) {
    fclose(fp);
 
    return img;
+ }
+
+ void printPPMImage(PPMImage ppm) {
+   int i, j;
+   for (j = 0; j < ppm.y; ++j) {
+     for(i = 0; i < ppm.x; ++i) {
+       printf("%d ", ppm.data[i][j]);
+     }
+     printf("\n");
+   }
  }
 
  void freePPMImage(PPMImage *ppm) {

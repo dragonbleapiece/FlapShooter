@@ -26,13 +26,23 @@
 #define BOUNDING_BOX_COLOR 148,0,211,100 /* Couleur RGBA des bounding box */
 
 /* Dimensions de la fenêtre */
-#define WINDOW_WIDTH 400
-#define WINDOW_HEIGHT 400
+#define WINDOW_WIDTH 814
+#define WINDOW_HEIGHT 407
 
 /* Nombre de bits par pixel de la fenêtre */
 #define BIT_PER_PIXEL 32
 
 /* Nombre minimal de millisecondes separant le rendu de deux images */
 #define FRAMERATE_MILLISECONDS 1000 / 60
+
+/* ------------------- Configuration des éléments du jeu */
+
+#define LEVEL_SPEED 1
+
+#define ACCELERATION 0.25
+
+#define MAXSPEED 5
+
+#define INERTIE 0.5
 
 #endif

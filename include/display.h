@@ -1,7 +1,7 @@
 /*
  * display.h
  * Déclaration de la structure et des fonctions de gestion de l'affichage
- * 
+ *
  * Auteur : Nicolas CUSUMANO & Nicolas SENECAL
  * IMAC1 - S2 - Promotion 2020
  */
@@ -29,7 +29,7 @@ typedef struct camera {
  * Affiche toutes les entités d'un niveau qui sont dans le champs de la camera
  * Appelé à chaque frame
  * <lvl> : Structure du niveau
- * <cam> : Structure de la camera 
+ * <cam> : Structure de la camera
  */
 void displayLevel(Level lvl, Camera cam);
 
@@ -51,7 +51,7 @@ void displayTexturedEntity(Entity* E);
 
 /*
  * displayEntityList
- * Affiche toutes les entités d'une liste jusqu'à <xMax> 
+ * Affiche toutes les entités d'une liste jusqu'à <xMax>
  * Gère les destructions d'entité si elles arrivent à la dernière sprite de destruction
  * <*L> : Pointeur sur la liste triée des entités
  * <xMax> : Coordonnée maximum en x des entités a afficher
@@ -75,5 +75,20 @@ void displayBoundingBox(BoundingBox *B, Entity* E);
  */
 void displayBoundingBoxList(BoundingBoxList L, Entity* E);
 
+/*
+ * initCamera
+ * Initialise les valeurs de la caméra
+ * Retourne une structure Camera avec les valeurs initialisées
+ */
+Camera initCamera();
+
+/*
+ * translateCamera
+ * Déplace la camera <*cam> de <x> et <y> pixels
+ * <*cam> : Camera a déplacer
+ * <x> : Déplacement en x de la caméra
+ * <y> : Déplacement en y de la caméra
+ */
+void translateCamera(Camera *cam, float x, float y);
 
 #endif

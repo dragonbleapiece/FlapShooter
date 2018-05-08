@@ -17,16 +17,21 @@
    initialiseLevel(&level);
    PPMImage *img = generatePPMImageFromFile(filename);
 
+   //printPPMImage(*img);
+
    if(!img) {
      fprintf(stderr, "Cannot start the game...\n");
      exit(1);
    }
 
+   level.height = img->y;
+   level.width = img->x;
+
    int i, j;
 
    for(i = 0; i < img->x; ++i) {
      for(j = 0; j < img->y; ++j) {
-       if(!addElementToLevel(img->data[i][j], &level, i + 0.5, j + 0.5)) {
+       if(!addEntityToLevel(img->data[i][j], &level, i, j)) {
          fprintf(stderr, "Unable to allocate memory\n");
          exit(1);
        }
@@ -45,7 +50,7 @@ void initialiseLevel(Level *level) {
   level->projectiles = NULL;
 }
 
- int addElementToLevel(EntityCode code, Level *level, float x, float y) {
+ int addEntityToLevel(EntityCode code, Level *level, float x, float y) {
    int r = 1;
    Entity *e;
    switch(code) {
@@ -53,7 +58,7 @@ void initialiseLevel(Level *level) {
         break;
 
       case PLAYER_CODE:
-        e = allocEntity(x * UNITE, y * UNITE, 0.0, 0.0, 1, 1, NULL, NULL);
+        e = allocEntity(x * UNITE, y * UNITE, 2 * UNITE, 2 * UNITE, 1, 1, NULL, NULL);
         if(e != NULL) addEntityToList(&level->player, e);
         else r = 0;
         break;
@@ -71,13 +76,13 @@ void initialiseLevel(Level *level) {
         break;
 
       case OBSTACLE_CODE:
-        e = allocEntity(x * UNITE, y * UNITE, 0.0, 0.0, -1, 1, NULL, NULL);
+        e = allocEntity(x * UNITE, y * UNITE, UNITE, UNITE, -1, 1, NULL, NULL);
         if(e != NULL) addEntityToList(&level->obstacles, e);
         else r = 0;
         break;
 
       case DESTRUCTIBLE_CODE:
-        e = allocEntity(x * UNITE, y * UNITE, 0.0, 0.0, 1, 1, NULL, NULL);
+        e = allocEntity(x * UNITE, y * UNITE, UNITE, UNITE, 1, 1, NULL, NULL);
         if(e != NULL) addEntityToList(&level->obstacles, e);
         else r = 0;
         break;
@@ -100,4 +105,12 @@ void initialiseLevel(Level *level) {
    }
 
    return r;
+ }
+
+ void freeLevel(Level *level) {
+   freeEntityList(&level->player);
+   freeEntityList(&level->obstacles);
+   freeEntityList(&level->ennemies);
+   freeEntityList(&level->bonus);
+   freeEntityList(&level->projectiles);
  }

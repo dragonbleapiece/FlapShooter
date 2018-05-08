@@ -12,10 +12,26 @@
 #include "bounding.h"
 #include "texture.h"
 
+
+typedef enum entityCode {
+  VOID_CODE,
+  PLAYER_CODE,
+  ENNEMYONE_CODE,
+  ENNEMYTWO_CODE,
+  OBSTACLE_CODE,
+  DESTRUCTIBLE_CODE,
+  BONUS_CODE,
+  PROJECTILE_CODE,
+  END_CODE
+} EntityCode;
+
 typedef struct entity {
   float x, y; /* Coordonnées de position en bas a gauche de l'entité */
   float sizeX, sizeY; /* Hauteur et largeur de l'entité */
   Texture *texture;
+  float speedX;
+  float speedY;
+  float shotFrequency;
   int xTextureIndice; /* Division vertical actuel de l'image pour les sprites, 0 par défaut (1er sprite) */
   int yTextureIndice; /* Division horizontal actuel de l'image pour les "sprites",  0 par défaut (1er sprite) */
   int life; /* Vie actuelle de l'entité, -1 si invincible */

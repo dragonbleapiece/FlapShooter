@@ -19,19 +19,9 @@ typedef struct level {
   EntityList ennemies;
   EntityList bonus;
   EntityList projectiles;
+  EntityList background;
+  int height, width;
 } Level;
-
-typedef enum entityCode {
-  VOID_CODE,
-  PLAYER_CODE,
-  ENNEMYONE_CODE,
-  ENNEMYTWO_CODE,
-  OBSTACLE_CODE,
-  DESTRUCTIBLE_CODE,
-  BONUS_CODE,
-  PROJECTILE_CODE,
-  END_CODE
-} EntityCode;
 
 /*
  * generateLevelFromFile
@@ -58,13 +48,13 @@ void initialiseLevel(Level *level);
  * <y> : position en Y UNITE
  * Retourne false si l'élément n'a pas pu être alloué, true sinon
  */
-int addElementToLevel(EntityCode code, Level *level, float x, float y);
+int addEntityToLevel(EntityCode code, Level *level, float x, float y);
 
 /*
  * freeLevel
  * Libère la mémoire occupée par toutes les listes du niveau
  * <*L> : Pointeur de la liste triée d'entités
  */
-void freeLevel(Level L);
+void freeLevel(Level *L);
 
 #endif

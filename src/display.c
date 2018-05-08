@@ -20,10 +20,10 @@ void displayLevel(Level lvl, Camera cam) {
     lastTime = time;
   }
   displayEntityList(&(lvl.player), cam.xMax, nextSprite);
-  displayEntityList(&(lvl.player), cam.xMax, nextSprite);
-  displayEntityList(&(lvl.player), cam.xMax, nextSprite);
-  displayEntityList(&(lvl.player), cam.xMax, nextSprite);
-  displayEntityList(&(lvl.player), cam.xMax, nextSprite);
+  displayEntityList(&(lvl.obstacles), cam.xMax, nextSprite);
+  displayEntityList(&(lvl.ennemies), cam.xMax, nextSprite);
+  displayEntityList(&(lvl.bonus), cam.xMax, nextSprite);
+  displayEntityList(&(lvl.projectiles), cam.xMax, nextSprite);
 }
 
 void displayTexturedEntity(Entity* E) {
@@ -57,6 +57,7 @@ void displayTexturedEntity(Entity* E) {
 }
 
 void displayEntity(Entity* E) {
+  if(E == NULL) return;
   glBegin(GL_QUADS);
   glColor4ub(UNTEXTURED_BOX_COLOR);
   glVertex2f(E->x, E->y + E->sizeY);
@@ -92,6 +93,8 @@ void displayEntityList(EntityList *L, float xMax, int nextSprite) {
 
 void displayBoundingBox(BoundingBox *B, Entity* E) {
   BoundingShape S = convertShapeToAbsolute(B->shape, B->type, E->x, E->y, E->sizeX, E->sizeY);
+  if (B == NULL) return;
+
   switch (B->type) {
     case AABB_SHAPE:
       glBegin(GL_QUADS);
@@ -122,4 +125,21 @@ void displayBoundingBoxList(BoundingBoxList L, Entity* E) {
     displayBoundingBox(L, E);
     L = L->next;
   }
+}
+
+Camera initCamera() {
+  Camera cam;
+  cam.xMin = 0;
+  cam.yMin = 0;
+  cam.xMax = WINDOW_WIDTH;
+  cam.yMax = WINDOW_HEIGHT;
+
+  return cam;
+}
+
+void translateCamera(Camera *cam, float x, float y) {
+  cam->xMin += x;
+  cam->yMin += y;
+  cam->xMax += x;
+  cam->yMax += y;
 }

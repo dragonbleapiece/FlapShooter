@@ -21,6 +21,9 @@ Entity* allocEntity(float x, float y, float sizeX, float sizeY, int maxLife, int
   tmp->y = y;
   tmp->sizeX = sizeX;
   tmp->sizeY = sizeY;
+  tmp->speedX = 0;
+  tmp->speedY = 0;
+  tmp->shotFrequency = 0;
   tmp->maxLife = maxLife;
   tmp->life = maxLife;
   tmp->attack = attack;
