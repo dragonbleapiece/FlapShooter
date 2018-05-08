@@ -27,6 +27,6 @@ typedef struct controls {
  */
 Controls initControls();
 
-void executeControls(Controls *c, Entity *player);
+void executeControls(Controls c, Entity *player);
 
 #endif
