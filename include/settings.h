@@ -45,4 +45,6 @@
 
 #define INERTIE 0.5
 
+#define FREE_MOVES 2.0 / 3.0
+
 #endif

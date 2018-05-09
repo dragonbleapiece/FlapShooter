@@ -39,7 +39,7 @@ float clamp_end(float n, float a) {
 }
 
 void swap_a_b(float *a, float *b) {
-  float *temp = b;
-  b = a;
-  a = temp;
+  float temp = *b;
+  *b = *a;
+  *a = temp;
 }

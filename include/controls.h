@@ -15,6 +15,7 @@
 #include "entity.h"
 #include "settings.h"
 #include "tools.h"
+#include "display.h"
 
 typedef struct controls {
   int space, up, down, right, left;
@@ -27,6 +28,6 @@ typedef struct controls {
  */
 Controls initControls();
 
-void executeControls(Controls c, Entity *player);
+void executeControls(Controls c, Entity *player, Camera cam);
 
 #endif

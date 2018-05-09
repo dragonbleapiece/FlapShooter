@@ -59,7 +59,7 @@ int main(int argc, char** argv) {
       glClear(GL_COLOR_BUFFER_BIT);
       glClearColor(0, 0, 0, 1);
 
-      executeControls(controls, level.player);
+      executeControls(controls, level.player, cam);
 
       /* Boucle traitant les evenements */
       SDL_Event e;

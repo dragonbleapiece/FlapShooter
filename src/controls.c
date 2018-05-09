@@ -9,9 +9,6 @@
  */
 
 #include "controls.h"
-#include "entity.h"
-#include "settings.h"
-#include "tools.h"
 
 Controls initControls() {
   Controls c;
@@ -24,7 +21,7 @@ Controls initControls() {
   return c;
 }
 
-void executeControls(Controls c, Entity *player) {
+void executeControls(Controls c, Entity *player, Camera cam) {
   if(c.space == 1) {
 
   }
@@ -42,6 +39,9 @@ void executeControls(Controls c, Entity *player) {
   else if (!c.left && player->speedX > 0) player->speedX = clamp(player->speedX - INERTIE, 0, MAXSPEED);
 
   //printf("%f %f \n", player->speedX, player->speedY);
+  player->speedX = clamp(player->speedX + player->x, cam.xMin, cam.xMin + (cam.xMax - cam.xMin) * FREE_MOVES - player->sizeX) - player->x;
+  player->speedY = clamp(player->speedY + player->y, cam.yMin, cam.yMax - player->sizeY) - player->y;
+
 
   translateEntity(player, player->speedX, player->speedY);
 }
