@@ -120,7 +120,7 @@ int isColliding(Entity E1, Entity E2) {
   while (B1 != NULL && !r) {
     S1 = convertShapeToAbsolute(B1->shape, B1->type, E1.x, E1.y, E1.sizeX, E1.sizeY);
     while (B2 != NULL && !r) {
-      S1 = convertShapeToAbsolute(B2->shape, B2->type, E2.x, E2.y, E2.sizeX, E2.sizeY);
+      S2 = convertShapeToAbsolute(B2->shape, B2->type, E2.x, E2.y, E2.sizeX, E2.sizeY);
       r = isCollidingShape(S1, B1->type, S2, B2->type);
       B2 = B2->next;
     }
@@ -131,7 +131,33 @@ int isColliding(Entity E1, Entity E2) {
 
 Entity * isCollidingWith(Entity E, EntityList L, float xMax) {
   while (L != NULL && L->x <= xMax) {
-    if (isColliding(E, *L))
+    if (L->life != 0 && isColliding(E, *L))
+      return L;
+    L = L->next;
+  }
+  return NULL;
+}
+
+int willColliding(Entity E1, Entity E2) {
+  BoundingBoxList B1 = E1.boundingBox, B2 = E2.boundingBox;
+  BoundingShape S1, S2;
+
+  int r = 0;
+  while (B1 != NULL && !r) {
+    S1 = convertShapeToAbsolute(B1->shape, B1->type, E1.x + E1.speedX, E1.y + E1.speedY, E1.sizeX, E1.sizeY);
+    while (B2 != NULL && !r) {
+      S2 = convertShapeToAbsolute(B2->shape, B2->type, E2.x + E2.speedX, E2.y + E2.speedY, E2.sizeX, E2.sizeY);
+      r = isCollidingShape(S1, B1->type, S2, B2->type);
+      B2 = B2->next;
+    }
+    B1 = B1->next;
+  }
+  return r;
+}
+
+Entity *willCollidingWith(Entity E, EntityList L, float xMax) {
+  while (L != NULL && L->x <= xMax) {
+    if (L->life != 0 && willColliding(E, *L))
       return L;
     L = L->next;
   }

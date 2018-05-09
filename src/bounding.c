@@ -182,6 +182,3 @@ int projectionOnSegment(int Cx, int Cy, int Ax, int Ay, int Bx, int By) {
   int s2 = (BCx * ABx) + (BCy * ABy);
   return !(s1 * s2 > 0);
 }
-
-
-

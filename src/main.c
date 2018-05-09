@@ -51,7 +51,7 @@ int main(int argc, char** argv) {
       glPushMatrix();
         glTranslatef(-cam.xMin, 0, 0);
         displayLevel(level, cam);
-        translateEntity(level.player, LEVEL_SPEED, 0);
+        //translateEntity(level.player, LEVEL_SPEED, 0);
         translateCamera(&cam, LEVEL_SPEED, 0);
       glPopMatrix();
 
@@ -59,7 +59,7 @@ int main(int argc, char** argv) {
       glClear(GL_COLOR_BUFFER_BIT);
       glClearColor(0, 0, 0, 1);
 
-      executeControls(controls, level.player, cam);
+      executeControls(controls, level, cam);
 
       /* Boucle traitant les evenements */
       SDL_Event e;

@@ -99,7 +99,7 @@ void displayBoundingBox(BoundingBox *B, Entity* E) {
     case AABB_SHAPE:
       glBegin(GL_QUADS);
       glColor4ub(BOUNDING_BOX_COLOR);
-      glVertex2f(S.box.xMin, S.box.xMin);
+      glVertex2f(S.box.xMin, S.box.yMax);
       glVertex2f(S.box.xMax, S.box.yMax);
       glVertex2f(S.box.xMax, S.box.yMin);
       glVertex2f(S.box.xMin, S.box.yMin);

@@ -98,18 +98,33 @@ void freeEntityList(EntityList *L);
 
 /*
  * isColliding
- * Test si l'entité <E1> et en collision avec l'entité <E2>
+ * Test si l'entité <E1> est en collision avec l'entité <E2>
  * Retourne 1 si collision, 0 sinon
  */
 int isColliding(Entity E1, Entity E2);
 
 /*
  * isCollidingWith
- * Test si l'entité <E> et en collision avec l'une des entités de la liste <L>
+ * Test si l'entité <E> est en collision avec l'une des entités de la liste <L>
  * <xMax> : Coordonnée maximum en x des entités a tester
  * Retourne un pointeur sur la première entité qui est en collision, NULL sinon
  */
 Entity* isCollidingWith(Entity E, EntityList L, float xMax);
+
+/*
+ * willColliding
+ * Test si l'entité <E1> entrera en collision avec l'entité <E2>
+ * Retourne 1 si collision, 0 sinon
+ */
+int willColliding(Entity E1, Entity E2);
+
+/*
+ * willCollidingWith
+ * Test si l'entité <E> rentrera en collision avec l'une des entités de la liste <L>
+ * <xMax> : Coordonnée maximum en x des entités a tester
+ * Retourne un pointeur sur la première entité qui sera en collision, NULL sinon
+ */
+Entity* willCollidingWith(Entity E, EntityList L, float xMax);
 
 /*
  * isTextured

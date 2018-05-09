@@ -10,6 +10,7 @@
  #include "entity.h"
  #include "ppm.h"
  #include "settings.h"
+ #include "bounding.h"
 
  Level generateLevelFromFile(const char filename[]) {
 
@@ -58,8 +59,11 @@ void initialiseLevel(Level *level) {
         break;
 
       case PLAYER_CODE:
-        e = allocEntity(x * UNITE, y * UNITE, 2 * UNITE, 2 * UNITE, 1, 1, NULL, NULL);
-        if(e != NULL) addEntityToList(&level->player, e);
+        e = allocEntity(x * UNITE, y * UNITE, 2 * UNITE, 2 * UNITE, 1, 1, NULL, createAABBBoundingBox(1., 1.));
+        if(e != NULL) {
+          e->speedX = LEVEL_SPEED;
+          addEntityToList(&level->player, e);
+        }
         else r = 0;
         break;
 
@@ -76,7 +80,7 @@ void initialiseLevel(Level *level) {
         break;
 
       case OBSTACLE_CODE:
-        e = allocEntity(x * UNITE, y * UNITE, UNITE, UNITE, -1, 1, NULL, NULL);
+        e = allocEntity(x * UNITE, y * UNITE, UNITE, UNITE, -1, 1, NULL, createAABBBoundingBox(1., 1.));
         if(e != NULL) addEntityToList(&level->obstacles, e);
         else r = 0;
         break;
