@@ -13,141 +13,141 @@ int main(int argc, char** argv) {
   Level level = generateLevelFromFile("ressources/levelOne.ppm");
 
   /* Initialisation de la SDL */
-    if(-1 == SDL_Init(SDL_INIT_VIDEO)) {
-        fprintf(stderr, "Impossible d'initialiser la SDL. Fin du programme.\n");
-        return EXIT_FAILURE;
-    }
+  if (-1 == SDL_Init(SDL_INIT_VIDEO)) {
+    fprintf(stderr, "Impossible d'initialiser la SDL. Fin du programme.\n");
+    return EXIT_FAILURE;
+  }
 
 
-    /* Ouverture d'une fenêtre et création d'un contexte OpenGL */
-    if(NULL == SDL_SetVideoMode(WINDOW_WIDTH, WINDOW_HEIGHT, BIT_PER_PIXEL, SDL_OPENGL | SDL_GL_DOUBLEBUFFER)) {
-        fprintf(stderr, "Impossible d'ouvrir la fenetre. Fin du programme.\n");
-        return EXIT_FAILURE;
-    }
+  /* Ouverture d'une fenêtre et création d'un contexte OpenGL */
+  if (NULL == SDL_SetVideoMode(WINDOW_WIDTH, WINDOW_HEIGHT, BIT_PER_PIXEL, SDL_OPENGL | SDL_GL_DOUBLEBUFFER)) {
+    fprintf(stderr, "Impossible d'ouvrir la fenetre. Fin du programme.\n");
+    return EXIT_FAILURE;
+  }
 
-    /* Titre de la fenêtre */
-    SDL_WM_SetCaption("FlapShooter", NULL);
+  /* Titre de la fenêtre */
+  SDL_WM_SetCaption("FlapShooter", NULL);
 
-    int loop = 1;
-    Camera cam = initCamera();
-    Controls controls = initControls();
+  int loop = 1;
+  Camera cam = initCamera();
+  Controls controls = initControls();
 
-    /* Initialisation de l'affichage */
+  /* Initialisation de l'affichage */
 
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
+  glMatrixMode(GL_MODELVIEW);
+  glLoadIdentity();
 
-    glViewport(cam.xMin, cam.yMin, cam.xMax, cam.yMax);
-    gluOrtho2D(cam.xMin, cam.xMax, cam.yMax, cam.yMin);
+  glViewport(cam.xMin, cam.yMin, cam.xMax, cam.yMax);
+  gluOrtho2D(cam.xMin, cam.xMax, cam.yMax, cam.yMin);
+  glClear(GL_COLOR_BUFFER_BIT);
+  glClearColor(0, 0, 0, 1);
+  SDL_GL_SwapBuffers();
+
+  while (loop) {
+
+    /* Récupération du temps au début de la boucle */
+    Uint32 startTime = SDL_GetTicks();
+
+    glPushMatrix();
+    glTranslatef(-cam.xMin, 0, 0);
+    displayLevel(level, cam);
+    //translateEntity(level.player, LEVEL_SPEED, 0);
+    translateCamera(&cam, LEVEL_SPEED, 0);
+    glPopMatrix();
+
+    SDL_GL_SwapBuffers();
     glClear(GL_COLOR_BUFFER_BIT);
     glClearColor(0, 0, 0, 1);
-    SDL_GL_SwapBuffers();
 
-    while(loop) {
+    executeControls(controls, level, cam);
 
-      /* Récupération du temps au début de la boucle */
-      Uint32 startTime = SDL_GetTicks();
+    /* Boucle traitant les evenements */
+    SDL_Event e;
+    while (SDL_PollEvent(&e)) {
 
-      glPushMatrix();
-        glTranslatef(-cam.xMin, 0, 0);
-        displayLevel(level, cam);
-        //translateEntity(level.player, LEVEL_SPEED, 0);
-        translateCamera(&cam, LEVEL_SPEED, 0);
-      glPopMatrix();
+      switch (e.type) {
 
-      SDL_GL_SwapBuffers();
-      glClear(GL_COLOR_BUFFER_BIT);
-      glClearColor(0, 0, 0, 1);
+        case SDL_KEYDOWN: /*Evénements à l'appui d'une touche*/
 
-      executeControls(controls, level, cam);
-
-      /* Boucle traitant les evenements */
-      SDL_Event e;
-      while(SDL_PollEvent(&e)) {
-
-          switch(e.type) {
-
-            case SDL_KEYDOWN: /*Evénements à l'appui d'une touche*/
-
-              switch(e.key.keysym.sym) {
-                case SDLK_SPACE:
-                  controls.space = 1;
-                  break;
-
-                case SDLK_LEFT:
-                  controls.left = 1;
-                  break;
-
-                case SDLK_RIGHT:
-                  controls.right = 1;
-                  break;
-
-                case SDLK_UP:
-                  controls.up = 1;
-                  break;
-
-                case SDLK_DOWN:
-                  controls.down = 1;
-                  break;
-
-                default:
-                  break;
-              }
-
+          switch (e.key.keysym.sym) {
+            case SDLK_SPACE:
+              controls.space = 1;
               break;
 
-            case SDL_KEYUP: /*Evénements au relachement d'une touche*/
-
-              switch(e.key.keysym.sym) {
-                case SDLK_SPACE:
-                  controls.space = 0;
-                  break;
-
-                case SDLK_LEFT:
-                  controls.left = 0;
-                  break;
-
-                case SDLK_RIGHT:
-                  controls.right = 0;
-                  break;
-
-                case SDLK_UP:
-                  controls.up = 0;
-                  break;
-
-                case SDLK_DOWN:
-                  controls.down = 0;
-                  break;
-
-                default:
-                  break;
-              }
-
+            case SDLK_LEFT:
+              controls.left = 1;
               break;
 
-            /* L'utilisateur ferme la fenêtre : */
-            case SDL_QUIT:
-              loop = 0;
+            case SDLK_RIGHT:
+              controls.right = 1;
+              break;
+
+            case SDLK_UP:
+              controls.up = 1;
+              break;
+
+            case SDLK_DOWN:
+              controls.down = 1;
               break;
 
             default:
               break;
           }
 
-        }
+          break;
 
-        /* Calcul du temps écoulé */
-        Uint32 elapsedTime = SDL_GetTicks() - startTime;
+        case SDL_KEYUP: /*Evénements au relachement d'une touche*/
 
-        /* Si trop peu de temps s'est écoulé, on met en pause le programme */
-        if(elapsedTime < FRAMERATE_MILLISECONDS) {
-            SDL_Delay(FRAMERATE_MILLISECONDS - elapsedTime);
-        }
+          switch (e.key.keysym.sym) {
+            case SDLK_SPACE:
+              controls.space = 0;
+              break;
+
+            case SDLK_LEFT:
+              controls.left = 0;
+              break;
+
+            case SDLK_RIGHT:
+              controls.right = 0;
+              break;
+
+            case SDLK_UP:
+              controls.up = 0;
+              break;
+
+            case SDLK_DOWN:
+              controls.down = 0;
+              break;
+
+            default:
+              break;
+          }
+
+          break;
+
+          /* L'utilisateur ferme la fenêtre : */
+        case SDL_QUIT:
+          loop = 0;
+          break;
+
+        default:
+          break;
+      }
 
     }
 
-    SDL_Quit();
-    freeLevel(&level);
+    /* Calcul du temps écoulé */
+    Uint32 elapsedTime = SDL_GetTicks() - startTime;
+
+    /* Si trop peu de temps s'est écoulé, on met en pause le programme */
+    if (elapsedTime < FRAMERATE_MILLISECONDS) {
+      SDL_Delay(FRAMERATE_MILLISECONDS - elapsedTime);
+    }
+
+  }
+
+  SDL_Quit();
+  freeLevel(&level);
 
   return EXIT_SUCCESS;
 }

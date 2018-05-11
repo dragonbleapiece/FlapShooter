@@ -11,6 +11,7 @@
  #include "ppm.h"
  #include "settings.h"
  #include "bounding.h"
+ #include "collision.h"
 
  Level generateLevelFromFile(const char filename[]) {
 

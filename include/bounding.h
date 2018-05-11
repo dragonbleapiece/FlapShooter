@@ -1,6 +1,6 @@
 /*
  * bounding.h
- * Déclaration de la structure et des fonctions de gestion des bounding box et de leurs forme
+ * Déclaration de la structure et des fonctions de gestion des bounding box et de leurs formes
  *
  * Auteur : Nicolas CUSUMANO & Nicolas SENECAL
  * IMAC1 - S2 - Promotion 2020
