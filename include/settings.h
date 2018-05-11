@@ -17,7 +17,10 @@
 
 #define UNTEXTURED_BOX_COLOR 255,0,255,255 /* Couleur RGBA des objets non texturé */
 
-#define SPRITES_PER_SECOND 30 /* Nombre de sprite par seconde */
+#define SRC_RESOURCES_FOLDER "assets/"
+
+/*sources des textures des entités*/
+#define SRC_BACKGROUND1 "img/background1.png"
 
 #define UNITE 37 /*Unite en px*/
 
@@ -34,6 +37,7 @@
 
 /* Nombre minimal de millisecondes separant le rendu de deux images */
 #define FRAMERATE_MILLISECONDS 1000 / 60
+#define SPRITES_PER_SECOND 30 /* Nombre de sprite par seconde */
 
 /* ------------------- Configuration des éléments du jeu */
 

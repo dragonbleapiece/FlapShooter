@@ -10,7 +10,7 @@ float rand_a_b(int a, int b) {
 
 int main(int argc, char** argv) {
 
-  Level level = generateLevelFromFile("ressources/levelOne.ppm");
+  Level level = generateLevelFromFile(SRC_RESOURCES_FOLDER."levelOne.ppm");
 
   /* Initialisation de la SDL */
   if (-1 == SDL_Init(SDL_INIT_VIDEO)) {
