@@ -38,10 +38,16 @@ Texture* createTexture(char fileName[], int verticalDiv, int horizontalDiv) {
   }
   /* DEFINITION DU FORMAT */
   GLint format;
-  if (strIndexOf(getFileNameExt(fileName), RGBA_EXTENSION, RGBA_EXTENSION_SIZE) != -1)
-    format = GL_RGBA;
-  else
-    format = GL_RGB;
+  if (surface->format->BytesPerPixel == 4) {
+    if (surface->format->Rmask == 0x000000ff) format = GL_RGBA;
+    else format = GL_BGRA;
+  } else if (surface->format->BytesPerPixel == 3) {
+    if (surface->format->Rmask == 0x000000ff) format = GL_RGB;
+    else format = GL_BGR;
+  } else {
+    printf("Can not load texture %s\n", fileName);
+    exit(1);
+  }
 
   /* ENVOI DES DONNEES A LA CARTE GRAPHIQUE */
   GLuint *id;
@@ -52,7 +58,7 @@ Texture* createTexture(char fileName[], int verticalDiv, int horizontalDiv) {
   }
   glGenTextures(1, id);
   glBindTexture(GL_TEXTURE_2D, *id);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
   glTexImage2D(
           GL_TEXTURE_2D,
           0,
@@ -75,8 +81,8 @@ Texture* createTexture(char fileName[], int verticalDiv, int horizontalDiv) {
 Texture* createTextureToList(TextureList *L, char fileName[], int verticalDiv, int horizontalDiv) {
   int resStrCmp;
 
-  Texture *cursor = *L;
-  Texture *cursorPrec = NULL;
+  TextureList cursor = *L;
+  TextureList cursorPrec = NULL;
 
   /* Cas simple, la liste est vide */
   if (*L == NULL) {
@@ -105,7 +111,7 @@ Texture* createTextureToList(TextureList *L, char fileName[], int verticalDiv, i
   }
   /* Le mot n'est pas dans la liste et doit être mis a la fin */
   Texture *newTexture = createTexture(fileName, verticalDiv, horizontalDiv);
-  cursor->next = newTexture;
+  cursorPrec->next = newTexture;
   return newTexture;
 }
 

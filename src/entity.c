@@ -88,7 +88,8 @@ int removeEntityToList(EntityList *L, EntityList E) {
     /*Si le cursorPrev est à NULL alors, *E est en tête de liste*/
     if (cursorPrev != NULL) cursorPrev->next = E->next;
     else *L = E->next;
-    /*On libère l'entité*/
+    /*On libère les bounding box puis l'entité*/
+    freeBoundingBoxList(&(E->boundingBox));
     free(E);
     return 1;
   }
@@ -106,6 +107,8 @@ void removeEntityBehind(EntityList *L, float xMax) {
 void freeEntityList(EntityList *L) {
   if (*L != NULL) {
     freeEntityList(&(*L)->next);
+    /*On libère les bounding box puis l'entité*/
+    freeBoundingBoxList(&((*L)->boundingBox));
     free(*L);
     /*Lui assigne NULL, prévient de bugs */
     *L = NULL;

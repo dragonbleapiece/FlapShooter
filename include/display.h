@@ -10,13 +10,15 @@
 #define DISPLAY_H
 
 #include <SDL/SDL.h>
+#include <SDL/SDL_image.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <assert.h>
 #include <math.h>
-#include "settings.h"
 
+#include "settings.h"
 #include "level.h"
 
 typedef struct camera {

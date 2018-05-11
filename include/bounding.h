@@ -58,6 +58,13 @@ typedef struct boundingBox {
 BoundingBox* allocBoundingBox(BoundingShape shape, ShapeType type);
 
 /*
+ * freeBoundingBoxList
+ * Libére la mémoire occupée par toutes les bounding box de la liste <*L>
+ * <*L> : Pointeur de la liste de bounding box
+ */
+void freeBoundingBoxList(BoundingBoxList *L);
+
+/*
  * addBoundingBoxToList
  * Ajoute la BoundingBox <*B> au début de la liste <*L>
  * <*L> : Pointeur de la liste de BoundingBox

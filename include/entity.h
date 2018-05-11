@@ -75,6 +75,7 @@ void printEntityList(EntityList L);
 /*
  * removeEntityToList
  * Enleve l'entité <E> de la liste <*L> et libére la mémoire occupée
+ * par l'entité et ses Bounding Box
  * <*L> : Pointeur de la liste triée d'entité
  * <E> : Entité a supprimer, supposé dans la liste
  * retourne 1 si l'entité a été enlevée, 0 sinon

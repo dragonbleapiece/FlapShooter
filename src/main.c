@@ -10,14 +10,11 @@ float rand_a_b(int a, int b) {
 
 int main(int argc, char** argv) {
 
-  Level level = generateLevelFromFile(SRC_RESOURCES_FOLDER."levelOne.ppm");
-
   /* Initialisation de la SDL */
   if (-1 == SDL_Init(SDL_INIT_VIDEO)) {
     fprintf(stderr, "Impossible d'initialiser la SDL. Fin du programme.\n");
     return EXIT_FAILURE;
   }
-
 
   /* Ouverture d'une fenêtre et création d'un contexte OpenGL */
   if (NULL == SDL_SetVideoMode(WINDOW_WIDTH, WINDOW_HEIGHT, BIT_PER_PIXEL, SDL_OPENGL | SDL_GL_DOUBLEBUFFER)) {
@@ -39,9 +36,15 @@ int main(int argc, char** argv) {
 
   glViewport(cam.xMin, cam.yMin, cam.xMax, cam.yMax);
   gluOrtho2D(cam.xMin, cam.xMax, cam.yMax, cam.yMin);
-  glClear(GL_COLOR_BUFFER_BIT);
+
   glClearColor(0, 0, 0, 1);
-  SDL_GL_SwapBuffers();
+  glClear(GL_COLOR_BUFFER_BIT);
+
+  // option de blending OpenGL
+  glEnable(GL_BLEND);
+  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+  Level level = generateLevelFromFile(SRC_RESOURCES_FOLDER "levelOne.ppm");
 
   while (loop) {
 
@@ -57,7 +60,6 @@ int main(int argc, char** argv) {
 
     SDL_GL_SwapBuffers();
     glClear(GL_COLOR_BUFFER_BIT);
-    glClearColor(0, 0, 0, 1);
 
     executeControls(controls, level, cam);
 

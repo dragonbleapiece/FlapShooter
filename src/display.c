@@ -15,10 +15,11 @@ void displayLevel(Level lvl, Camera cam) {
   static int lastTime = 0;
   int time = SDL_GetTicks();
   // Si le temps entre 2 sprites est écoulé
-  if (time - lastTime > 1000/SPRITES_PER_SECOND) {
+  if (time - lastTime > 1000 / SPRITES_PER_SECOND) {
     nextSprite = 1; // On passe a la sprite suivante
     lastTime = time;
   }
+  displayEntityList(&(lvl.background), cam.xMax, nextSprite);
   displayEntityList(&(lvl.player), cam.xMax, nextSprite);
   displayEntityList(&(lvl.obstacles), cam.xMax, nextSprite);
   displayEntityList(&(lvl.ennemies), cam.xMax, nextSprite);
@@ -27,29 +28,28 @@ void displayLevel(Level lvl, Camera cam) {
 }
 
 void displayTexturedEntity(Entity* E) {
-  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
   glEnable(GL_TEXTURE_2D);
+  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
   glBindTexture(GL_TEXTURE_2D, *(E->texture->id));
-
-  glBegin(GL_QUADS);
+  glBegin(GL_TRIANGLE_FAN);
+  glColor4ub(255, 255, 255, 255);
   glTexCoord2f(
           (E->xTextureIndice + 0.) / E->texture->horizontalDiv,
-          (E->yTextureIndice + 0.) / E->texture->verticalDiv);
+          (E->yTextureIndice + 1.) / E->texture->verticalDiv);
   glVertex2f(E->x, E->y + E->sizeY);
   glTexCoord2f(
           (E->xTextureIndice + 1.) / E->texture->horizontalDiv,
-          (E->yTextureIndice + 0.) / E->texture->verticalDiv);
+          (E->yTextureIndice + 1.) / E->texture->verticalDiv);
   glVertex2f(E->x + E->sizeX, E->y + E->sizeY);
   glTexCoord2f(
           (E->xTextureIndice + 1.) / E->texture->horizontalDiv,
-          (E->yTextureIndice + 1.) / E->texture->verticalDiv);
+          (E->yTextureIndice + 0.) / E->texture->verticalDiv);
   glVertex2f(E->x + E->sizeX, E->y);
   glTexCoord2f(
           (E->xTextureIndice + 0.) / E->texture->horizontalDiv,
-          (E->yTextureIndice + 1.) / E->texture->verticalDiv);
+          (E->yTextureIndice + 0.) / E->texture->verticalDiv);
   glVertex2f(E->x, E->y);
   glEnd();
-
   glDisable(GL_TEXTURE_2D);
   glBindTexture(GL_TEXTURE_2D, 0);
   if (SHOW_BOUNDING_BOX)
@@ -57,8 +57,8 @@ void displayTexturedEntity(Entity* E) {
 }
 
 void displayEntity(Entity* E) {
-  if(E == NULL) return;
-  glBegin(GL_QUADS);
+  if (E == NULL) return;
+  glBegin(GL_TRIANGLE_FAN);
   glColor4ub(UNTEXTURED_BOX_COLOR);
   glVertex2f(E->x, E->y + E->sizeY);
   glVertex2f(E->x + E->sizeX, E->y + E->sizeY);
@@ -82,6 +82,8 @@ void displayEntityList(EntityList *L, float xMax, int nextSprite) {
         } else {
           displayTexturedEntity(cursor);
         }
+      } else {
+        displayTexturedEntity(cursor);
       }
     } else {
       displayEntity(cursor);
