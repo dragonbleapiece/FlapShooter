@@ -59,7 +59,7 @@ void initialiseLevel(Level *level) {
         break;
 
       case PLAYER_CODE:
-        e = allocEntity(x * UNITE, y * UNITE, 2 * UNITE, 2 * UNITE, 1, 1, NULL, createAABBBoundingBox(1., 1.));
+        e = allocEntity(x * UNITE, y * UNITE, 2 * UNITE, 2 * UNITE, 1, 1, NULL, createCircleBoundingBox(0.5));
         if(e != NULL) {
           e->speedX = LEVEL_SPEED;
           addEntityToList(&level->player, e);

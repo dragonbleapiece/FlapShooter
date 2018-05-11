@@ -50,14 +50,14 @@ void executeControls(Controls c, Level level, Camera cam) {
   /* À améliorer en rendant dépendant aux bounding box et en atténuant le rejet */
   if(obstacle != NULL) {
     if(player->x + player->sizeX <= obstacle->x)
-      player->speedX = player->sizeX + player->x - (obstacle->x + obstacle->speedX);
+      player->speedX = (player->sizeX + player->x - (obstacle->x + player->speedX - obstacle->speedX)) * BOUND;
     else if(player->x >= obstacle->x + obstacle->sizeX)
-      player->speedX = player->x - (obstacle->x + obstacle->sizeX + obstacle->speedX);
+      player->speedX = (player->x - (obstacle->x + obstacle->sizeX + player->speedX - obstacle->speedX)) * BOUND;
 
       if(player->y + player->sizeY <= obstacle->y)
-        player->speedY = player->sizeY + player->y - (obstacle->y + obstacle->speedY);
+        player->speedY = (player->sizeY + player->y - (obstacle->y + player->speedY - obstacle->speedY)) * BOUND;
       else if(player->y >= obstacle->y + obstacle->sizeY)
-        player->speedY = player->y - (obstacle->y + obstacle->sizeY + obstacle->speedY);
+        player->speedY = (player->y - (obstacle->y + obstacle->sizeY + player->speedY - obstacle->speedY)) * BOUND;
   }
 
 

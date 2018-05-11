@@ -47,4 +47,6 @@
 
 #define FREE_MOVES 2.0 / 3.0
 
+#define BOUND 1.0 / 4.0
+
 #endif
