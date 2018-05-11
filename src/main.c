@@ -59,6 +59,7 @@ int main(int argc, char** argv) {
     glPopMatrix();
 
     SDL_GL_SwapBuffers();
+    glClearColor(0, 0, 0, 1);
     glClear(GL_COLOR_BUFFER_BIT);
 
     executeControls(controls, level, cam);

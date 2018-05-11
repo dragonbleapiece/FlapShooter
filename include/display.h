@@ -62,6 +62,16 @@ void displayTexturedEntity(Entity* E);
 void displayEntityList(EntityList *L, float xMax, int nextSprite);
 
 /*
+ * displayEntityBackgroundList
+ * Affiche toutes les entités de décors jusqu'à <xMax>
+ * Gère l'effet paralaxe et la répétition
+ * <*L> : Pointeur sur la liste triée des entités
+ * <xMax> : Coordonnée maximum en x des entités a afficher
+ * <nextSprite> : afficher la sprite suivante (0 = non, 1 = oui)
+ */
+void displayEntityBackgroundList(EntityList *L, float xMax, int nextSprite);
+
+/*
  * displayBoundingBox
  * Affiche une bounding box en transparance par rapport a son entité
  * <*B> : Pointeur sur la bounding box

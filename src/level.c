@@ -128,21 +128,23 @@ void freeLevel(Level *level) {
 void loadBackgroundLevel(Level *level) {
   Entity *e;
   Texture *t;
-  
+
   /* SKY */
   t = createTextureToList(&(level->textures), SRC_BACKGROUND1, 1, 1);
-  e = allocEntity(0, WINDOW_HEIGHT - WINDOW_HEIGHT , WINDOW_HEIGHT * 3, WINDOW_HEIGHT, -1, 0, t, NULL);
+  e = allocEntity(0, WINDOW_HEIGHT - WINDOW_HEIGHT, WINDOW_HEIGHT * 3, WINDOW_HEIGHT, 1, 0, t, NULL);
+  e->speedX = 0.5;
   addEntityToList(&level->background, e);
 
   /* MOUNTAINS */
   t = createTextureToList(&(level->textures), SRC_BACKGROUND2, 1, 1);
-  e = allocEntity(0, WINDOW_HEIGHT - WINDOW_HEIGHT / 3, WINDOW_HEIGHT * 3, WINDOW_HEIGHT / 3, -1, 0, t, NULL);
+  e = allocEntity(0, WINDOW_HEIGHT - WINDOW_HEIGHT / 3, WINDOW_HEIGHT * 3, WINDOW_HEIGHT / 3, 1, 0, t, NULL);
+  e->speedX = 0.4;
   addEntityToList(&level->background, e);
-  
-    
+
   /* GROUND */
   t = createTextureToList(&(level->textures), SRC_BACKGROUND3, 1, 1);
-  e = allocEntity(0, WINDOW_HEIGHT - WINDOW_HEIGHT / 10, WINDOW_HEIGHT * 3, WINDOW_HEIGHT / 10, -1, 0, t, NULL);
+  e = allocEntity(0, WINDOW_HEIGHT - WINDOW_HEIGHT / 10, WINDOW_HEIGHT * 3, WINDOW_HEIGHT / 10, 1, 0, t, NULL);
+  e->speedX = 0;
   addEntityToList(&level->background, e);
-  
+
 }
