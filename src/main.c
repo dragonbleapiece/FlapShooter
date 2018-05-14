@@ -47,9 +47,11 @@ int main(int argc, char** argv) {
   Level level = generateLevelFromFile(SRC_RESOURCES_FOLDER "levelOne.ppm");
 
   while (loop) {
-
     /* Récupération du temps au début de la boucle */
     Uint32 startTime = SDL_GetTicks();
+
+    glClear(GL_COLOR_BUFFER_BIT);
+    glClearColor(0, 0, 0, 1);
 
     glPushMatrix();
     glTranslatef(-cam.xMin, 0, 0);
@@ -59,8 +61,7 @@ int main(int argc, char** argv) {
     glPopMatrix();
 
     SDL_GL_SwapBuffers();
-    glClearColor(0, 0, 0, 1);
-    glClear(GL_COLOR_BUFFER_BIT);
+
 
     executeControls(controls, level, cam);
 

@@ -66,6 +66,19 @@ void addEntityToList(EntityList *L, Entity *E) {
   return;
 }
 
+void addEntityToUnsortedList(EntityList *L, Entity *E) {
+  EntityList cursor = *L;
+  /* Cas simple, la liste est vide */
+  if (*L == NULL) {
+    *L = E;
+    return;
+  }
+  while (cursor->next != NULL) {
+    cursor = cursor->next;
+  }
+  cursor->next = E;
+}
+
 void printEntityList(EntityList L) {
   if (L == NULL)
     return;

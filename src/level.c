@@ -129,22 +129,32 @@ void loadBackgroundLevel(Level *level) {
   Entity *e;
   Texture *t;
 
-  /* SKY */
+  /* SKY (x2) */
   t = createTextureToList(&(level->textures), SRC_BACKGROUND1, 1, 1);
-  e = allocEntity(0, WINDOW_HEIGHT - WINDOW_HEIGHT, WINDOW_HEIGHT * 3, WINDOW_HEIGHT, 1, 0, t, NULL);
+  e = allocEntity(0, 0, WIDTH_BACKGROUND1, HEIGHT_BACKGROUND1, 0, 0, t, NULL);
   e->speedX = 0.5;
-  addEntityToList(&level->background, e);
+  addEntityToUnsortedList(&level->background, e);
+  e = allocEntity(WIDTH_BACKGROUND1, 0, WIDTH_BACKGROUND1, HEIGHT_BACKGROUND1, 0, 0, t, NULL);
+  e->speedX = 0.5;
+  addEntityToUnsortedList(&level->background, e);
 
-  /* MOUNTAINS */
+  /* MOUNTAINS (x2) */
   t = createTextureToList(&(level->textures), SRC_BACKGROUND2, 1, 1);
-  e = allocEntity(0, WINDOW_HEIGHT - WINDOW_HEIGHT / 3, WINDOW_HEIGHT * 3, WINDOW_HEIGHT / 3, 1, 0, t, NULL);
+  e = allocEntity(0, WINDOW_HEIGHT - HEIGHT_BACKGROUND2, WIDTH_BACKGROUND2, HEIGHT_BACKGROUND2, 0, 0, t, NULL);
   e->speedX = 0.4;
-  addEntityToList(&level->background, e);
+  addEntityToUnsortedList(&level->background, e);
+  e = allocEntity(WIDTH_BACKGROUND2, WINDOW_HEIGHT - HEIGHT_BACKGROUND2, WIDTH_BACKGROUND2, HEIGHT_BACKGROUND2, 0, 0, t, NULL);
+  e->speedX = 0.4;
+  addEntityToUnsortedList(&level->background, e);
 
-  /* GROUND */
+  /* GROUND (x2) */
   t = createTextureToList(&(level->textures), SRC_BACKGROUND3, 1, 1);
-  e = allocEntity(0, WINDOW_HEIGHT - WINDOW_HEIGHT / 10, WINDOW_HEIGHT * 3, WINDOW_HEIGHT / 10, 1, 0, t, NULL);
+  e = allocEntity(0, WINDOW_HEIGHT - HEIGHT_BACKGROUND3, WIDTH_BACKGROUND3, HEIGHT_BACKGROUND3, 1, 0, t, NULL);
   e->speedX = 0;
-  addEntityToList(&level->background, e);
+  addEntityToUnsortedList(&level->background, e);
+  e = allocEntity(WIDTH_BACKGROUND3, WINDOW_HEIGHT - HEIGHT_BACKGROUND3, WIDTH_BACKGROUND3, HEIGHT_BACKGROUND3, 1, 0, t, NULL);
+  e->speedX = 0;
+  addEntityToUnsortedList(&level->background, e);
+
 
 }

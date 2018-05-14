@@ -15,10 +15,7 @@
 
 #define SRC_RESOURCES_FOLDER "assets/"
 
-/*sources des textures des entités*/
-#define SRC_BACKGROUND1 SRC_RESOURCES_FOLDER "img/sky.png"
-#define SRC_BACKGROUND2 SRC_RESOURCES_FOLDER "img/mountains.png"
-#define SRC_BACKGROUND3 SRC_RESOURCES_FOLDER "img/ground.png"
+
 
 #define UNITE 37 /*Unite en px*/
 
@@ -37,7 +34,20 @@
 #define FRAMERATE_MILLISECONDS 1000 / 60
 #define SPRITES_PER_SECOND 30 /* Nombre de sprite par seconde */
 
-/* ------------------- Configuration des éléments du jeu */
+/* ---------------------- BACKGROUND ---------------------- */
+
+#define SRC_BACKGROUND1 SRC_RESOURCES_FOLDER "img/sky.png"
+#define SRC_BACKGROUND2 SRC_RESOURCES_FOLDER "img/mountains.png"
+#define SRC_BACKGROUND3 SRC_RESOURCES_FOLDER "img/ground.png"
+
+#define HEIGHT_BACKGROUND1 WINDOW_HEIGHT
+#define WIDTH_BACKGROUND1 WINDOW_HEIGHT*3
+#define HEIGHT_BACKGROUND2 WINDOW_HEIGHT/3
+#define WIDTH_BACKGROUND2 WINDOW_HEIGHT*3
+#define HEIGHT_BACKGROUND3 WINDOW_HEIGHT/10
+#define WIDTH_BACKGROUND3 WINDOW_HEIGHT*3
+
+/* ----------- Configuration des éléments du jeu ----------- */
 
 #define LEVEL_SPEED 1
 

@@ -66,6 +66,14 @@ Entity* allocEntity(float x, float y, float sizeX, float sizeY, int maxLife, int
 void addEntityToList(EntityList *L, Entity *E);
 
 /*
+ * addEntityToUnsortedList
+ * Ajoute l'entité <*E> à la liste <*L> sans trie, a la suite
+ * <*L> : Pointeur de la liste d'entité
+ * <*E> : Entité a ajouter, supposé dans aucune liste
+ */
+void addEntityToUnsortedList(EntityList *L, Entity *E);
+
+/*
  * printEntityList
  * Affiche récursivement la liste d'entité pour debugage
  * <L> : Pointeur de la liste triée d'entité
