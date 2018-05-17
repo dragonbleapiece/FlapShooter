@@ -59,12 +59,14 @@ void initialiseLevel(Level *level) {
 int addEntityToLevel(EntityCode code, Level *level, float x, float y) {
   int r = 1;
   Entity *e;
+  Texture *t;
   switch (code) {
     case VOID_CODE:
       break;
 
     case PLAYER_CODE:
-      e = allocEntity(x * UNITE, y * UNITE, 2 * UNITE, 2 * UNITE, 1, 1, NULL, createAABBBoundingBox(1., 1.));
+      t = createTextureToList(&(level->textures), SRC_RABBIT, 1, 16);
+      e = allocEntity(x * UNITE, y * UNITE, 80, 60, 1, 1, t, createAABBBoundingBox(0.94, 0.9));
       if (e != NULL) {
         e->speedX = LEVEL_SPEED;
         addEntityToList(&level->player, e);

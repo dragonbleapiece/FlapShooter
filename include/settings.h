@@ -47,6 +47,10 @@
 #define HEIGHT_BACKGROUND3 WINDOW_HEIGHT/10
 #define WIDTH_BACKGROUND3 WINDOW_HEIGHT*3
 
+/* ---------------------- TEXTURES ---------------------- */
+
+#define SRC_RABBIT SRC_RESOURCES_FOLDER "img/rabbit.png"
+
 /* ----------- Configuration des éléments du jeu ----------- */
 
 #define LEVEL_SPEED 1
