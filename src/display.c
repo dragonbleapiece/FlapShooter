@@ -19,7 +19,7 @@ void displayLevel(Level lvl, Camera cam) {
     nextSprite = 1; // On passe a la sprite suivante
     lastTime = time;
   }
-  displayEntityBackgroundList(&(lvl.background), cam.xMax, nextSprite);
+  displayEntityBackgroundList(&(lvl.background), cam.xMin, nextSprite);
   displayEntityList(&(lvl.player), cam.xMax, nextSprite);
   displayEntityList(&(lvl.obstacles), cam.xMax, nextSprite);
   displayEntityList(&(lvl.ennemies), cam.xMax, nextSprite);
@@ -93,11 +93,14 @@ void displayEntityList(EntityList *L, float xMax, int nextSprite) {
   }
 }
 
-void displayEntityBackgroundList(EntityList *L, float xMax, int nextSprite) {
+void displayEntityBackgroundList(EntityList *L, float xMin, int nextSprite) {
   EntityList cursor = *L;
 
-  while (cursor != NULL && cursor->x <= xMax) {
+  while (cursor != NULL) {
     translateEntity(cursor, cursor->speedX, cursor->speedY);
+    if (cursor->x + cursor->sizeX <= xMin)
+      cursor->x = xMin + cursor->sizeX;
+
     if (isTextured(*cursor)) {
       if (nextSprite)
         upXSpriteEntity(cursor);

@@ -14,13 +14,13 @@
 #include "entity.h"
 
 typedef struct level {
-  EntityList player;
-  EntityList obstacles;
-  EntityList ennemies;
-  EntityList bonus;
-  EntityList projectiles;
-  EntityList background;
-  TextureList textures;
+  EntityList player; /* Liste de l'entité joueur */
+  EntityList obstacles; /* Liste triée d'entité obstacles */
+  EntityList ennemies; /* Liste triée d'entité ennemis */
+  EntityList bonus; /* Liste triée d'entité bonus */
+  EntityList projectiles; /* Liste triée d'entité projectiles */
+  EntityList background; /* liste NON triée des éléments du background */
+  TextureList textures; /* Liste trié contenant toute les textures utilsiées */
   int height, width;
 } Level;
 
@@ -60,9 +60,10 @@ void freeLevel(Level *L);
 
 /*
  * loadBackgroundLevel
- * ajoute le background au level <level>
+ * ajoute les entités du background au level <level>
+ * N.B. La liste n'est pas triée 
  * <*level> : pointeur sur le level
  */
-void loadBackgroundLevel( Level *level);
+void loadBackgroundLevel(Level *level);
 
 #endif

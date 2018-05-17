@@ -63,13 +63,13 @@ void displayEntityList(EntityList *L, float xMax, int nextSprite);
 
 /*
  * displayEntityBackgroundList
- * Affiche toutes les entités de décors jusqu'à <xMax>
+ * Affiche toutes les entités de décors
  * Gère l'effet paralaxe et la répétition
  * <*L> : Pointeur sur la liste triée des entités
- * <xMax> : Coordonnée maximum en x des entités a afficher
+ * <xMin> : Coordonnée minimum en x des entités
  * <nextSprite> : afficher la sprite suivante (0 = non, 1 = oui)
  */
-void displayEntityBackgroundList(EntityList *L, float xMax, int nextSprite);
+void displayEntityBackgroundList(EntityList *L, float xMin, int nextSprite);
 
 /*
  * displayBoundingBox
