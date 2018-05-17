@@ -23,6 +23,15 @@ BoundingBox* allocBoundingBox(BoundingShape shape, ShapeType type) {
   return tmp;
 }
 
+void freeBoundingBoxList(BoundingBoxList *L) {
+  if (*L != NULL) {
+    freeBoundingBoxList(&(*L)->next);
+    free(*L);
+    /*Lui assigne NULL, prévient de bugs */
+    *L = NULL;
+  }
+}
+
 void addBoundingBoxToList(BoundingBoxList *L, BoundingBox *B) {
   B->next = *L;
   *L = B;

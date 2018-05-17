@@ -20,6 +20,7 @@ typedef struct level {
   EntityList bonus;
   EntityList projectiles;
   EntityList background;
+  TextureList textures;
   int height, width;
 } Level;
 
@@ -56,5 +57,12 @@ int addEntityToLevel(EntityCode code, Level *level, float x, float y);
  * <*L> : Pointeur de la liste triée d'entités
  */
 void freeLevel(Level *L);
+
+/*
+ * loadBackgroundLevel
+ * ajoute le background au level <level>
+ * <*level> : pointeur sur le level
+ */
+void loadBackgroundLevel( Level *level);
 
 #endif

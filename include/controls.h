@@ -17,6 +17,7 @@
 #include "tools.h"
 #include "display.h"
 #include "level.h"
+#include "collision.h"
 
 typedef struct controls {
   int space, up, down, right, left;

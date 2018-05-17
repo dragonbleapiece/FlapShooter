@@ -1,6 +1,6 @@
 /*
  * bounding.h
- * Déclaration de la structure et des fonctions de gestion des bounding box et de leurs forme
+ * Déclaration de la structure et des fonctions de gestion des bounding box et de leurs formes
  *
  * Auteur : Nicolas CUSUMANO & Nicolas SENECAL
  * IMAC1 - S2 - Promotion 2020
@@ -56,6 +56,13 @@ typedef struct boundingBox {
  * Retourne un pointeur sur la BoundingBox
  */
 BoundingBox* allocBoundingBox(BoundingShape shape, ShapeType type);
+
+/*
+ * freeBoundingBoxList
+ * Libére la mémoire occupée par toutes les bounding box de la liste <*L>
+ * <*L> : Pointeur de la liste de bounding box
+ */
+void freeBoundingBoxList(BoundingBoxList *L);
 
 /*
  * addBoundingBoxToList

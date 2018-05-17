@@ -10,13 +10,15 @@
 #define DISPLAY_H
 
 #include <SDL/SDL.h>
+#include <SDL/SDL_image.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <assert.h>
 #include <math.h>
-#include "settings.h"
 
+#include "settings.h"
 #include "level.h"
 
 typedef struct camera {
@@ -58,6 +60,16 @@ void displayTexturedEntity(Entity* E);
  * <nextSprite> : afficher la sprite suivante (0 = non, 1 = oui)
  */
 void displayEntityList(EntityList *L, float xMax, int nextSprite);
+
+/*
+ * displayEntityBackgroundList
+ * Affiche toutes les entités de décors jusqu'à <xMax>
+ * Gère l'effet paralaxe et la répétition
+ * <*L> : Pointeur sur la liste triée des entités
+ * <xMax> : Coordonnée maximum en x des entités a afficher
+ * <nextSprite> : afficher la sprite suivante (0 = non, 1 = oui)
+ */
+void displayEntityBackgroundList(EntityList *L, float xMax, int nextSprite);
 
 /*
  * displayBoundingBox
