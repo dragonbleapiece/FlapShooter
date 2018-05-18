@@ -68,8 +68,9 @@ void displayEntityList(EntityList *L, float xMax, int nextSprite);
  * <*L> : Pointeur sur la liste triée des entités
  * <xMin> : Coordonnée minimum en x des entités
  * <nextSprite> : afficher la sprite suivante (0 = non, 1 = oui)
+ * <spedd> : la vitesse du niveau
  */
-void displayEntityBackgroundList(EntityList *L, float xMin, int nextSprite);
+void displayEntityBackgroundList(EntityList *L, float xMin, int nextSprite, float speed);
 
 /*
  * displayBoundingBox
@@ -90,9 +91,10 @@ void displayBoundingBoxList(BoundingBoxList L, Entity* E);
 /*
  * initCamera
  * Initialise les valeurs de la caméra
+ * <height> : Nombre d'unité verticales
  * Retourne une structure Camera avec les valeurs initialisées
  */
-Camera initCamera();
+Camera initCamera(int height);
 
 /*
  * translateCamera

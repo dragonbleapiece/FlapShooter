@@ -19,7 +19,7 @@ void displayLevel(Level lvl, Camera cam) {
     nextSprite = 1; // On passe a la sprite suivante
     lastTime = time;
   }
-  displayEntityBackgroundList(&(lvl.background), cam.xMin, nextSprite);
+  displayEntityBackgroundList(&(lvl.background), cam.xMin, nextSprite, lvl.speed);
   displayEntityList(&(lvl.player), cam.xMax, nextSprite);
   displayEntityList(&(lvl.obstacles), cam.xMax, nextSprite);
   displayEntityList(&(lvl.ennemies), cam.xMax, nextSprite);
@@ -31,42 +31,50 @@ void displayTexturedEntity(Entity* E) {
   glEnable(GL_TEXTURE_2D);
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
   glBindTexture(GL_TEXTURE_2D, *(E->texture->id));
+  glPushMatrix();
+  glTranslatef(E->x, E->y, 0);
+  glScalef(E->sizeX, E->sizeY, 0);
   glBegin(GL_TRIANGLE_FAN);
   glColor4ub(255, 255, 255, 255);
   glTexCoord2f(
           (E->xTextureIndice + 0.) / E->texture->horizontalDiv,
           (E->yTextureIndice + 1.) / E->texture->verticalDiv);
-  glVertex2f(E->x, E->y + E->sizeY);
+  glVertex2f(0, 1);
   glTexCoord2f(
           (E->xTextureIndice + 1.) / E->texture->horizontalDiv,
           (E->yTextureIndice + 1.) / E->texture->verticalDiv);
-  glVertex2f(E->x + E->sizeX, E->y + E->sizeY);
+  glVertex2f(1, 1);
   glTexCoord2f(
           (E->xTextureIndice + 1.) / E->texture->horizontalDiv,
           (E->yTextureIndice + 0.) / E->texture->verticalDiv);
-  glVertex2f(E->x + E->sizeX, E->y);
+  glVertex2f(1, 0);
   glTexCoord2f(
           (E->xTextureIndice + 0.) / E->texture->horizontalDiv,
           (E->yTextureIndice + 0.) / E->texture->verticalDiv);
-  glVertex2f(E->x, E->y);
+  glVertex2f(0, 0);
   glEnd();
   glDisable(GL_TEXTURE_2D);
   glBindTexture(GL_TEXTURE_2D, 0);
   if (SHOW_BOUNDING_BOX)
     displayBoundingBoxList(E->boundingBox, E);
+  glPopMatrix();
 }
 
 void displayEntity(Entity* E) {
   if (E == NULL) return;
+  glPushMatrix();
+  glTranslatef(E->x, E->y, 0);
+  glScalef(E->sizeX, E->sizeY, 0);
   glBegin(GL_TRIANGLE_FAN);
   glColor4ub(UNTEXTURED_BOX_COLOR);
-  glVertex2f(E->x, E->y + E->sizeY);
-  glVertex2f(E->x + E->sizeX, E->y + E->sizeY);
-  glVertex2f(E->x + E->sizeX, E->y);
-  glVertex2f(E->x, E->y);
+  glVertex2f(0, 1);
+  glVertex2f(1, 1);
+  glVertex2f(1, 0);
+  glVertex2f(0, 0);
   glEnd();
   if (SHOW_BOUNDING_BOX)
     displayBoundingBoxList(E->boundingBox, E);
+  glPopMatrix();
 }
 
 void displayEntityList(EntityList *L, float xMax, int nextSprite) {
@@ -93,13 +101,12 @@ void displayEntityList(EntityList *L, float xMax, int nextSprite) {
   }
 }
 
-void displayEntityBackgroundList(EntityList *L, float xMin, int nextSprite) {
+void displayEntityBackgroundList(EntityList *L, float xMin, int nextSprite, float speed) {
   EntityList cursor = *L;
-
   while (cursor != NULL) {
-    translateEntity(cursor, cursor->speedX, cursor->speedY);
+    translateEntity(cursor, cursor->speedX * speed, cursor->speedY * speed);
     if (cursor->x + cursor->sizeX <= xMin)
-      cursor->x = xMin + cursor->sizeX;
+      cursor->x += cursor->sizeX * 2 - 1;
 
     if (isTextured(*cursor)) {
       if (nextSprite)
@@ -113,7 +120,7 @@ void displayEntityBackgroundList(EntityList *L, float xMin, int nextSprite) {
 }
 
 void displayBoundingBox(BoundingBox *B, Entity * E) {
-  BoundingShape S = convertShapeToAbsolute(B->shape, B->type, E->x, E->y, E->sizeX, E->sizeY);
+  BoundingShape S = B->shape;
   if (B == NULL) return;
 
   switch (B->type) {
@@ -148,12 +155,12 @@ void displayBoundingBoxList(BoundingBoxList L, Entity * E) {
   }
 }
 
-Camera initCamera() {
+Camera initCamera(int height) {
   Camera cam;
   cam.xMin = 0;
   cam.yMin = 0;
-  cam.xMax = WINDOW_WIDTH;
-  cam.yMax = WINDOW_HEIGHT;
+  cam.xMax = height * RATIO;
+  cam.yMax = height;
 
   return cam;
 }
