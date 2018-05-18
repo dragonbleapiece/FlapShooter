@@ -8,10 +8,10 @@
 
 #ifndef ENTITY_H
 #define ENTITY_H
+#include <math.h>
 #include "settings.h"
 #include "bounding.h"
 #include "texture.h"
-
 
 typedef enum entityCode {
   VOID_CODE,
@@ -148,5 +148,21 @@ void translateEntity(Entity *E, float x, float y);
  * <xMax> : Coordonnée maximum en x des entités a déplacer
  */
 void translateEntityList(EntityList L, float x, float y, float xMax);
+
+/*
+ * translateEntityBySpeed
+ * Déplace l'entité <*E> par son vecteur vitesse
+ * <*E> : Entité a déplacer
+ */
+void translateEntityBySpeed(Entity *E);
+
+/*
+ * translateEntityListBySpeed
+ * Déplace toutes les entités de la liste <L> par leurs vecteur vitesse
+ * <L> : La liste d'entité a déplacer
+ * <xMax> : Coordonnée maximum en x des entités a déplacer
+ */
+void translateEntityListBySpeed(EntityList L, float xMax);
+
 
 #endif

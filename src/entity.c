@@ -83,7 +83,7 @@ void printEntityList(EntityList L) {
   if (L == NULL)
     return;
   printf("- Entité (%f;%f) | taille: %fx%f | vie: %d/%d | Attaque: %d \n",
-          L->x / UNITE, L->y / UNITE, L->sizeX, L->sizeY, L->life, L->maxLife, L->attack);
+          L->x, L->y, L->sizeX, L->sizeY, L->life, L->maxLife, L->attack);
   printEntityList(L->next);
 }
 
@@ -158,6 +158,17 @@ void translateEntity(Entity *E, float x, float y) {
 void translateEntityList(EntityList L, float x, float y, float xMax) {
   while (L != NULL && L->x <= xMax) {
     translateEntity(L, x, y);
+    L = L->next;
+  }
+}
+
+void translateEntityBySpeed(Entity *E) {
+  translateEntity(E, (float) E->speedX / FPS, (float) E->speedY / FPS);
+}
+
+void translateEntityListBySpeed(EntityList L, float xMax) {
+  while (L != NULL && L->x <= xMax) {
+    translateEntityBySpeed(L);
     L = L->next;
   }
 }
