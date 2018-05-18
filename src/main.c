@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <math.h>
 
 #include "display.h"
 #include "controls.h"
@@ -7,17 +8,37 @@
 /* Dimensions de la fenêtre */
 static unsigned int WINDOW_WIDTH = DEFAULT_WINDOW_WIDTH;
 static unsigned int WINDOW_HEIGHT = DEFAULT_WINDOW_HEIGHT;
+static unsigned int FULLSCREEN = 0; /* 1 pour pleine écran */
 
 float rand_a_b(int a, int b) {
   return rand() % (b - a) + a;
 }
 
 void resizeViewport(Camera cam) {
-  glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
-  glMatrixMode(GL_PROJECTION);
+  // Taille du jeu, en fonction du ratio
+  int maxHeight = WINDOW_HEIGHT;
+  int maxWidth = round((float) maxHeight * RATIO);
+  // Pixel en excès (contours noirs)
+  int extraWidth = 0, extraHeight = 0;
+  // L'inverse du ratio
+  float reverseRatio = 1. / ((float) RATIO);
+
+  /* Calcul de la taille du jeu par rapport a la fenetre */
+  if (maxWidth <= WINDOW_WIDTH) { // Trop large
+    extraWidth = WINDOW_WIDTH - maxWidth;
+  } else { // Pas assez large
+    maxWidth = WINDOW_WIDTH;
+    maxHeight = maxWidth * reverseRatio;
+    extraHeight = WINDOW_HEIGHT - maxHeight;
+  }
+  glViewport(extraWidth / 2, extraHeight / 2, maxWidth, maxHeight);
+  glMatrixMode(GL_MODELVIEW);
   glLoadIdentity();
   gluOrtho2D(cam.xMin, cam.xMax, cam.yMax, cam.yMin);
-  SDL_SetVideoMode(WINDOW_WIDTH, WINDOW_HEIGHT, BIT_PER_PIXEL, SDL_OPENGL | SDL_GL_DOUBLEBUFFER);
+  if (FULLSCREEN)
+    SDL_SetVideoMode(WINDOW_WIDTH, WINDOW_HEIGHT, BIT_PER_PIXEL, SDL_OPENGL | SDL_GL_DOUBLEBUFFER | SDL_RESIZABLE | SDL_FULLSCREEN);
+  else
+    SDL_SetVideoMode(WINDOW_WIDTH, WINDOW_HEIGHT, BIT_PER_PIXEL, SDL_OPENGL | SDL_GL_DOUBLEBUFFER | SDL_RESIZABLE);
 }
 
 int main(int argc, char** argv) {
@@ -28,8 +49,16 @@ int main(int argc, char** argv) {
     return EXIT_FAILURE;
   }
 
+  /* On récupère la taille maximal de la fenetre de l'utilisateur*/
+  const SDL_VideoInfo* vidinfo = SDL_GetVideoInfo();
+  int maxWindowHeight = vidinfo->current_h;
+  int maxWindowWidth = vidinfo->current_w;
+  /* Dernière taille de fenetre avant le pleine écran */
+  int lowWindowHeight = WINDOW_HEIGHT;
+  int lowWindowWidth = WINDOW_WIDTH;
+
   /* Ouverture d'une fenêtre et création d'un contexte OpenGL */
-  if (NULL == SDL_SetVideoMode(WINDOW_WIDTH, WINDOW_HEIGHT, BIT_PER_PIXEL, SDL_OPENGL | SDL_GL_DOUBLEBUFFER)) {
+  if (NULL == SDL_SetVideoMode(WINDOW_WIDTH, WINDOW_HEIGHT, BIT_PER_PIXEL, SDL_OPENGL | SDL_GL_DOUBLEBUFFER | SDL_RESIZABLE)) {
     fprintf(stderr, "Impossible d'ouvrir la fenetre. Fin du programme.\n");
     return EXIT_FAILURE;
   }
@@ -66,7 +95,8 @@ int main(int argc, char** argv) {
     glClearColor(0, 0, 0, 1);
 
     glPushMatrix();
-    glTranslatef(-cam.xMin, 0, 0);
+    glLoadIdentity();
+    gluOrtho2D(cam.xMin, cam.xMax, cam.yMax, cam.yMin);
     displayLevel(level, cam);
     //translateEntity(level.player, level.speed, 0);
     translateCamera(&cam, level.speed * level.speedCoeff, 0);
@@ -83,9 +113,32 @@ int main(int argc, char** argv) {
 
       switch (e.type) {
 
+
+        case SDL_VIDEORESIZE: /* On redimensionne le viewport */
+          WINDOW_HEIGHT = e.resize.h;
+          WINDOW_WIDTH = e.resize.w;
+          resizeViewport(cam);
+          break;
+
+
         case SDL_KEYDOWN: /*Evénements à l'appui d'une touche*/
 
           switch (e.key.keysym.sym) {
+            case SDLK_F12: /* Pleine écran */
+              FULLSCREEN = !FULLSCREEN;
+              if (FULLSCREEN) {
+                lowWindowHeight = WINDOW_HEIGHT;
+                lowWindowWidth = WINDOW_WIDTH;
+                WINDOW_WIDTH = maxWindowWidth;
+                WINDOW_HEIGHT = maxWindowHeight;
+              } else {
+                WINDOW_WIDTH = lowWindowWidth;
+                WINDOW_HEIGHT = lowWindowHeight;
+              }
+
+              resizeViewport(cam);
+              break;
+
             case SDLK_SPACE:
               controls.space = 1;
               break;

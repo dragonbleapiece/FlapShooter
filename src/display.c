@@ -106,7 +106,7 @@ void displayEntityBackgroundList(EntityList *L, float xMin, int nextSprite, floa
   while (cursor != NULL) {
     translateEntity(cursor, cursor->speedX * speed, cursor->speedY * speed);
     if (cursor->x + cursor->sizeX <= xMin)
-      cursor->x += cursor->sizeX * 2 - 1;
+      cursor->x += cursor->sizeX * 2;
 
     if (isTextured(*cursor)) {
       if (nextSprite)
