@@ -44,12 +44,15 @@
 
 /* ---------------------- BACKGROUND ---------------------- */
 
-#define SRC_BACKGROUND1 SRC_RESOURCES_FOLDER "img/sky.png"
+#define SRC_BACKGROUND0 SRC_RESOURCES_FOLDER "img/sky.jpg"
+#define SRC_BACKGROUND1 SRC_RESOURCES_FOLDER "img/clouds.png"
 #define SRC_BACKGROUND2 SRC_RESOURCES_FOLDER "img/mountains.png"
 #define SRC_BACKGROUND3 SRC_RESOURCES_FOLDER "img/ground.png"
 
 /* Taille en px */
 #define MAX_HEIGHT_BACKGROUND 400 // Hauteur maximal des backgrounds pour prendre tout l'écran
+#define HEIGHT_BACKGROUND0 400
+#define WIDTH_BACKGROUND0 1200
 #define HEIGHT_BACKGROUND1 400
 #define WIDTH_BACKGROUND1 1200
 #define HEIGHT_BACKGROUND2 134
@@ -64,7 +67,7 @@
 
 /* ----------- Configuration des éléments du jeu ----------- */
 
-#define LEVEL_SPEED 2 /* Vitesse du niveau par défaut (bloc par secondes) */
+#define LEVEL_SPEED 20 /* Vitesse du niveau par défaut (bloc par secondes) */
 
 #define ACCELERATION 0.25
 

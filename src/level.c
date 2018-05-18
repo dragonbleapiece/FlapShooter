@@ -32,8 +32,6 @@ Level generateLevelFromFile(const char filename[]) {
   // On arrondie le vitesse pour prévenir des défauts d'affichage
   level.speed = convert_speed(LEVEL_SPEED);
 
-  printf("%f", level.speed);
-
   int i, j;
 
   for (i = 0; i < img->x; ++i) {
@@ -138,7 +136,15 @@ void loadBackgroundLevel(Level *level) {
   Texture *t;
   float sizeX, sizeY;
 
-  /* SKY (x2) */
+  /* SKY */
+  t = createTextureToList(&(level->textures), SRC_BACKGROUND0, 1, 1);
+  sizeY = ((float) HEIGHT_BACKGROUND0 / MAX_HEIGHT_BACKGROUND) * level->height;
+  sizeX = ((float) WIDTH_BACKGROUND0 / HEIGHT_BACKGROUND1) * sizeY;
+  e = allocEntity(-1, 0, sizeX, sizeY, -1, 0, t, NULL);
+  e->speedX = 1;
+  addEntityToUnsortedList(&level->background, e);
+
+  /* CLOUD (x2) */
   t = createTextureToList(&(level->textures), SRC_BACKGROUND1, 1, 1);
   sizeY = ((float) HEIGHT_BACKGROUND1 / MAX_HEIGHT_BACKGROUND) * level->height;
   sizeX = ((float) WIDTH_BACKGROUND1 / HEIGHT_BACKGROUND1) * sizeY;
@@ -156,7 +162,7 @@ void loadBackgroundLevel(Level *level) {
   e = allocEntity(0, level->height - sizeY, sizeX, sizeY, -1, 0, t, NULL);
   e->speedX = 0.4;
   addEntityToUnsortedList(&level->background, e);
-  e = allocEntity(sizeX - 1, level->height - sizeY, sizeX, sizeY, -1, 0, t, NULL);
+  e = allocEntity(sizeX, level->height - sizeY, sizeX, sizeY, -1, 0, t, NULL);
   e->speedX = 0.4;
   addEntityToUnsortedList(&level->background, e);
 
@@ -167,7 +173,7 @@ void loadBackgroundLevel(Level *level) {
   e = allocEntity(0, level->height - sizeY, sizeX, sizeY, -1, 0, t, NULL);
   e->speedX = 0;
   addEntityToUnsortedList(&level->background, e);
-  e = allocEntity(sizeX - 1, level->height - sizeY, sizeX, sizeY, -1, 0, t, NULL);
+  e = allocEntity(sizeX, level->height - sizeY, sizeX, sizeY, -1, 0, t, NULL);
   e->speedX = 0;
   addEntityToUnsortedList(&level->background, e);
 
