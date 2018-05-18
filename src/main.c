@@ -68,7 +68,7 @@ int main(int argc, char** argv) {
     glPushMatrix();
     glTranslatef(-cam.xMin, 0, 0);
     displayLevel(level, cam);
-    //translateEntity(level.player, LEVEL_SPEED, 0);
+    //translateEntity(level.player, level.speed, 0);
     translateCamera(&cam, level.speed, 0);
     glPopMatrix();
 

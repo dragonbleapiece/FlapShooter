@@ -163,7 +163,7 @@ void translateEntityList(EntityList L, float x, float y, float xMax) {
 }
 
 void translateEntityBySpeed(Entity *E) {
-  translateEntity(E, (float) E->speedX / FPS, (float) E->speedY / FPS);
+  translateEntity(E, (float) convert_speed(E->speedX), (float) convert_speed(E->speedY));
 }
 
 void translateEntityListBySpeed(EntityList L, float xMax) {

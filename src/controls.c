@@ -37,11 +37,11 @@ void executeControls(Controls c, Level level, Camera cam) {
   if (c.down) player->speedY = clamp(player->speedY + ACCELERATION, -MAXSPEED, MAXSPEED);
   else if (!c.up && player->speedY > 0) player->speedY = clamp(player->speedY - INERTIE, 0, MAXSPEED);
 
-  if (c.left) player->speedX = clamp(player->speedX - ACCELERATION, -MAXSPEED, MAXSPEED + level.speed);
-  else if (!c.right && player->speedX < level.speed) player->speedX = clamp(player->speedX + INERTIE, -MAXSPEED, level.speed);
+  if (c.left) player->speedX = clamp(player->speedX - ACCELERATION, -MAXSPEED, MAXSPEED + LEVEL_SPEED);
+  else if (!c.right && player->speedX < LEVEL_SPEED) player->speedX = clamp(player->speedX + INERTIE, -MAXSPEED, LEVEL_SPEED);
 
-  if (c.right) player->speedX = clamp(player->speedX + ACCELERATION, -MAXSPEED, MAXSPEED + level.speed);
-  else if (!c.left && player->speedX > level.speed) player->speedX = clamp(player->speedX - INERTIE, level.speed, MAXSPEED + level.speed);
+  if (c.right) player->speedX = clamp(player->speedX + ACCELERATION, -MAXSPEED, MAXSPEED + LEVEL_SPEED);
+  else if (!c.left && player->speedX > LEVEL_SPEED) player->speedX = clamp(player->speedX - INERTIE, LEVEL_SPEED, MAXSPEED + LEVEL_SPEED);
 
   //printf("%f %f \n", player->speedX, player->speedY);
   player->speedX = clamp(player->speedX + player->x, cam.xMin, cam.xMin + (cam.xMax - cam.xMin) * FREE_MOVES - player->sizeX) - player->x;

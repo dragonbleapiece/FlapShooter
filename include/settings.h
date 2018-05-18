@@ -28,18 +28,18 @@
 #define DEFAULT_WINDOW_HEIGHT 720
 #define DEFAULT_WINDOW_WIDTH DEFAULT_WINDOW_HEIGHT*RATIO
 
-/* 
- * Nombre de décimal après la virgule pour les arrondie 
+/*
+ * Nombre de décimal après la virgule pour les arrondie
  * Permet d'éviter les defauts d'affichages SDL
  */
-#define ROUND_DECIMAL 100. 
+#define ROUND_DECIMAL 100.
 
 /* Nombre de bits par pixel de la fenêtre */
 #define BIT_PER_PIXEL 32
 
 /* Nombre minimal de millisecondes separant le rendu de deux images */
 #define FPS 60
-#define FRAMERATE_MILLISECONDS 1000 / FPS 
+#define FRAMERATE_MILLISECONDS 1000 / FPS
 #define SPRITES_PER_SECOND 30 /* Nombre de sprite par seconde */
 
 /* ---------------------- BACKGROUND ---------------------- */

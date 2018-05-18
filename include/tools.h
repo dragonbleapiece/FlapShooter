@@ -9,6 +9,8 @@
 #ifndef TOOLS_H
 #define TOOLS_H
 #include <string.h>
+#include "settings.h"
+#include <math.h>
 
 /*
  * getFileNameExt
@@ -59,5 +61,7 @@ float clamp_end(float n, float a);
  * <*b> : pointeur vers flottant
  */
 void swap_a_b(float *a, float *b);
+
+float convert_speed(float speed);
 
 #endif

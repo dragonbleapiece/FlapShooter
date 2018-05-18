@@ -12,6 +12,7 @@
 #include "settings.h"
 #include "bounding.h"
 #include "collision.h"
+#include "tools.h"
 
 Level generateLevelFromFile(const char filename[]) {
 
@@ -29,7 +30,9 @@ Level generateLevelFromFile(const char filename[]) {
   level.height = img->y;
   level.width = img->x;
   // On arrondie le vitesse pour prévenir des défauts d'affichage
-  level.speed = floor(LEVEL_SPEED * ROUND_DECIMAL / FPS) / ROUND_DECIMAL;
+  level.speed = convert_speed(LEVEL_SPEED);
+
+  printf("%f", level.speed);
 
   int i, j;
 
