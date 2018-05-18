@@ -67,7 +67,7 @@
 
 /* ----------- Configuration des éléments du jeu ----------- */
 
-#define LEVEL_SPEED 20 /* Vitesse du niveau par défaut (bloc par secondes) */
+#define LEVEL_SPEED 2 /* Vitesse du niveau par défaut (bloc par secondes) */
 
 #define ACCELERATION 0.25
 
