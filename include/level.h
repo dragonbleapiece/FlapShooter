@@ -10,6 +10,7 @@
 #define LEVEL_H
 #include <stdlib.h>
 #include <stdio.h>
+#include <math.h>
 #include "settings.h"
 #include "entity.h"
 
@@ -22,6 +23,7 @@ typedef struct level {
   EntityList background; /* liste NON triée des éléments du background */
   TextureList textures; /* Liste trié contenant toute les textures utilsiées */
   int height, width;
+  float speed;
 } Level;
 
 /*
