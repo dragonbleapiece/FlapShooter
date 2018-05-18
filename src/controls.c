@@ -37,11 +37,11 @@ void executeControls(Controls c, Level level, Camera cam) {
   if (c.down) player->speedY = clamp(player->speedY + ACCELERATION, -MAXSPEED, MAXSPEED);
   else if (!c.up && player->speedY > 0) player->speedY = clamp(player->speedY - INERTIE, 0, MAXSPEED);
 
-  if (c.left) player->speedX = clamp(player->speedX - ACCELERATION, -MAXSPEED, MAXSPEED + LEVEL_SPEED);
-  else if (!c.right && player->speedX < LEVEL_SPEED) player->speedX = clamp(player->speedX + INERTIE, -MAXSPEED, LEVEL_SPEED);
+  if (c.left) player->speedX = clamp(player->speedX - ACCELERATION, -MAXSPEED, MAXSPEED + level.speed);
+  else if (!c.right && player->speedX < level.speed) player->speedX = clamp(player->speedX + INERTIE, -MAXSPEED, level.speed);
 
-  if (c.right) player->speedX = clamp(player->speedX + ACCELERATION, -MAXSPEED, MAXSPEED + LEVEL_SPEED);
-  else if (!c.left && player->speedX > LEVEL_SPEED) player->speedX = clamp(player->speedX - INERTIE, LEVEL_SPEED, MAXSPEED + LEVEL_SPEED);
+  if (c.right) player->speedX = clamp(player->speedX + ACCELERATION, -MAXSPEED, MAXSPEED + level.speed);
+  else if (!c.left && player->speedX > level.speed) player->speedX = clamp(player->speedX - INERTIE, level.speed, MAXSPEED + level.speed);
 
   //printf("%f %f \n", player->speedX, player->speedY);
   player->speedX = clamp(player->speedX + player->x, cam.xMin, cam.xMin + (cam.xMax - cam.xMin) * FREE_MOVES - player->sizeX) - player->x;
@@ -52,7 +52,7 @@ void executeControls(Controls c, Level level, Camera cam) {
   /* À améliorer en rendant dépendant aux bounding box et en le debuguant */
   while (obstacle != NULL) {
 
-    if(!willColliding(*player, *obstacle)) {
+    if (!willColliding(*player, *obstacle)) {
       freeCollisionList(obstaclesCollision);
       obstaclesCollision = willCollidingWith(*player, level.obstacles, cam.xMax);
     } else {
@@ -61,7 +61,6 @@ void executeControls(Controls c, Level level, Camera cam) {
         player->speedX = (player->sizeX + player->x - (obstacle->x + player->speedX - obstacle->speedX)) * BOUND;
         player->speedX = clamp_end(player->sizeX + player->x + player->speedX, obstacle->x + obstacle->speedX) - (player->sizeX + player->x);
       }
-
       else if (player->x >= obstacle->x + obstacle->sizeX) {
         player->speedX = (player->x - (obstacle->x + obstacle->sizeX + player->speedX - obstacle->speedX)) * BOUND;
         player->speedX = clamp_start(player->x + player->speedX, obstacle->x + obstacle->speedX) - (player->x);
@@ -71,8 +70,7 @@ void executeControls(Controls c, Level level, Camera cam) {
       if (player->y + player->sizeY <= obstacle->y) {
         player->speedY = (player->sizeY + player->y - (obstacle->y + player->speedY - obstacle->speedY)) * BOUND;
         player->speedY = clamp_end(player->sizeY + player->y + player->speedY, obstacle->y + obstacle->speedY) - (player->sizeY + player->y);
-      }
-      else if (player->y >= obstacle->y + obstacle->sizeY) {
+      } else if (player->y >= obstacle->y + obstacle->sizeY) {
         player->speedY = (player->y - (obstacle->y + obstacle->sizeY + player->speedY - obstacle->speedY)) * BOUND;
         player->speedY = clamp_start(player->y + player->speedY, obstacle->y + obstacle->speedY) - (player->y);
       }
@@ -86,5 +84,5 @@ void executeControls(Controls c, Level level, Camera cam) {
   }
 
 
-  translateEntity(player, player->speedX, player->speedY);
+  translateEntityBySpeed(player);
 }

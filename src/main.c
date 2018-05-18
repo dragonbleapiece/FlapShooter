@@ -4,8 +4,20 @@
 #include "display.h"
 #include "controls.h"
 
+/* Dimensions de la fenêtre */
+static unsigned int WINDOW_WIDTH = DEFAULT_WINDOW_WIDTH;
+static unsigned int WINDOW_HEIGHT = DEFAULT_WINDOW_HEIGHT;
+
 float rand_a_b(int a, int b) {
   return rand() % (b - a) + a;
+}
+
+void resizeViewport(Camera cam) {
+  glViewport(0, 0, WINDOW_WIDTH, WINDOW_HEIGHT);
+  glMatrixMode(GL_PROJECTION);
+  glLoadIdentity();
+  gluOrtho2D(cam.xMin, cam.xMax, cam.yMax, cam.yMin);
+  SDL_SetVideoMode(WINDOW_WIDTH, WINDOW_HEIGHT, BIT_PER_PIXEL, SDL_OPENGL | SDL_GL_DOUBLEBUFFER);
 }
 
 int main(int argc, char** argv) {
@@ -26,25 +38,25 @@ int main(int argc, char** argv) {
   SDL_WM_SetCaption("FlapShooter", NULL);
 
   int loop = 1;
-  Camera cam = initCamera();
-  Controls controls = initControls();
-
-  /* Initialisation de l'affichage */
-
-  glMatrixMode(GL_MODELVIEW);
-  glLoadIdentity();
-
-  glViewport(cam.xMin, cam.yMin, cam.xMax, cam.yMax);
-  gluOrtho2D(cam.xMin, cam.xMax, cam.yMax, cam.yMin);
-
-  glClearColor(0, 0, 0, 1);
-  glClear(GL_COLOR_BUFFER_BIT);
-
   // option de blending OpenGL
   glEnable(GL_BLEND);
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
   Level level = generateLevelFromFile(SRC_RESOURCES_FOLDER "levelOne.ppm");
+  /* Initialisation de l'affichage */
+  Camera cam = initCamera(level.height);
+  Controls controls = initControls();
+
+  glMatrixMode(GL_MODELVIEW);
+  glLoadIdentity();
+
+  resizeViewport(cam);
+
+
+  glClearColor(0, 0, 0, 1);
+  glClear(GL_COLOR_BUFFER_BIT);
+
+
 
   while (loop) {
     /* Récupération du temps au début de la boucle */
@@ -57,7 +69,7 @@ int main(int argc, char** argv) {
     glTranslatef(-cam.xMin, 0, 0);
     displayLevel(level, cam);
     //translateEntity(level.player, LEVEL_SPEED, 0);
-    translateCamera(&cam, LEVEL_SPEED, 0);
+    translateCamera(&cam, level.speed, 0);
     glPopMatrix();
 
     SDL_GL_SwapBuffers();
