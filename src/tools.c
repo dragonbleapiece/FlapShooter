@@ -45,5 +45,5 @@ void swap_a_b(float *a, float *b) {
 }
 
 float convert_speed(float speed) {
-  return floor(speed * ROUND_DECIMAL / FPS) / ROUND_DECIMAL;
+  return speed * floor(ROUND_DECIMAL / FPS) / ROUND_DECIMAL;
 }

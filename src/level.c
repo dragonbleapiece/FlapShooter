@@ -30,9 +30,8 @@ Level generateLevelFromFile(const char filename[]) {
   level.height = img->y;
   level.width = img->x;
   // On arrondie le vitesse pour prévenir des défauts d'affichage
+  level.speedCoeff = 1.;
   level.speed = convert_speed(LEVEL_SPEED);
-
-  printf("%f", level.speed);
 
   int i, j;
 
@@ -73,7 +72,7 @@ int addEntityToLevel(EntityCode code, Level *level, float x, float y) {
       t = createTextureToList(&(level->textures), SRC_RABBIT, 1, 16);
       e = allocEntity(x, y, 1.5, 1.5 * 0.75, 1, 1, t, createAABBBoundingBox(1, 1));
       if (e != NULL) {
-        e->speedX = LEVEL_SPEED;
+        e->speedX = LEVEL_SPEED * level->speedCoeff;
         addEntityToList(&level->player, e);
       } else r = 0;
       break;

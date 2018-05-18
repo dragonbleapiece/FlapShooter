@@ -69,7 +69,7 @@ int main(int argc, char** argv) {
     glTranslatef(-cam.xMin, 0, 0);
     displayLevel(level, cam);
     //translateEntity(level.player, level.speed, 0);
-    translateCamera(&cam, level.speed, 0);
+    translateCamera(&cam, level.speed * level.speedCoeff, 0);
     glPopMatrix();
 
     SDL_GL_SwapBuffers();

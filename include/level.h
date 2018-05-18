@@ -24,6 +24,7 @@ typedef struct level {
   TextureList textures; /* Liste trié contenant toute les textures utilsiées */
   int height, width;
   float speed;
+  float speedCoeff;
 } Level;
 
 /*
@@ -63,7 +64,7 @@ void freeLevel(Level *L);
 /*
  * loadBackgroundLevel
  * ajoute les entités du background au level <level>
- * N.B. La liste n'est pas triée 
+ * N.B. La liste n'est pas triée
  * <*level> : pointeur sur le level
  */
 void loadBackgroundLevel(Level *level);

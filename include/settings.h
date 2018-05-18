@@ -17,7 +17,7 @@
 
 
 /* ----------------------- DEBUG ------------------------ */
-#define SHOW_BOUNDING_BOX 0 /* Afficher les bounding box en violet sur les entités */
+#define SHOW_BOUNDING_BOX 1 /* Afficher les bounding box en violet sur les entités */
 #define BOUNDING_BOX_COLOR 148,0,211,100 /* Couleur RGBA des bounding box */
 
 /* -------------- DIMENSIONS DE LA FENETRE -------------- */
@@ -64,13 +64,13 @@
 
 /* ----------- Configuration des éléments du jeu ----------- */
 
-#define LEVEL_SPEED 2 /* Vitesse du niveau par défaut (bloc par secondes) */
+#define LEVEL_SPEED 5 /* Vitesse du niveau par défaut (bloc par secondes) */
 
-#define ACCELERATION 0.25
+#define ACCELERATION 1
 
 #define MAXSPEED 5
 
-#define INERTIE 0.5
+#define INERTIE 2
 
 #define FREE_MOVES 2.0 / 3.0
 

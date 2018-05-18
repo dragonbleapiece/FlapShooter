@@ -19,7 +19,7 @@ void displayLevel(Level lvl, Camera cam) {
     nextSprite = 1; // On passe a la sprite suivante
     lastTime = time;
   }
-  displayEntityBackgroundList(&(lvl.background), cam.xMin, nextSprite, lvl.speed);
+  displayEntityBackgroundList(&(lvl.background), cam.xMin, nextSprite, lvl.speed * lvl.speedCoeff);
   displayEntityList(&(lvl.player), cam.xMax, nextSprite);
   displayEntityList(&(lvl.obstacles), cam.xMax, nextSprite);
   displayEntityList(&(lvl.ennemies), cam.xMax, nextSprite);
