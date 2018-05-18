@@ -112,6 +112,8 @@ int removeEntityToList(EntityList *L, EntityList E) {
 
 void removeEntityBehind(EntityList *L, float xMax) {
   while (*L != NULL && (*L)->x <= xMax + (*L)->sizeX) {
+    /*On libère les bounding box puis l'entité*/
+    freeBoundingBoxList(&((*L)->boundingBox));
     free(*L);
     *L = (*L)->next;
   }

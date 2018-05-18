@@ -120,6 +120,8 @@ void freeTextureList(TextureList *L) {
   if (*L != NULL) {
     freeTextureList(&(*L)->next);
     glDeleteTextures(1, (*L)->id); /* Libération des données GPU */
+    free((*L)->id);
+    free((*L)->fileName);
     free(*L);
     /*Lui assigne NULL, prévient de bugs */
     *L = NULL;
