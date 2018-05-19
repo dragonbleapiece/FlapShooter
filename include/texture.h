@@ -61,7 +61,8 @@ Texture* createTexture(char fileName[], int verticalDiv, int horizontalDiv);
 /*
  * createTextureToList
  * Créer et ajoute une texture à la liste <*L> triée par ordre alphabétique de fileName
- * L'ajout se fait uniquement si la texture <fileName> n'est pas dans la liste
+ * L'ajout se fait uniquement si la texture <fileName> n'est pas dans la liste,
+ * Sinon la fonction renvoie la texture existante
  * <*L> : Pointeur de la liste triée de texture
  * <fileName[]> : Nom et extention de l'image
  * <verticalDiv> : Division vertical de l'image
