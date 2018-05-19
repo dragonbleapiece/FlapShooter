@@ -32,6 +32,7 @@ void pushCollision(CollisionList *L, Entity *E) {
 Entity* popCollision(CollisionList *L) {
   if (*L == NULL) return NULL;
   Collision *firstCell = *L;
+  if(firstCell == NULL) return NULL;
   Entity* tmp = firstCell->E;
   *L = (*L)->next;
   free(firstCell);
@@ -96,5 +97,63 @@ void freeCollisionList(CollisionList collision) {
   if(collision != NULL) {
     freeCollisionList(collision->next);
     free(collision);
+  }
+}
+
+int isCollidingNTimes(Entity *E, EntityList L, float xMax, void (*callback)(Entity*, Entity*), int n) {
+  CollisionList collision;
+  Entity *obstacle;
+  int k = 0;
+  collision = isCollidingWith(*E, L, xMax);
+  obstacle = popCollision(&collision);
+  while(obstacle != NULL && k < n) {
+    callback(E, obstacle);
+    obstacle = popCollision(&collision);
+    ++k;
+  }
+
+  freeCollisionList(collision);
+
+  return k;
+
+}
+
+int isCollidingOnce(Entity *E, EntityList L, float xMax, void (*callback)(Entity*, Entity*)) {
+  return isCollidingNTimes(E, L, xMax, callback, 1);
+}
+
+int isCollidingRepeat(Entity *E, EntityList L, float xMax, void (*callback)(Entity*, Entity*)) {
+  CollisionList collision;
+  Entity *obstacle;
+  int k = 0;
+  collision = isCollidingWith(*E, L, xMax);
+  obstacle = popCollision(&collision);
+  while(obstacle != NULL) {
+    callback(E, obstacle);
+    obstacle = popCollision(&collision);
+    ++k;
+  }
+
+  return k;
+
+}
+
+CollisionList areCollidingOnce(EntityList E, EntityList L, float xMax, void (*callback)(Entity*, Entity*)) {
+  CollisionList collisions = (CollisionList) malloc(sizeof(*collisions));
+  while (E != NULL) {
+    if(isCollidingOnce(E, L, xMax, callback)) {
+      pushCollision(&collisions, E);
+    }
+    E = E->next;
+  }
+
+  return collisions;
+}
+
+void removeCollisionListFromEntityList(EntityList *L, CollisionList *collisions) {
+  EntityList e = popCollision(collisions);
+  while(e != NULL) {
+    if(e->life == 0) removeEntityToList(L, e);
+    e = popCollision(collisions);
   }
 }

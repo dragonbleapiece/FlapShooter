@@ -4,6 +4,7 @@
 
 #include "display.h"
 #include "controls.h"
+#include "events.h"
 
 /* Dimensions de la fenêtre */
 static unsigned int WINDOW_WIDTH = DEFAULT_WINDOW_WIDTH;
@@ -98,6 +99,7 @@ int main(int argc, char** argv) {
     glLoadIdentity();
     gluOrtho2D(cam.xMin, cam.xMax, cam.yMax, cam.yMin);
     displayLevel(level, cam);
+    eventsInLevel(&level, cam);
     //translateEntity(level.player, level.speed, 0);
     translateCamera(&cam, level.speed * level.speedCoeff, 0);
     glPopMatrix();

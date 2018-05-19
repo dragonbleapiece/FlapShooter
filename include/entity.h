@@ -171,10 +171,18 @@ void translateEntityListBySpeed(EntityList L, float xMax);
 /*
  * attacks
  * Attaque d'une entité sur une autre
- * <E1> : entité qui attaque
+ * <*E1> : entité qui attaque
  * <*E2> : entité qui subit
  */
-void attacks(Entity E1, Entity *E2);
+void attacks(Entity *E1, Entity *E2);
+
+/*
+ * attacksBetween
+ * Attaque réciproque d'une entité sur une autre
+ * <E1> : entité impliquée
+ * <*E2> : entité impliquée
+ */
+void attacksBetween(Entity *E1, Entity *E2);
 
 /*
  * getDamaged

@@ -179,10 +179,14 @@ void translateEntityListBySpeed(EntityList L, float xMax) {
 }
 
 
-void attacks(Entity E1, Entity *E2) {
-  getDamaged(E2, E1.attack);
+void attacks(Entity *E1, Entity *E2) {
+  if(E2->maxLife != -1) getDamaged(E2, E1->attack);
 }
 
+void attacksBetween(Entity *E1, Entity *E2) {
+  attacks(E1, E2);
+  attacks(E2, E1);
+}
 
 void getDamaged(Entity *E, int damage) {
   E->life = clamp_start(E->life - damage, 0.);

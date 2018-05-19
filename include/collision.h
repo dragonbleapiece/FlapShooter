@@ -71,4 +71,14 @@ CollisionList willCollidingWith(Entity E, EntityList L, float xMax);
 
 void freeCollisionList(CollisionList collision);
 
+int isCollidingOnce(Entity *E, EntityList L, float xMax, void (*callback)(Entity*, Entity*));
+
+int isCollidingNTimes(Entity *E, EntityList L, float xMax, void (*callback)(Entity*, Entity*), int n);
+
+int isCollidingRepeat(Entity *E, EntityList L, float xMax, void (*callback)(Entity*, Entity*));
+
+CollisionList areCollidingOnce(EntityList E, EntityList L, float xMax, void (*callback)(Entity*, Entity*));
+
+void removeCollisionListFromEntityList(EntityList *L, CollisionList *collisions);
+
 #endif
