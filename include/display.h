@@ -30,10 +30,10 @@ typedef struct camera {
  * displayLevel
  * Affiche toutes les entités d'un niveau qui sont dans le champs de la camera
  * Appelé à chaque frame
- * <lvl> : Structure du niveau
+ * <*lvl> : Structure du niveau
  * <cam> : Structure de la camera
  */
-void displayLevel(Level lvl, Camera cam);
+void displayLevel(Level *lvl, Camera cam);
 
 /*
  * displayEntity

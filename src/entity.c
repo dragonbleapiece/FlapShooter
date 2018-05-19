@@ -114,22 +114,42 @@ int removeEntityToList(EntityList *L, EntityList E) {
 }
 
 void removeEntityBehind(EntityList *L, float xMax) {
-  while (*L != NULL && (*L)->x <= xMax + (*L)->sizeX) {
-    /*On libère les bounding box puis l'entité*/
-    freeBoundingBoxList(&((*L)->boundingBox));
-    free(*L);
+  if (*L != NULL && (*L)->x + (*L)->sizeX <= xMax) {
+    Entity* tmp = *L;
     *L = (*L)->next;
+    removeEntityBehind(L, xMax);
+    freeEntity(tmp);
+  }
+}
+
+void removeEntityInFront(EntityList *L, float xMax) {
+  if (*L == NULL) return;
+  EntityList cursor = *L;
+  EntityList cursorPrev = NULL;
+  while (cursor != NULL && cursor->x <= xMax) {
+    cursorPrev = cursor;
+    cursor = cursor->next;
+  }
+  if (cursor != NULL) {
+    freeEntityList(&cursor);
+    if (cursorPrev != NULL) cursorPrev->next = NULL;
+    else *L = NULL;
+  }
+}
+
+void freeEntity(Entity *E) {
+  if (E != NULL) {
+    /*On libère les bounding box puis l'entité*/
+    freeBoundingBoxList(&(E->boundingBox));
+    free(E);
+    /*Lui assigne NULL, prévient de bugs */
+    E = NULL;
   }
 }
 
 void freeEntityList(EntityList *L) {
   if (*L != NULL) {
-    freeEntityList(&(*L)->next);
-    /*On libère les bounding box puis l'entité*/
-    freeBoundingBoxList(&((*L)->boundingBox));
-    free(*L);
-    /*Lui assigne NULL, prévient de bugs */
-    *L = NULL;
+    freeEntityList(&((*L)->next));
   }
 }
 
@@ -178,9 +198,8 @@ void translateEntityListBySpeed(EntityList L, float xMax) {
   }
 }
 
-
 void attacks(Entity *E1, Entity *E2) {
-  if(E2->maxLife != -1) getDamaged(E2, E1->attack);
+  if (E2->maxLife != -1) getDamaged(E2, E1->attack);
 }
 
 void attacksBetween(Entity *E1, Entity *E2) {
@@ -191,7 +210,6 @@ void attacksBetween(Entity *E1, Entity *E2) {
 void getDamaged(Entity *E, int damage) {
   E->life = clamp_start(E->life - damage, 0.);
 }
-
 
 void getHealed(Entity *E, int heal) {
   E->life = clamp_end(E->life + heal, E->maxLife);

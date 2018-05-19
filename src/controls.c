@@ -38,13 +38,12 @@ void executeControls(Controls c, Level *level, Camera cam) {
 
     startTime = SDL_GetTicks();
 
-    if(player->lastShot < startTime) {
+    if (player->lastShot < startTime) {
       playerShot(level);
       player->lastShot = startTime + player->shotFrequency * 1000;
     }
 
   }
-
 
 
   if (c.up) player->speedY = clamp(player->speedY - acceleration, -maxspeed, maxspeed);
@@ -60,8 +59,8 @@ void executeControls(Controls c, Level *level, Camera cam) {
   else if (!c.left && player->speedX > levelSpeed) player->speedX = clamp(player->speedX - INERTIE, levelSpeed, maxspeed + levelSpeed);
 
   //printf("%f %f \n", player->speedX, player->speedY);
-  player->speedX = (clamp(convert_speed(player->speedX) + player->x, cam.xMin, cam.xMin + (cam.xMax - cam.xMin) * FREE_MOVES - player->sizeX) - player->x) * 1. / ( floor(ROUND_DECIMAL / FPS) / ROUND_DECIMAL);
-  player->speedY = (clamp(convert_speed(player->speedY) + player->y, cam.yMin, cam.yMax - player->sizeY) - player->y) * 1. / ( floor(ROUND_DECIMAL / FPS) / ROUND_DECIMAL);
+  player->speedX = (clamp(convert_speed(player->speedX) + player->x, cam.xMin, cam.xMin + (cam.xMax - cam.xMin) * FREE_MOVES - player->sizeX) - player->x) * 1. / (floor(ROUND_DECIMAL / FPS) / ROUND_DECIMAL);
+  player->speedY = (clamp(convert_speed(player->speedY) + player->y, cam.yMin, cam.yMax - player->sizeY) - player->y) * 1. / (floor(ROUND_DECIMAL / FPS) / ROUND_DECIMAL);
 
   obstaclesCollision = willCollidingWith(*player, level->obstacles, cam.xMax);
   obstacle = popCollision(&obstaclesCollision);
@@ -75,21 +74,20 @@ void executeControls(Controls c, Level *level, Camera cam) {
 
       bbPlayer = player->boundingBox;
 
-      while(bbPlayer != NULL) {
+      while (bbPlayer != NULL) {
 
         bboxPlayer = convertShapeToAbsolute(bbPlayer->shape, bbPlayer->type, player->x, player->y, player->sizeX, player->sizeY);
 
         bbObstacle = obstacle->boundingBox;
 
-        while(bbObstacle != NULL) {
+        while (bbObstacle != NULL) {
 
           bboxObstacle = convertShapeToAbsolute(bbObstacle->shape, bbObstacle->type, obstacle->x, obstacle->y, obstacle->sizeX, obstacle->sizeY);
 
           if (bboxPlayer.box.xMax <= bboxObstacle.box.xMin) {
             player->speedX = (bboxPlayer.box.xMax - (bboxObstacle.box.xMin + player->speedX - obstacle->speedX)) * BOUND;
             player->speedX = clamp_end(bboxPlayer.box.xMax + player->speedX, bboxObstacle.box.xMin + obstacle->speedX) - (bboxPlayer.box.xMax);
-          }
-          else if (bboxPlayer.box.xMin >= bboxObstacle.box.xMax) {
+          } else if (bboxPlayer.box.xMin >= bboxObstacle.box.xMax) {
             player->speedX = (bboxPlayer.box.xMin - (bboxObstacle.box.xMax + player->speedX - obstacle->speedX)) * BOUND;
             player->speedX = clamp_start(bboxPlayer.box.xMin + player->speedX, bboxObstacle.box.xMin + obstacle->speedX) - (bboxPlayer.box.xMin);
           }
@@ -98,8 +96,7 @@ void executeControls(Controls c, Level *level, Camera cam) {
           if (bboxPlayer.box.yMax <= bboxObstacle.box.yMin) {
             player->speedY = (bboxPlayer.box.yMax - (bboxObstacle.box.yMin + player->speedY - obstacle->speedY)) * BOUND;
             player->speedY = clamp_end(bboxPlayer.box.yMax + player->speedY, bboxObstacle.box.yMin + obstacle->speedY) - (bboxPlayer.box.yMax);
-          }
-          else if (bboxPlayer.box.yMin >= bboxObstacle.box.yMax) {
+          } else if (bboxPlayer.box.yMin >= bboxObstacle.box.yMax) {
             player->speedY = (bboxPlayer.box.yMin - (bboxObstacle.box.yMax + player->speedY - obstacle->speedY)) * BOUND;
             player->speedY = clamp_start(bboxPlayer.box.yMin + player->speedY, bboxObstacle.box.yMin + obstacle->speedY) - (bboxPlayer.box.yMin);
           }

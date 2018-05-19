@@ -125,6 +125,14 @@ int addEntityToLevel(EntityCode code, Level *level, float x, float y) {
   return r;
 }
 
+void removeLevelBehind(Level *level, float xMax) {
+  //removeEntityBehind(&level->player, xMax);
+  removeEntityBehind(&level->obstacles, xMax);
+  removeEntityBehind(&level->ennemies, xMax);
+  removeEntityBehind(&level->bonus, xMax);
+  removeEntityBehind(&level->projectiles, xMax);
+}
+
 void freeLevel(Level *level) {
   freeEntityList(&level->player);
   freeEntityList(&level->obstacles);

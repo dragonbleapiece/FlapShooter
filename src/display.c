@@ -10,7 +10,7 @@
 
 #include "display.h"
 
-void displayLevel(Level lvl, Camera cam) {
+void displayLevel(Level *lvl, Camera cam) {
   int nextSprite = 0;
   static int lastTime = 0;
   int time = SDL_GetTicks();
@@ -19,13 +19,14 @@ void displayLevel(Level lvl, Camera cam) {
     nextSprite = 1; // On passe a la sprite suivante
     lastTime = time;
   }
-  displayEntityBackgroundList(&(lvl.background), cam.xMin, nextSprite, lvl.speed * lvl.speedCoeff);
-  displayEntityList(&(lvl.player), cam.xMax, nextSprite);
-  displayEntityList(&(lvl.obstacles), cam.xMax, nextSprite);
-  displayEntityList(&(lvl.ennemies), cam.xMax, nextSprite);
-  displayEntityList(&(lvl.bonus), cam.xMax, nextSprite);
-  translateEntityListBySpeed(lvl.projectiles, cam.xMax);
-  displayEntityList(&(lvl.projectiles), cam.xMax, nextSprite);
+  displayEntityBackgroundList(&(lvl->background), cam.xMin, nextSprite, lvl->speed * lvl->speedCoeff);
+  displayEntityList(&(lvl->player), cam.xMax, nextSprite);
+  displayEntityList(&(lvl->obstacles), cam.xMax, nextSprite);
+  displayEntityList(&(lvl->ennemies), cam.xMax, nextSprite);
+  displayEntityList(&(lvl->bonus), cam.xMax, nextSprite);
+  translateEntityListBySpeed(lvl->projectiles, cam.xMax);
+  removeEntityInFront(&(lvl->projectiles), cam.xMax);
+  displayEntityList(&(lvl->projectiles), cam.xMax, nextSprite);
 }
 
 void displayTexturedEntity(Entity* E) {

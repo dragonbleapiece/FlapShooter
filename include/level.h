@@ -55,11 +55,20 @@ void initialiseLevel(Level *level);
 int addEntityToLevel(EntityCode code, Level *level, float x, float y);
 
 /*
+ * removeLevelBehind
+ * Enleve toutes les entités des listes du level jusqu'à xMax
+ * et libére la mémoire occupée. Prend en compte la taille des entités.
+ * <*level> : Pointeur sur le level
+ * <xMax> : Coordonnée maximum en x des entités a supprimer
+ */
+void removeLevelBehind(Level *level, float xMax);
+
+/*
  * freeLevel
  * Libère la mémoire occupée par toutes les listes du niveau
- * <*L> : Pointeur de la liste triée d'entités
+ * <*level> : Pointeur sur le level
  */
-void freeLevel(Level *L);
+void freeLevel(Level *level);
 
 /*
  * loadBackgroundLevel

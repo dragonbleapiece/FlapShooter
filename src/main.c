@@ -98,9 +98,9 @@ int main(int argc, char** argv) {
     glPushMatrix();
     glLoadIdentity();
     gluOrtho2D(cam.xMin, cam.xMax, cam.yMax, cam.yMin);
-    displayLevel(level, cam);
+    removeLevelBehind(&level, cam.xMin);
+    displayLevel(&level, cam);
     eventsInLevel(&level, cam);
-    //translateEntity(level.player, level.speed, 0);
     translateCamera(&cam, level.speed * level.speedCoeff, 0);
     glPopMatrix();
 
