@@ -21,21 +21,30 @@ Controls initControls() {
   return c;
 }
 
-void executeControls(Controls c, Level level, Camera cam) {
+void executeControls(Controls c, Level *level, Camera cam) {
 
-  Entity *player = level.player;
+  Entity *player = level->player;
   Entity *obstacle;
   CollisionList obstaclesCollision;
   BoundingBox *bbPlayer, *bbObstacle;
   BoundingShape bboxPlayer, bboxObstacle;
+  Uint32 startTime;
 
-  float levelSpeed = LEVEL_SPEED * level.speedCoeff;
-  float maxspeed = MAXSPEED + level.speedCoeff;
-  float acceleration = ACCELERATION * level.speedCoeff;
+  float levelSpeed = LEVEL_SPEED * level->speedCoeff;
+  float maxspeed = MAXSPEED + level->speedCoeff;
+  float acceleration = ACCELERATION * level->speedCoeff;
 
   if (c.space == 1) {
 
+    startTime = SDL_GetTicks();
+
+    if(player->lastShot < startTime) {
+      playerShot(level);
+      player->lastShot = startTime + player->shotFrequency * 1000;
+    }
+
   }
+
 
 
   if (c.up) player->speedY = clamp(player->speedY - acceleration, -maxspeed, maxspeed);
@@ -54,14 +63,14 @@ void executeControls(Controls c, Level level, Camera cam) {
   player->speedX = (clamp(convert_speed(player->speedX) + player->x, cam.xMin, cam.xMin + (cam.xMax - cam.xMin) * FREE_MOVES - player->sizeX) - player->x) * 1. / ( floor(ROUND_DECIMAL / FPS) / ROUND_DECIMAL);
   player->speedY = (clamp(convert_speed(player->speedY) + player->y, cam.yMin, cam.yMax - player->sizeY) - player->y) * 1. / ( floor(ROUND_DECIMAL / FPS) / ROUND_DECIMAL);
 
-  obstaclesCollision = willCollidingWith(*player, level.obstacles, cam.xMax);
+  obstaclesCollision = willCollidingWith(*player, level->obstacles, cam.xMax);
   obstacle = popCollision(&obstaclesCollision);
   /* À améliorer en rendant dépendant aux bounding box et en le debuguant */
   while (obstacle != NULL) {
 
     if (!willColliding(*player, *obstacle)) {
       freeCollisionList(obstaclesCollision);
-      obstaclesCollision = willCollidingWith(*player, level.obstacles, cam.xMax);
+      obstaclesCollision = willCollidingWith(*player, level->obstacles, cam.xMax);
     } else {
 
       bbPlayer = player->boundingBox;

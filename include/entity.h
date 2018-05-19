@@ -12,6 +12,7 @@
 #include "settings.h"
 #include "bounding.h"
 #include "texture.h"
+#include <SDL/SDL.h>
 
 typedef enum entityCode {
   VOID_CODE,
@@ -31,6 +32,9 @@ typedef struct entity {
   Texture *texture;
   float speedX;
   float speedY;
+  float shotX;
+  float shotY;
+  Uint32 lastShot;
   float shotFrequency;
   int xTextureIndice; /* Division vertical actuel de l'image pour les sprites, 0 par défaut (1er sprite) */
   int yTextureIndice; /* Division horizontal actuel de l'image pour les "sprites",  0 par défaut (1er sprite) */
@@ -164,5 +168,28 @@ void translateEntityBySpeed(Entity *E);
  */
 void translateEntityListBySpeed(EntityList L, float xMax);
 
+/*
+ * attacks
+ * Attaque d'une entité sur une autre
+ * <E1> : entité qui attaque
+ * <*E2> : entité qui subit
+ */
+void attacks(Entity E1, Entity *E2);
+
+/*
+ * getDamaged
+ * L'entité subit des dégats
+ * <*E> : l'entité qui subit des dégats
+ * <damage> : montant de dégats que subit l'entité
+ */
+void getDamaged(Entity *E, int damage);
+
+/*
+ * getHealed
+ * L'entité regagne de la vie
+ * <*E> : l'entité qui regagne de la vie
+ * <heal> : montant de vie regagné
+ */
+void getHealed(Entity *E, int heal);
 
 #endif

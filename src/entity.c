@@ -23,6 +23,9 @@ Entity* allocEntity(float x, float y, float sizeX, float sizeY, int maxLife, int
   tmp->sizeY = sizeY;
   tmp->speedX = 0;
   tmp->speedY = 0;
+  tmp->shotX = 0;
+  tmp->shotY = 0;
+  tmp->lastShot = 0;
   tmp->shotFrequency = 0;
   tmp->maxLife = maxLife;
   tmp->life = maxLife;
@@ -173,4 +176,19 @@ void translateEntityListBySpeed(EntityList L, float xMax) {
     translateEntityBySpeed(L);
     L = L->next;
   }
+}
+
+
+void attacks(Entity E1, Entity *E2) {
+  getDamaged(E2, E1.attack);
+}
+
+
+void getDamaged(Entity *E, int damage) {
+  E->life = clamp_start(E->life - damage, 0.);
+}
+
+
+void getHealed(Entity *E, int heal) {
+  E->life = clamp_end(E->life + heal, E->maxLife);
 }

@@ -73,6 +73,9 @@ int addEntityToLevel(EntityCode code, Level *level, float x, float y) {
       e = allocEntity(x, y, 1.5, 1.5 * 0.75, 1, 1, t, createAABBBoundingBox(1, 1));
       if (e != NULL) {
         e->speedX = LEVEL_SPEED * level->speedCoeff;
+        e->shotX = 76. / 80.;
+        e->shotY = 8. / 60.;
+        e->shotFrequency = 1;
         addEntityToList(&level->player, e);
       } else r = 0;
       break;

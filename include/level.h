@@ -21,7 +21,7 @@ typedef struct level {
   EntityList bonus; /* Liste triée d'entité bonus */
   EntityList projectiles; /* Liste triée d'entité projectiles */
   EntityList background; /* liste NON triée des éléments du background */
-  TextureList textures; /* Liste trié contenant toute les textures utilsiées */
+  TextureList textures; /* Liste triée contenant toute les textures utilisées */
   int height, width;
   float speed;
   float speedCoeff;

@@ -105,7 +105,7 @@ int main(int argc, char** argv) {
     SDL_GL_SwapBuffers();
 
 
-    executeControls(controls, level, cam);
+    executeControls(controls, &level, cam);
 
     /* Boucle traitant les evenements */
     SDL_Event e;

@@ -24,6 +24,7 @@ void displayLevel(Level lvl, Camera cam) {
   displayEntityList(&(lvl.obstacles), cam.xMax, nextSprite);
   displayEntityList(&(lvl.ennemies), cam.xMax, nextSprite);
   displayEntityList(&(lvl.bonus), cam.xMax, nextSprite);
+  translateEntityListBySpeed(lvl.projectiles, cam.xMax);
   displayEntityList(&(lvl.projectiles), cam.xMax, nextSprite);
 }
 
@@ -120,8 +121,8 @@ void displayEntityBackgroundList(EntityList *L, float xMin, int nextSprite, floa
 }
 
 void displayBoundingBox(BoundingBox *B, Entity * E) {
-  BoundingShape S = B->shape;
   if (B == NULL) return;
+  BoundingShape S = B->shape;
 
   switch (B->type) {
     case AABB_SHAPE:

@@ -64,6 +64,7 @@
 
 #define SRC_RABBIT SRC_RESOURCES_FOLDER "img/rabbit.png"
 #define SRC_OBSTACLE SRC_RESOURCES_FOLDER "img/obstacle.png"
+#define SRC_CARROTBALL SRC_RESOURCES_FOLDER "img/carrotball.png"
 
 /* ----------- Configuration des éléments du jeu ----------- */
 
@@ -78,5 +79,7 @@
 #define FREE_MOVES 2.0 / 3.0
 
 #define BOUND 1.0 / 4.0
+
+#define PROJECTILE_SPEED 15
 
 #endif
