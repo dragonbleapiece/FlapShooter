@@ -81,7 +81,6 @@ void displayEntity(Entity* E) {
 
 void displayEntityList(EntityList *L, float xMax, int nextSprite) {
   EntityList cursor = *L;
-  EntityList cursorPrev = NULL;
   EntityList tmp;
 
   while (cursor != NULL && cursor->x <= xMax) {
@@ -92,12 +91,10 @@ void displayEntityList(EntityList *L, float xMax, int nextSprite) {
         cursor = tmp;
       } else {
         displayTexturedEntity(cursor);
-        cursorPrev = cursor;
         cursor = cursor->next;
       }
     } else {
       displayEntity(cursor);
-      cursorPrev = cursor;
       cursor = cursor->next;
     }
   }
