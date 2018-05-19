@@ -36,8 +36,9 @@ typedef struct entity {
   float shotY;
   Uint32 lastShot;
   float shotFrequency;
-  int xTextureIndice; /* Division vertical actuel de l'image pour les sprites, 0 par défaut (1er sprite) */
-  int yTextureIndice; /* Division horizontal actuel de l'image pour les "sprites",  0 par défaut (1er sprite) */
+  int xTextureIndice; /* Division horizontal actuel de l'image pour les sprites, 0 par défaut (1er sprite) */
+  int yTextureIndice; /* Division vertical actuel de l'image pour les "sprites",  0 par défaut (1er sprite) */
+  int destructionTextureIndice; /* Indice vertical de la sprite de destruction,  0 par défaut (1er sprite)  */
   int life; /* Vie actuelle de l'entité, -1 si invincible */
   int maxLife; /* Vie maximal de l'entité (???) */
   int attack; /* Point d'attaque de l'entité */
@@ -173,6 +174,7 @@ void translateEntityList(EntityList L, float x, float y, float xMax);
 /*
  * translateEntityBySpeed
  * Déplace l'entité <*E> par son vecteur vitesse
+ * N.B. les entités dont la vie est a 0 ne sont pas déplacé 
  * <*E> : Entité a déplacer
  */
 void translateEntityBySpeed(Entity *E);
@@ -204,6 +206,8 @@ void attacksBetween(Entity *E1, Entity *E2);
 /*
  * getDamaged
  * L'entité subit des dégats
+ * Si la vie tombe a 0, on met l'entité sur sa sprite de destruction
+ * et on supprime sa boundingbox
  * <*E> : l'entité qui subit des dégats
  * <damage> : montant de dégats que subit l'entité
  */

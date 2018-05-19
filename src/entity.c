@@ -33,6 +33,7 @@ Entity* allocEntity(float x, float y, float sizeX, float sizeY, int maxLife, int
   tmp->texture = texture;
   tmp->xTextureIndice = 0;
   tmp->yTextureIndice = 0;
+  tmp->destructionTextureIndice = 0;
   tmp->boundingBox = boundingBox;
   tmp->next = NULL;
   return tmp;
@@ -188,6 +189,7 @@ void translateEntityList(EntityList L, float x, float y, float xMax) {
 }
 
 void translateEntityBySpeed(Entity *E) {
+  if (E->life == 0) return;
   translateEntity(E, (float) convert_speed(E->speedX), (float) convert_speed(E->speedY));
 }
 
@@ -209,6 +211,10 @@ void attacksBetween(Entity *E1, Entity *E2) {
 
 void getDamaged(Entity *E, int damage) {
   E->life = clamp_start(E->life - damage, 0.);
+  if (E->life == 0) {
+    setSpriteEntity(E, 0, E->destructionTextureIndice);
+    freeBoundingBoxList(&(E->boundingBox));
+  }
 }
 
 void getHealed(Entity *E, int heal) {

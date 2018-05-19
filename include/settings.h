@@ -17,7 +17,7 @@
 
 
 /* ----------------------- DEBUG ------------------------ */
-#define SHOW_BOUNDING_BOX 1 /* Afficher les bounding box en violet sur les entités */
+#define SHOW_BOUNDING_BOX 0 /* Afficher les bounding box en violet sur les entités */
 #define BOUNDING_BOX_COLOR 148,0,211,100 /* Couleur RGBA des bounding box */
 
 /* -------------- DIMENSIONS DE LA FENETRE -------------- */

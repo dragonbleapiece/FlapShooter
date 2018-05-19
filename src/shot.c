@@ -11,7 +11,7 @@
 
 void entityShot(Entity E, Level* level, float sizeX, float sizeY, Texture *t, float speedX, float speedY, BoundingBoxList boundingBox) {
   EntityList shot = allocEntity(E.x + E.sizeX * E.shotX, E.y + E.sizeY * E.shotY, sizeX, sizeY, 1, E.attack, t, boundingBox);
-
+  shot->destructionTextureIndice = 1;
   if (shot != NULL) {
     shot->speedX = speedX;
     shot->speedY = speedY;
@@ -23,7 +23,7 @@ void entityShot(Entity E, Level* level, float sizeX, float sizeY, Texture *t, fl
 
 void playerShot(Level* level) {
 
-  Texture *t = createTextureToList(&(level->textures), SRC_CARROTBALL, 1, 1);
+  Texture *t = createTextureToList(&(level->textures), SRC_CARROTBALL, 2, 7);
   if (t != NULL)
     entityShot(*(level->player), level, 16. / (float) UNITE, 16. / (float) UNITE, t, LEVEL_SPEED * level->speedCoeff + PROJECTILE_SPEED, 0., createAABBBoundingBox(1, 0.5));
   else printf("Memory run out !\n");

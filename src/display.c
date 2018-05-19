@@ -82,24 +82,24 @@ void displayEntity(Entity* E) {
 void displayEntityList(EntityList *L, float xMax, int nextSprite) {
   EntityList cursor = *L;
   EntityList cursorPrev = NULL;
+  EntityList tmp;
 
   while (cursor != NULL && cursor->x <= xMax) {
     if (isTextured(*cursor)) {
-      if (nextSprite) {
-        if (upXSpriteEntity(cursor) && cursor->life == 0) {// dernière sprite de destruction
-          removeEntityToList(L, cursor);
-          cursor = cursorPrev;
-        } else {
-          displayTexturedEntity(cursor);
-        }
+      if (nextSprite && upXSpriteEntity(cursor) && cursor->life == 0) { // dernière sprite de destruction
+        tmp = cursor->next;
+        removeEntityToList(L, cursor);
+        cursor = tmp;
       } else {
         displayTexturedEntity(cursor);
+        cursorPrev = cursor;
+        cursor = cursor->next;
       }
     } else {
       displayEntity(cursor);
+      cursorPrev = cursor;
+      cursor = cursor->next;
     }
-    cursorPrev = cursor;
-    cursor = cursor->next;
   }
 }
 
