@@ -30,9 +30,8 @@ void pushCollision(CollisionList *L, Entity *E) {
 }
 
 Entity* popCollision(CollisionList *L) {
-  if (*L == NULL) return NULL;
+  if (L == NULL || *L == NULL) return NULL;
   Collision *firstCell = *L;
-  if(firstCell == NULL) return NULL;
   Entity* tmp = firstCell->E;
   *L = (*L)->next;
   free(firstCell);
@@ -150,10 +149,10 @@ CollisionList areCollidingOnce(EntityList E, EntityList L, float xMax, void (*ca
   return collisions;
 }
 
-void removeCollisionListFromEntityList(EntityList *L, CollisionList *collisions) {
-  EntityList e = popCollision(collisions);
+void removeCollisionListFromEntityList(EntityList *L, CollisionList collisions) {
+  EntityList e = popCollision(&collisions);
   while(e != NULL) {
     if(e->life == 0) removeEntityToList(L, e);
-    e = popCollision(collisions);
+    e = popCollision(&collisions);
   }
 }

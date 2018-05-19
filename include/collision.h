@@ -79,6 +79,6 @@ int isCollidingRepeat(Entity *E, EntityList L, float xMax, void (*callback)(Enti
 
 CollisionList areCollidingOnce(EntityList E, EntityList L, float xMax, void (*callback)(Entity*, Entity*));
 
-void removeCollisionListFromEntityList(EntityList *L, CollisionList *collisions);
+void removeCollisionListFromEntityList(EntityList *L, CollisionList collisions);
 
 #endif
