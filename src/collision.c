@@ -11,7 +11,7 @@
 #include "collision.h"
 
 void pushCollision(CollisionList *L, Entity *E) {
-  Collision *newCell = (Collision *) malloc(sizeof (newCell));
+  Collision *newCell = (Collision *) malloc(sizeof (Collision));
   if (!newCell) {
     printf("Memory run out\n");
     exit(1);
