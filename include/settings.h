@@ -63,6 +63,7 @@
 /* ---------------------- TEXTURES ---------------------- */
 
 #define SRC_RABBIT SRC_RESOURCES_FOLDER "img/rabbit.png"
+#define SRC_RATON SRC_RESOURCES_FOLDER "img/raton.png"
 #define SRC_OBSTACLE SRC_RESOURCES_FOLDER "img/obstacle.png"
 #define SRC_CARROTBALL SRC_RESOURCES_FOLDER "img/carrotball.png"
 

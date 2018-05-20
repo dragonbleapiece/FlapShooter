@@ -81,7 +81,8 @@ int addEntityToLevel(EntityCode code, Level *level, float x, float y) {
       break;
 
     case ENNEMYONE_CODE:
-      e = allocEntity(x, y, 1, 1, 1, 1, NULL, NULL);
+      t = createTextureToList(&(level->textures), SRC_RATON, 1, 16);
+      e = allocEntity(x, y, 0.6, 1.2, 1, 1, t, NULL);
       if (e != NULL) addEntityToList(&level->ennemies, e);
       else r = 0;
       break;
