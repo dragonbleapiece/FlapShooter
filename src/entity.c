@@ -143,14 +143,13 @@ void freeEntity(Entity *E) {
     /*On libère les bounding box puis l'entité*/
     freeBoundingBoxList(&(E->boundingBox));
     free(E);
-    /*Lui assigne NULL, prévient de bugs */
-    //E = NULL; => fonctionne seulement si EntityList *
   }
 }
 
 void freeEntityList(EntityList *L) {
   if (*L != NULL) {
     freeEntityList(&((*L)->next));
+    freeEntity(*L);
   }
 }
 

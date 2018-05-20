@@ -119,7 +119,8 @@ Texture* createTextureToList(TextureList *L, char fileName[], int verticalDiv, i
 void freeTextureList(TextureList *L) {
   if (*L != NULL) {
     freeTextureList(&(*L)->next);
-    glDeleteTextures(1, (*L)->id); /* Libération des données GPU */
+    if ((*L)->id)
+      glDeleteTextures(1, (*L)->id); /* Libération des données GPU */
     free((*L)->id);
     free((*L)->fileName);
     free(*L);
