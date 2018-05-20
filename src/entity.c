@@ -144,7 +144,7 @@ void freeEntity(Entity *E) {
     freeBoundingBoxList(&(E->boundingBox));
     free(E);
     /*Lui assigne NULL, prévient de bugs */
-    E = NULL;
+    //E = NULL; => fonctionne seulement si EntityList *
   }
 }
 

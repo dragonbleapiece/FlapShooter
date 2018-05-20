@@ -75,7 +75,7 @@ int addEntityToLevel(EntityCode code, Level *level, float x, float y) {
         e->speedX = LEVEL_SPEED * level->speedCoeff;
         e->shotX = 76. / 80.;
         e->shotY = 8. / 60.;
-        e->shotFrequency = 1;
+        e->shotFrequency = 0.5;
         addEntityToList(&level->player, e);
       } else r = 0;
       break;
