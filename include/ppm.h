@@ -10,6 +10,7 @@
 #define PPM_H
 #include <stdlib.h>
 #include <stdio.h>
+#include "tools.h"
 
 typedef struct ppmimage {
   int x, y;
@@ -24,6 +25,10 @@ typedef struct ppmimage {
  */
 PPMImage *generatePPMImageFromFile(const char filename[]);
 
+/*
+ * printPPMImage
+ * Affiche le contenu de <ppm> dans la console 
+ */
 void printPPMImage(PPMImage ppm);
 
 /*

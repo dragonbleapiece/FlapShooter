@@ -24,7 +24,7 @@ int strIndexOf(const char str[], const char *tab[], int size) {
 }
 
 float clamp(float n, float a, float b) {
-  if(a > b) {
+  if (a > b) {
     swap_a_b(&a, &b);
   }
   return clamp_end(clamp_start(n, a), b);
@@ -46,4 +46,22 @@ void swap_a_b(float *a, float *b) {
 
 float convert_speed(float speed) {
   return speed * floor(ROUND_DECIMAL / FPS) / ROUND_DECIMAL;
+}
+
+int **allocTable(int lines, int columns) {
+  int **table = (int **) malloc(sizeof (int*)*lines);
+  int *table2 = (int *) malloc(sizeof (int)*columns * lines);
+  if (!table || !table2) {
+    fprintf(stderr, "Unable to allocate memory\n");
+    return NULL;
+  }
+  for (int i = 0; i < lines; i++) {
+    table[i] = &table2[i * columns];
+  }
+  return table;
+}
+
+void freeTable(int **table) {
+  free(table[0]);
+  free(table);
 }

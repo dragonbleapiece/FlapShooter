@@ -9,6 +9,9 @@
 #ifndef TOOLS_H
 #define TOOLS_H
 #include <string.h>
+#include <stdlib.h>
+#include <stdio.h>
+
 #include "settings.h"
 #include <math.h>
 
@@ -62,6 +65,23 @@ float clamp_end(float n, float a);
  */
 void swap_a_b(float *a, float *b);
 
+/*
+ * convert_speed 
+ * Convertie une vitesse de blocs par secondes en bloc par frame
+ */
 float convert_speed(float speed);
+
+/*
+ * allocTable
+ * Alloue un tableau a 2 dimensions dans l'espace mémoire
+ * Quitte le programme en cas d'erreur d'allocation
+ */
+int **allocTable(int lines, int columns);
+
+/*
+ * freeTable
+ * Libère les données d'un tableau a 2 dimensions
+ */
+void freeTable(int **table);
 
 #endif

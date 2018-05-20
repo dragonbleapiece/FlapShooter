@@ -62,20 +62,8 @@ PPMImage *generatePPMImageFromFile(const char filename[]) {
   }
 
   /*allocation mémoire pour les données des pixels*/
-  img->data = (int**) malloc(img->x * sizeof (int*));
+  img->data = allocTable(img->x, img->y);
 
-  if (!img->data) {
-    fprintf(stderr, "Unable to allocate memory\n");
-    return NULL;
-  }
-
-  for (i = 0; i < img->x; ++i) {
-    img->data[i] = (int*) malloc(img->y * sizeof (int));
-    if (!img->data[i]) {
-      fprintf(stderr, "Unable to allocate memory\n");
-      return NULL;
-    }
-  }
 
   i = 0;
 
@@ -110,10 +98,6 @@ void printPPMImage(PPMImage ppm) {
 }
 
 void freePPMImage(PPMImage *ppm) {
-  int i;
-  for (i = 0; i < ppm->x; ++i) {
-    free(ppm->data[i]);
-  }
-  free(ppm->data);
+  freeTable(ppm->data);
   free(ppm);
 }
