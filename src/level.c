@@ -7,15 +7,9 @@
  */
 
 #include "level.h"
-#include "entity.h"
-#include "ppm.h"
-#include "settings.h"
-#include "bounding.h"
-#include "collision.h"
-#include "tools.h"
 
 Level generateLevelFromFile(const char filename[]) {
-
+ 
   Level level;
   initialiseLevel(&level);
   PPMImage *img = generatePPMImageFromFile(filename);
@@ -58,6 +52,7 @@ void initialiseLevel(Level *level) {
   level->projectiles = NULL;
   level->background = NULL;
   level->textures = NULL;
+  level->currentBonus = NULL;
 }
 
 int addEntityToLevel(EntityCode code, Level *level, float x, float y) {
@@ -143,6 +138,7 @@ void freeLevel(Level *level) {
   freeEntityList(&level->projectiles);
   freeEntityList(&level->background);
   freeTextureList(&level->textures);
+  freeBonusList(&level->currentBonus);
 }
 
 void loadBackgroundLevel(Level *level) {

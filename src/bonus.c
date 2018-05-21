@@ -11,7 +11,8 @@
 #include "bonus.h"
 
 Bonus* allocBonus(EntityCode entityCode, int startTime, int duration) {
-  Bonus* tmp;
+  if (duration <= 0) return NULL;
+  Bonus * tmp;
   tmp = (Bonus*) malloc(sizeof (Bonus));
   if (!tmp) {
     printf("Memory run out\n");
@@ -87,7 +88,7 @@ int isExpiredBonus(Bonus B) {
 int haveBonus(BonusList *L, EntityCode entityCode) {
   BonusList cursor = *L;
   BonusList cursorPrev = NULL;
-  while (cursor != NULL && entityCode < cursor->entityCode) {
+  while (cursor != NULL && entityCode <= cursor->entityCode) {
     if (entityCode == cursor->entityCode) {
       if (isExpiredBonus(*cursor)) { /* Bonus expiré, on libère la mémoire */
         if (cursorPrev != NULL) cursorPrev->next = cursor->next;
