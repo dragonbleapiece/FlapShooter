@@ -72,9 +72,17 @@ int isExpiredBonus(Bonus B);
  * haveBonus
  * Test si la liste <*L> a le bonus <entityCode>
  * Si le bonus a expiré, la mémoire est libéré et la fonction retourne 0
- * Retourne 1 si le bonus est présent dans la liste, 0 sinon
+ * Retourne 1 si le bonus est présent dans la liste, 
+ *         -1 s'il est présent mais qu'il vient d'expiré
+ *          0 sinon
  */
 int haveBonus(BonusList *L, EntityCode entityCode);
 
+/*
+ * printBonusList
+ * Affiche récursivement la liste de bonus pour debugage
+ * <L> : Pointeur de la liste triée de bonus
+ */
+void printBonusList(BonusList L);
 
 #endif

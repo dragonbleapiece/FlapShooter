@@ -29,6 +29,8 @@ int getBonusDuration(EntityCode entityCode) {
   switch (entityCode) {
     case SPEED_BONUS:
       return SPEED_BONUS_DURATION * 1000;
+    case SHOT_BONUS:
+      return SHOT_BONUS_DURATION * 1000;
     default:
       return 0;
   }
@@ -88,13 +90,14 @@ int isExpiredBonus(Bonus B) {
 int haveBonus(BonusList *L, EntityCode entityCode) {
   BonusList cursor = *L;
   BonusList cursorPrev = NULL;
-  while (cursor != NULL && entityCode <= cursor->entityCode) {
+  while (cursor != NULL && entityCode >= cursor->entityCode) {
+    // printf("%d - ", cursor->entityCode);
     if (entityCode == cursor->entityCode) {
       if (isExpiredBonus(*cursor)) { /* Bonus expiré, on libère la mémoire */
         if (cursorPrev != NULL) cursorPrev->next = cursor->next;
         else *L = cursor->next;
         free(cursor);
-        return 0;
+        return -1;
       } else { /* Le bonus est présent et actif */
         return 1;
       }
@@ -103,4 +106,12 @@ int haveBonus(BonusList *L, EntityCode entityCode) {
     cursor = cursor->next;
   }
   return 0;
+}
+
+void printBonusList(BonusList L) {
+  if (L == NULL)
+    return;
+  printf("- Bonus (%d) | duration: %d | startTime: %d \n",
+          L->entityCode, L->duration, L->startTime);
+  printBonusList(L->next);
 }

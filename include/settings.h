@@ -64,7 +64,9 @@
 
 #define SRC_RABBIT SRC_RESOURCES_FOLDER "img/rabbit.png"
 #define SRC_RATON SRC_RESOURCES_FOLDER "img/raton.png"
-#define SRC_SPEED_BONUS SRC_RESOURCES_FOLDER "img/egg1.png"
+#define SRC_SPEED_BONUS SRC_RESOURCES_FOLDER "img/speed_egg.png"
+#define SRC_SHOT_BONUS SRC_RESOURCES_FOLDER "img/shoot_egg.png"
+
 #define SRC_OBSTACLE SRC_RESOURCES_FOLDER "img/obstacle.png"
 #define SRC_CARROTBALL SRC_RESOURCES_FOLDER "img/carrotball.png"
 
@@ -84,7 +86,12 @@
 
 #define PROJECTILE_SPEED 15
 
+#define PLAYER_SHOT_FREQUENCY 0.5
+
 #define SPEED_BONUS_DURATION 5 /* en secondes */
 #define SPEED_BONUS_COEFF 2 /* Multiplication de la vitesse pendant ce bonus */
+
+#define SHOT_BONUS_DURATION 5 /* en secondes */
+#define SHOT_BONUS_COEFF 4 /* Multiplication de la vitesse pendant ce bonus */
 
 #endif
