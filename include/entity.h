@@ -38,7 +38,6 @@ typedef struct entity {
   float shotFrequency;
   int xTextureIndice; /* Division horizontal actuel de l'image pour les sprites, 0 par défaut (1er sprite) */
   int yTextureIndice; /* Division vertical actuel de l'image pour les "sprites",  0 par défaut (1er sprite) */
-  int destructionTextureIndice; /* Indice vertical de la sprite de destruction,  0 par défaut (1er sprite)  */
   int life; /* Vie actuelle de l'entité, -1 si invincible */
   int maxLife; /* Vie maximal de l'entité (???) */
   int attack; /* Point d'attaque de l'entité */
