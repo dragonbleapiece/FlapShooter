@@ -29,12 +29,12 @@ void displayLevel(Level *lvl, Camera cam) {
   displayEntityList(&(lvl->projectiles), cam.xMax, nextSprite);
 }
 
-void displayTexturedEntity(Entity* E) {
+void displayTexturedEntity(Entity* E, float xRelative, float yRelative) {
   glEnable(GL_TEXTURE_2D);
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
   glBindTexture(GL_TEXTURE_2D, *(E->texture->id));
   glPushMatrix();
-  glTranslatef(E->x, E->y, 0);
+  glTranslatef(E->x + xRelative, E->y + yRelative, 0);
   glScalef(E->sizeX, E->sizeY, 0);
   glBegin(GL_TRIANGLE_FAN);
   glColor4ub(255, 255, 255, 255);
@@ -62,10 +62,10 @@ void displayTexturedEntity(Entity* E) {
   glPopMatrix();
 }
 
-void displayEntity(Entity* E) {
+void displayEntity(Entity* E, float xRelative, float yRelative) {
   if (E == NULL) return;
   glPushMatrix();
-  glTranslatef(E->x, E->y, 0);
+  glTranslatef(E->x + xRelative, E->y + yRelative, 0);
   glScalef(E->sizeX, E->sizeY, 0);
   glBegin(GL_TRIANGLE_FAN);
   glColor4ub(UNTEXTURED_BOX_COLOR);
@@ -90,11 +90,11 @@ void displayEntityList(EntityList *L, float xMax, int nextSprite) {
         removeEntityToList(L, cursor);
         cursor = tmp;
       } else {
-        displayTexturedEntity(cursor);
+        displayTexturedEntity(cursor, 0., 0.);
         cursor = cursor->next;
       }
     } else {
-      displayEntity(cursor);
+      displayEntity(cursor, 0., 0.);
       cursor = cursor->next;
     }
   }
@@ -110,9 +110,9 @@ void displayEntityBackgroundList(EntityList *L, float xMin, int nextSprite, floa
     if (isTextured(*cursor)) {
       if (nextSprite)
         upXSpriteEntity(cursor);
-      displayTexturedEntity(cursor);
+      displayTexturedEntity(cursor, 0., 0.);
     } else {
-      displayEntity(cursor);
+      displayEntity(cursor, 0., 0.);
     }
     cursor = cursor->next;
   }
@@ -169,4 +169,57 @@ void translateCamera(Camera *cam, float x, float y) {
   cam->yMin += y;
   cam->xMax += x;
   cam->yMax += y;
+}
+
+
+void displayEntityListOnCam(EntityList *L, Camera cam, int nextSprite) {
+  EntityList cursor = *L;
+  EntityList tmp;
+
+  while (cursor != NULL) {
+    if (isTextured(*cursor)) {
+      if (nextSprite && upXSpriteEntity(cursor) && cursor->life == 0) { // dernière sprite de destruction
+        tmp = cursor->next;
+        removeEntityToList(L, cursor);
+        cursor = tmp;
+      } else {
+        displayTexturedEntity(cursor, cam.xMin, cam.yMin);
+        cursor = cursor->next;
+      }
+    } else {
+      displayEntity(cursor, cam.xMin, cam.yMin);
+      cursor = cursor->next;
+    }
+  }
+}
+
+void displayEntityListUILevel(UI *interface, Camera cam, int nextSprite, Level level) {
+  EntityList cursor = interface->items;
+  EntityList tmp;
+  Texture *heart = getTextureFromList(interface->textures, SRC_HEART);
+  int heartCount = 0;
+
+  while (cursor != NULL) {
+    if (isTextured(*cursor)) {
+        if (nextSprite && upXSpriteEntity(cursor) && cursor->life == 0) { // dernière sprite de destruction
+          tmp = cursor->next;
+          removeEntityToList(&(interface->items), cursor);
+          cursor = tmp;
+        } else {
+          if((cursor->texture == heart && heartCount < level.player->life) || (cursor->texture != heart)) {
+            displayTexturedEntity(cursor, cam.xMin, cam.yMin);
+            if(cursor->texture == heart) ++heartCount;
+          }
+          cursor = cursor->next;
+        }
+    } else {
+      displayEntity(cursor, cam.xMin, cam.yMin);
+      cursor = cursor->next;
+    }
+  }
+}
+
+void displayUILevel(UI *interface, Camera cam, Level level) {
+  //On pourrait y mettre d'autres trucs, mais quoi ? Score ? Bonus Actif ?
+  displayEntityListUILevel(interface, cam, 0, level);
 }

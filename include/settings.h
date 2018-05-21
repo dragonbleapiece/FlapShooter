@@ -66,6 +66,7 @@
 #define SRC_RATON SRC_RESOURCES_FOLDER "img/raton.png"
 #define SRC_SPEED_BONUS SRC_RESOURCES_FOLDER "img/speed_egg.png"
 #define SRC_SHOT_BONUS SRC_RESOURCES_FOLDER "img/shoot_egg.png"
+#define SRC_HEART SRC_RESOURCES_FOLDER "img/heart.png"
 
 #define SRC_OBSTACLE SRC_RESOURCES_FOLDER "img/obstacle.png"
 #define SRC_CARROTBALL SRC_RESOURCES_FOLDER "img/carrotball.png"

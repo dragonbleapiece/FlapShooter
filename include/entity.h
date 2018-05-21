@@ -176,7 +176,7 @@ void translateEntityList(EntityList L, float x, float y, float xMax);
 /*
  * translateEntityBySpeed
  * Déplace l'entité <*E> par son vecteur vitesse
- * N.B. les entités dont la vie est a 0 ne sont pas déplacé 
+ * N.B. les entités dont la vie est a 0 ne sont pas déplacé
  * <*E> : Entité a déplacer
  */
 void translateEntityBySpeed(Entity *E);
@@ -219,7 +219,7 @@ void getDamaged(Entity *E, int damage);
  * getHealed
  * L'entité regagne de la vie
  * <*E> : l'entité qui regagne de la vie
- * <heal> : montant de vie regagné
+ * <heal> : montant de vie regagnée
  */
 void getHealed(Entity *E, int heal);
 

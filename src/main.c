@@ -5,6 +5,7 @@
 #include "display.h"
 #include "controls.h"
 #include "events.h"
+#include "UI.h"
 
 /* Dimensions de la fenêtre */
 static unsigned int WINDOW_WIDTH = DEFAULT_WINDOW_WIDTH;
@@ -77,6 +78,9 @@ int main(int argc, char** argv) {
   Camera cam = initCamera(level.height);
   Controls controls = initControls();
 
+  UI interface;
+  initUILevel(&interface, level);
+
   glMatrixMode(GL_MODELVIEW);
   glLoadIdentity();
 
@@ -100,6 +104,7 @@ int main(int argc, char** argv) {
     gluOrtho2D(cam.xMin, cam.xMax, cam.yMax, cam.yMin);
     removeLevelBehind(&level, cam.xMin);
     displayLevel(&level, cam);
+    displayUILevel(&interface, cam, level);
     eventsInLevel(&level, cam);
     translateCamera(&cam, level.speed * level.speedCoeff, 0);
     glPopMatrix();

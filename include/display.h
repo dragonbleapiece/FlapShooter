@@ -20,6 +20,7 @@
 
 #include "settings.h"
 #include "level.h"
+#include "UI.h"
 
 typedef struct camera {
   float xMin, yMin; /* Position en bas à gauche de la caméra */
@@ -40,16 +41,20 @@ void displayLevel(Level *lvl, Camera cam);
  * Affiche une entité
  * Affiche également sa bounding box si l'option est activé dans settings.h
  * <*E> : Pointeur sur l'entité
+ * <xRelative> : position relative en x
+ * <yRelative> : position relative en y
  */
-void displayEntity(Entity* E);
+void displayEntity(Entity* E, float xRelative, float yRelative);
 
 /*
  * displayTexturedEntity
  * Affiche une entité avec sa texture
  * Affiche également sa bounding box si l'option est activé dans settings.h
  * <*E> : Pointeur sur l'entité
+ * <xRelative> : position relative en x
+ * <yRelative> : position relative en y
  */
-void displayTexturedEntity(Entity* E);
+void displayTexturedEntity(Entity* E, float xRelative, float yRelative);
 
 /*
  * displayEntityList
@@ -104,5 +109,20 @@ Camera initCamera(int height);
  * <y> : Déplacement en y de la caméra
  */
 void translateCamera(Camera *cam, float x, float y);
+
+/*
+ * displayEntityListOnCam
+ * Affiche toutes les entités d'une liste relative aux positions de la camera
+ * Gère les destructions d'entité si elles arrivent à la dernière sprite de destruction
+ * <*L> : Pointeur sur la liste triée des entités
+ * <cam> : Camera sur laquelle on affiche
+ * <nextSprite> : afficher la sprite suivante (0 = non, 1 = oui)
+ */
+void displayEntityListOnCam(EntityList *L, Camera cam, int nextSprite);
+
+
+void displayEntityListUILevel(UI *interface, Camera cam, int nextSprite, Level level);
+
+void displayUILevel(UI *interface, Camera cam, Level level);
 
 #endif
