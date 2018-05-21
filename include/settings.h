@@ -17,7 +17,7 @@
 
 
 /* ----------------------- DEBUG ------------------------ */
-#define SHOW_BOUNDING_BOX 1 /* Afficher les bounding box en violet sur les entités */
+#define SHOW_BOUNDING_BOX 0 /* Afficher les bounding box en violet sur les entités */
 #define BOUNDING_BOX_COLOR 148,0,211,100 /* Couleur RGBA des bounding box */
 
 /* -------------- DIMENSIONS DE LA FENETRE -------------- */
@@ -64,6 +64,7 @@
 
 #define SRC_RABBIT SRC_RESOURCES_FOLDER "img/rabbit.png"
 #define SRC_RATON SRC_RESOURCES_FOLDER "img/raton.png"
+#define SRC_BONUS1 SRC_RESOURCES_FOLDER "img/egg1.png"
 #define SRC_OBSTACLE SRC_RESOURCES_FOLDER "img/obstacle.png"
 #define SRC_CARROTBALL SRC_RESOURCES_FOLDER "img/carrotball.png"
 
