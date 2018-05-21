@@ -10,7 +10,7 @@
 
 #include "entity.h"
 
-Entity* allocEntity(float x, float y, float sizeX, float sizeY, int maxLife, int attack, Texture *texture, BoundingBoxList boundingBox) {
+Entity* allocEntity(float x, float y, float sizeX, float sizeY, int maxLife, int attack, Texture *texture, BoundingBoxList boundingBox, EntityCode entityCode) {
   Entity* tmp;
   tmp = (Entity*) malloc(sizeof (Entity));
   if (!tmp) {
@@ -33,6 +33,7 @@ Entity* allocEntity(float x, float y, float sizeX, float sizeY, int maxLife, int
   tmp->texture = texture;
   tmp->xTextureIndice = 0;
   tmp->yTextureIndice = 0;
+  tmp->entityCode = entityCode;
   tmp->boundingBox = boundingBox;
   tmp->next = NULL;
   return tmp;
