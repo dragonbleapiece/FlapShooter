@@ -23,6 +23,7 @@ void entityShot(Entity E, Level* level, float sizeX, float sizeY, Texture *t, fl
 
 void playerShot(Level* level) {
 
+  setSpriteEntity(level->player, 0, 1);
   Texture *t = createTextureToList(&(level->textures), SRC_CARROTBALL, 2, 7);
   if (t != NULL)
     entityShot(*(level->player), level, 16. / (float) UNITE, 16. / (float) UNITE, t, LEVEL_SPEED * level->speedCoeff + PROJECTILE_SPEED, 0., createAABBBoundingBox(1, 0.5));

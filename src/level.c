@@ -69,7 +69,7 @@ int addEntityToLevel(EntityCode code, Level *level, float x, float y) {
       break;
 
     case PLAYER_CODE:
-      t = createTextureToList(&(level->textures), SRC_RABBIT, 1, 16);
+      t = createTextureToList(&(level->textures), SRC_RABBIT, 2, 16);
       e = allocEntity(x, y, 1.5, 1.5 * 0.75, 1, 1, t, createAABBBoundingBox(1, 1));
       if (e != NULL) {
         e->speedX = LEVEL_SPEED * level->speedCoeff;
