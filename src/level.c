@@ -112,10 +112,9 @@ int addEntityToLevel(EntityCode code, Level *level, float x, float y) {
       else r = 0;
       break;
 
-
-    case BONUS_CODE1:
-      t = createTextureToList(&(level->textures), SRC_BONUS1, 1, 10);
-      e = allocEntity(x + 0.25, y + 0.25, 0.5, 0.5, 1, 0, t, createCircleBoundingBox(0.5), BONUS_CODE1);
+    case SPEED_BONUS:
+      t = createTextureToList(&(level->textures), SRC_SPEED_BONUS, 1, 10);
+      e = allocEntity(x + 0.25, y + 0.25, 0.5, 0.5, 1, 0, t, createCircleBoundingBox(0.5), SPEED_BONUS);
       if (e != NULL) addEntityToList(&level->bonus, e);
       else r = 0;
       break;

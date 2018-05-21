@@ -64,7 +64,7 @@
 
 #define SRC_RABBIT SRC_RESOURCES_FOLDER "img/rabbit.png"
 #define SRC_RATON SRC_RESOURCES_FOLDER "img/raton.png"
-#define SRC_BONUS1 SRC_RESOURCES_FOLDER "img/egg1.png"
+#define SRC_SPEED_BONUS SRC_RESOURCES_FOLDER "img/egg1.png"
 #define SRC_OBSTACLE SRC_RESOURCES_FOLDER "img/obstacle.png"
 #define SRC_CARROTBALL SRC_RESOURCES_FOLDER "img/carrotball.png"
 
@@ -83,5 +83,7 @@
 #define BOUND 1.0 / 4.0
 
 #define PROJECTILE_SPEED 15
+
+#define SPEED_BONUS_DURATION 5 /* en secondes */
 
 #endif

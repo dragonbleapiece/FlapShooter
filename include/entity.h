@@ -22,7 +22,7 @@ typedef enum entityCode {
   OBSTACLE_CODE,
   DESTRUCTIBLE_CODE,
   PROJECTILE_CODE,
-  BONUS_CODE1,
+  SPEED_BONUS,
   END_CODE
 } EntityCode;
 
