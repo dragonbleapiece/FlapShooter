@@ -11,8 +11,14 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
-#include "settings.h"
+
 #include "entity.h"
+#include "ppm.h"
+#include "settings.h"
+#include "bounding.h"
+#include "collision.h"
+#include "tools.h"
+#include "bonus.h"
 
 typedef struct level {
   EntityList player; /* Liste de l'entité joueur */
@@ -22,6 +28,7 @@ typedef struct level {
   EntityList projectiles; /* Liste triée d'entité projectiles */
   EntityList background; /* liste NON triée des éléments du background */
   TextureList textures; /* Liste triée contenant toute les textures utilisées */
+  BonusList currentBonus; /* Liste des bonus actif */
   int height, width;
   float speed;
   float speedCoeff;
