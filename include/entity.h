@@ -210,7 +210,7 @@ void attacksBetween(Entity *E1, Entity *E2);
  * Si la vie tombe a 0, on met l'entité sur sa sprite de destruction
  * et on supprime sa boundingbox
  * <*E> : l'entité qui subit des dégats
- * <damage> : montant de dégats que subit l'entité
+ * <damage> : montant de dégats que subit l'entité (-1 si l'entité doit mourir sur le coup)
  */
 void getDamaged(Entity *E, int damage);
 

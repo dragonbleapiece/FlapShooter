@@ -20,10 +20,10 @@ void displayLevel(Level *lvl, Camera cam) {
     lastTime = time;
   }
   displayEntityBackgroundList(&(lvl->background), cam.xMin, nextSprite, lvl->speed * lvl->speedCoeff);
+  displayEntityList(&(lvl->bonus), cam.xMax, nextSprite);
   displayEntityList(&(lvl->player), cam.xMax, nextSprite);
   displayEntityList(&(lvl->obstacles), cam.xMax, nextSprite);
   displayEntityList(&(lvl->ennemies), cam.xMax, nextSprite);
-  displayEntityList(&(lvl->bonus), cam.xMax, nextSprite);
   translateEntityListBySpeed(lvl->projectiles, cam.xMax);
   removeEntityInFront(&(lvl->projectiles), cam.xMax);
   displayEntityList(&(lvl->projectiles), cam.xMax, nextSprite);

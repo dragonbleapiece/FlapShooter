@@ -85,6 +85,6 @@
 #define PROJECTILE_SPEED 15
 
 #define SPEED_BONUS_DURATION 5 /* en secondes */
-#define SPEED_BONUS_COEFF 3 /* Multiplication de la vitesse pendant ce bonus */
+#define SPEED_BONUS_COEFF 2 /* Multiplication de la vitesse pendant ce bonus */
 
 #endif

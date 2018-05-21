@@ -209,7 +209,10 @@ void attacksBetween(Entity *E1, Entity *E2) {
 }
 
 void getDamaged(Entity *E, int damage) {
-  E->life = clamp_start(E->life - damage, 0.);
+  if (damage == -1)
+    E->life = 0;
+  else
+    E->life = clamp_start(E->life - damage, 0.);
   if (E->life == 0) {
     setSpriteEntity(E, 0, E->texture->verticalDiv - 1);
     freeBoundingBoxList(&(E->boundingBox));

@@ -11,7 +11,7 @@ void eventsInLevel(Level *level, Camera cam) {
   collisions = isCollidingWith(*(level->player), level->bonus, cam.xMax);
   while ((obstacle = popCollision(&collisions)) != NULL) {
     createBonusToList(&level->currentBonus, obstacle->entityCode);
-    removeEntityToList(&level->bonus, obstacle); // On détruit l'obstacle
+    getDamaged(obstacle, -1); // On détruit l'obstacle
   }
 
   /* Effets des bonnus */
