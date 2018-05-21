@@ -10,8 +10,7 @@
 #include "shot.h"
 
 void entityShot(Entity E, Level* level, float sizeX, float sizeY, Texture *t, float speedX, float speedY, BoundingBoxList boundingBox) {
-  EntityList shot = allocEntity(E.x + E.sizeX * E.shotX, E.y + E.sizeY * E.shotY, sizeX, sizeY, 1, E.attack, t, boundingBox);
-  shot->destructionTextureIndice = 1;
+  EntityList shot = allocEntity(E.x + E.sizeX * E.shotX, E.y + E.sizeY * E.shotY, sizeX, sizeY, 1, E.attack, t, boundingBox, PROJECTILE_CODE);
   if (shot != NULL) {
     shot->speedX = speedX;
     shot->speedY = speedY;

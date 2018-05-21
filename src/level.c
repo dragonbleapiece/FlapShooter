@@ -70,7 +70,7 @@ int addEntityToLevel(EntityCode code, Level *level, float x, float y) {
 
     case PLAYER_CODE:
       t = createTextureToList(&(level->textures), SRC_RABBIT, 2, 16);
-      e = allocEntity(x, y, 1.5, 1.5 * 0.75, 1, 1, t, createAABBBoundingBox(1, 1));
+      e = allocEntity(x, y, 1.4, 1.4 * 0.75, 1, 1, t, createAABBBoundingBox(0.925, 0.87), PLAYER_CODE);
       if (e != NULL) {
         e->speedX = LEVEL_SPEED * level->speedCoeff;
         e->shotX = 76. / 80.;
@@ -82,39 +82,40 @@ int addEntityToLevel(EntityCode code, Level *level, float x, float y) {
 
     case ENNEMYONE_CODE:
       t = createTextureToList(&(level->textures), SRC_RATON, 1, 16);
-      e = allocEntity(x, y, 0.6, 1.2, 1, 1, t, NULL);
+      e = allocEntity(x, y, 0.6, 1.2, 1, 1, t, NULL, ENNEMYONE_CODE);
       if (e != NULL) addEntityToList(&level->ennemies, e);
       else r = 0;
       break;
 
     case ENNEMYTWO_CODE:
-      e = allocEntity(x, y, 1, 1, 1, 1, NULL, NULL);
+      e = allocEntity(x, y, 1, 1, 1, 1, NULL, NULL, ENNEMYTWO_CODE);
       if (e != NULL) addEntityToList(&level->ennemies, e);
       else r = 0;
       break;
 
     case OBSTACLE_CODE:
       t = createTextureToList(&(level->textures), SRC_OBSTACLE, 1, 1);
-      e = allocEntity(x, y, 1, 1, -1, 1, t, createAABBBoundingBox(1., 1.));
+      e = allocEntity(x, y, 1, 1, -1, 1, t, createAABBBoundingBox(1., 1.), OBSTACLE_CODE);
       if (e != NULL) addEntityToList(&level->obstacles, e);
       else r = 0;
       break;
 
     case DESTRUCTIBLE_CODE:
-      e = allocEntity(x, y, 1, 1, 1, 1, NULL, NULL);
+      e = allocEntity(x, y, 1, 1, 1, 1, NULL, NULL, DESTRUCTIBLE_CODE);
       if (e != NULL) addEntityToList(&level->obstacles, e);
       else r = 0;
       break;
 
-    case BONUS_CODE:
-      e = allocEntity(x, y, 0.0, 0.0, 1, 1, NULL, NULL);
-      if (e != NULL) addEntityToList(&level->bonus, e);
+    case PROJECTILE_CODE:
+      e = allocEntity(x, y, 0.0, 0.0, 1, 1, NULL, NULL, PROJECTILE_CODE);
+      if (e != NULL) addEntityToList(&level->projectiles, e);
       else r = 0;
       break;
 
-    case PROJECTILE_CODE:
-      e = allocEntity(x, y, 0.0, 0.0, 1, 1, NULL, NULL);
-      if (e != NULL) addEntityToList(&level->projectiles, e);
+    case SPEED_BONUS:
+      t = createTextureToList(&(level->textures), SRC_SPEED_BONUS, 1, 10);
+      e = allocEntity(x + 0.25, y + 0.25, 0.5, 0.5, 1, 0, t, createCircleBoundingBox(0.5), SPEED_BONUS);
+      if (e != NULL) addEntityToList(&level->bonus, e);
       else r = 0;
       break;
 
@@ -153,7 +154,7 @@ void loadBackgroundLevel(Level *level) {
   t = createTextureToList(&(level->textures), SRC_BACKGROUND0, 1, 1);
   sizeY = ((float) HEIGHT_BACKGROUND0 / MAX_HEIGHT_BACKGROUND) * level->height;
   sizeX = ((float) WIDTH_BACKGROUND0 / HEIGHT_BACKGROUND1) * sizeY;
-  e = allocEntity(-1, 0, sizeX, sizeY, -1, 0, t, NULL);
+  e = allocEntity(-1, 0, sizeX, sizeY, -1, 0, t, NULL, VOID_CODE);
   e->speedX = 1;
   addEntityToUnsortedList(&level->background, e);
 
@@ -161,10 +162,10 @@ void loadBackgroundLevel(Level *level) {
   t = createTextureToList(&(level->textures), SRC_BACKGROUND1, 1, 1);
   sizeY = ((float) HEIGHT_BACKGROUND1 / MAX_HEIGHT_BACKGROUND) * level->height;
   sizeX = ((float) WIDTH_BACKGROUND1 / HEIGHT_BACKGROUND1) * sizeY;
-  e = allocEntity(0, 0, sizeX, sizeY, -1, 0, t, NULL);
+  e = allocEntity(0, 0, sizeX, sizeY, -1, 0, t, NULL, VOID_CODE);
   e->speedX = 0.6;
   addEntityToUnsortedList(&level->background, e);
-  e = allocEntity(sizeX, 0, sizeX, sizeY, -1, 0, t, NULL);
+  e = allocEntity(sizeX, 0, sizeX, sizeY, -1, 0, t, NULL, VOID_CODE);
   e->speedX = 0.6;
   addEntityToUnsortedList(&level->background, e);
 
@@ -172,10 +173,10 @@ void loadBackgroundLevel(Level *level) {
   t = createTextureToList(&(level->textures), SRC_BACKGROUND2, 1, 1);
   sizeY = ((float) HEIGHT_BACKGROUND2 / MAX_HEIGHT_BACKGROUND) * level->height;
   sizeX = ((float) WIDTH_BACKGROUND2 / HEIGHT_BACKGROUND2) * sizeY;
-  e = allocEntity(0, level->height - sizeY, sizeX, sizeY, -1, 0, t, NULL);
+  e = allocEntity(0, level->height - sizeY, sizeX, sizeY, -1, 0, t, NULL, VOID_CODE);
   e->speedX = 0.4;
   addEntityToUnsortedList(&level->background, e);
-  e = allocEntity(sizeX, level->height - sizeY, sizeX, sizeY, -1, 0, t, NULL);
+  e = allocEntity(sizeX, level->height - sizeY, sizeX, sizeY, -1, 0, t, NULL, VOID_CODE);
   e->speedX = 0.4;
   addEntityToUnsortedList(&level->background, e);
 
@@ -183,10 +184,10 @@ void loadBackgroundLevel(Level *level) {
   t = createTextureToList(&(level->textures), SRC_BACKGROUND3, 1, 1);
   sizeY = ((float) HEIGHT_BACKGROUND3 / MAX_HEIGHT_BACKGROUND) * level->height;
   sizeX = ((float) WIDTH_BACKGROUND3 / HEIGHT_BACKGROUND3) * sizeY;
-  e = allocEntity(0, level->height - sizeY, sizeX, sizeY, -1, 0, t, NULL);
+  e = allocEntity(0, level->height - sizeY, sizeX, sizeY, -1, 0, t, NULL, VOID_CODE);
   e->speedX = 0;
   addEntityToUnsortedList(&level->background, e);
-  e = allocEntity(sizeX, level->height - sizeY, sizeX, sizeY, -1, 0, t, NULL);
+  e = allocEntity(sizeX, level->height - sizeY, sizeX, sizeY, -1, 0, t, NULL, VOID_CODE);
   e->speedX = 0;
   addEntityToUnsortedList(&level->background, e);
 

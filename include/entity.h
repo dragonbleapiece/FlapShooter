@@ -21,8 +21,8 @@ typedef enum entityCode {
   ENNEMYTWO_CODE,
   OBSTACLE_CODE,
   DESTRUCTIBLE_CODE,
-  BONUS_CODE,
   PROJECTILE_CODE,
+  SPEED_BONUS,
   END_CODE
 } EntityCode;
 
@@ -38,10 +38,10 @@ typedef struct entity {
   float shotFrequency;
   int xTextureIndice; /* Division horizontal actuel de l'image pour les sprites, 0 par défaut (1er sprite) */
   int yTextureIndice; /* Division vertical actuel de l'image pour les "sprites",  0 par défaut (1er sprite) */
-  int destructionTextureIndice; /* Indice vertical de la sprite de destruction,  0 par défaut (1er sprite)  */
   int life; /* Vie actuelle de l'entité, -1 si invincible */
   int maxLife; /* Vie maximal de l'entité (???) */
   int attack; /* Point d'attaque de l'entité */
+  EntityCode entityCode;
   BoundingBoxList boundingBox; /* Pointeur sur la liste de bounding box de l'entité */
   struct entity* next; /* Pointeur sur l'entité suivante dans la liste */
 } Entity, *EntityList;
@@ -58,9 +58,10 @@ typedef struct entity {
  * <attack> : Point d'attaque de l'entité
  * <textureID> : id de la texture
  * <*boundingBox> : Pointeur sur la/les bounding box de l'entité
+ * <entityCode> : code de l'entité
  * Retourne un pointeur sur l'entité
  */
-Entity* allocEntity(float x, float y, float sizeX, float sizeY, int maxLife, int attack, Texture *texture, BoundingBoxList boundingBox);
+Entity* allocEntity(float x, float y, float sizeX, float sizeY, int maxLife, int attack, Texture *texture, BoundingBoxList boundingBox, EntityCode entityCode);
 
 /*
  * addEntityToList
