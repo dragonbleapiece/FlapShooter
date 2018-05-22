@@ -97,9 +97,16 @@ int addEntityToLevel(EntityCode code, Level *level, float x, float y) {
       break;
 
     case DESTRUCTIBLE_CODE:
-      e = allocEntity(x, y, 1, 1, 1, 1, NULL, NULL, DESTRUCTIBLE_CODE);
-      if (e != NULL) addEntityToList(&level->obstacles, e);
-      else r = 0;
+      t = createTextureToList(&(level->textures), SRC_DESTRUCTIBLE_OBSTACLE, 2, 4);
+      e = allocEntity(x, y, 1, 1, 1, 1, t, createAABBBoundingBox(1., 1.), DESTRUCTIBLE_CODE);
+      if (e != NULL) {
+        addEntityToList(&level->obstacles, e);
+        // On ajoute un bonus aléatoire en dessous (1 chance sur 3)
+        if (rand_a_b(1, 4) == 2)
+          addEntityToLevel((EntityCode) rand_a_b(SPEED_BONUS, LIFE_BONUS + 1), level, x, y);
+      } else {
+        r = 0;
+      }
       break;
 
     case PROJECTILE_CODE:

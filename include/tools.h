@@ -11,9 +11,11 @@
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <math.h>
+#include <time.h>
 
 #include "settings.h"
-#include <math.h>
+
 
 /*
  * getFileNameExt
@@ -83,5 +85,13 @@ int **allocTable(int lines, int columns);
  * Libère les données d'un tableau a 2 dimensions
  */
 void freeTable(int **table);
+
+/*
+ * rand_a_b
+ * Retourne un nombre aléatoire en <a> (inclus) et <b> (exclu)
+ * On suppose que a < b
+ * N.B. N'initialise pas le rand (seed)
+ */
+int rand_a_b(int a, int b);
 
 #endif

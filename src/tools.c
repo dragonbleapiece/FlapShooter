@@ -65,3 +65,7 @@ void freeTable(int **table) {
   free(table[0]);
   free(table);
 }
+
+int rand_a_b(int a, int b){
+    return rand()%(b-a) +a;
+}

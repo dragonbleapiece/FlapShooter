@@ -12,10 +12,6 @@ static unsigned int WINDOW_WIDTH = DEFAULT_WINDOW_WIDTH;
 static unsigned int WINDOW_HEIGHT = DEFAULT_WINDOW_HEIGHT;
 static unsigned int FULLSCREEN = 0; /* 1 pour pleine écran */
 
-float rand_a_b(int a, int b) {
-  return rand() % (b - a) + a;
-}
-
 void resizeViewport(Camera cam) {
   // Taille du jeu, en fonction du ratio
   int maxHeight = WINDOW_HEIGHT;
@@ -58,6 +54,8 @@ int main(int argc, char** argv) {
   /* Dernière taille de fenetre avant le pleine écran */
   int lowWindowHeight = WINDOW_HEIGHT;
   int lowWindowWidth = WINDOW_WIDTH;
+  /* Initialisation du rand (seed) */
+  srand(time(NULL));
 
   /* Ouverture d'une fenêtre et création d'un contexte OpenGL */
   if (NULL == SDL_SetVideoMode(WINDOW_WIDTH, WINDOW_HEIGHT, BIT_PER_PIXEL, SDL_OPENGL | SDL_GL_DOUBLEBUFFER | SDL_RESIZABLE)) {
