@@ -71,6 +71,7 @@ int addEntityToLevel(EntityCode code, Level *level, float x, float y) {
         e->shotX = 76. / 80.;
         e->shotY = 8. / 60.;
         e->shotFrequency = PLAYER_SHOT_FREQUENCY;
+        e->life = 5;
         addEntityToList(&level->player, e);
       } else r = 0;
       break;
@@ -117,6 +118,13 @@ int addEntityToLevel(EntityCode code, Level *level, float x, float y) {
     case SHOT_BONUS:
       t = createTextureToList(&(level->textures), SRC_SHOT_BONUS, 2, 10);
       e = allocEntity(x + 0.25, y + 0.25, 0.5, 0.5, 1, 0, t, createCircleBoundingBox(0.5), SHOT_BONUS);
+      if (e != NULL) addEntityToList(&level->bonus, e);
+      else r = 0;
+      break;
+
+    case LIFE_BONUS:
+      t = createTextureToList(&(level->textures), SRC_HEART, 1, 1);
+      e = allocEntity(x + 0.25, y + 0.25, 0.5, 0.5, 1, 0, t, createCircleBoundingBox(0.5), LIFE_BONUS);
       if (e != NULL) addEntityToList(&level->bonus, e);
       else r = 0;
       break;

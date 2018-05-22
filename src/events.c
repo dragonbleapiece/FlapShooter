@@ -11,23 +11,26 @@ void eventsInLevel(Level *level, Camera cam) {
   /* Collisions joueur-bonus */
   collisions = isCollidingWith(*(level->player), level->bonus, cam.xMax);
   while ((obstacle = popCollision(&collisions)) != NULL) {
-    createBonusToList(&level->currentBonus, obstacle->entityCode);
+    if (obstacle->entityCode == LIFE_BONUS)
+      getHealed(level->player, 1);
+    else
+      createBonusToList(&level->currentBonus, obstacle->entityCode);
     getDamaged(obstacle, -1); // On détruit l'obstacle
   }
 
   /* Effets des bonnus de VITESSE */
-  if (haveBonus(&level->currentBonus, SPEED_BONUS)) {
+  if (haveBonus(&level->currentBonus, SPEED_BONUS))
     level->speedCoeff = SPEED_BONUS_COEFF;
-  } else {
+  else
     level->speedCoeff = 1.;
-  }
+
 
   /* Effets des bonnus de TIR */
-  if (haveBonus(&level->currentBonus, SHOT_BONUS)) {
+  if (haveBonus(&level->currentBonus, SHOT_BONUS))
     level->player->shotFrequency = PLAYER_SHOT_FREQUENCY / SHOT_BONUS_COEFF;
-  } else {
+  else
     level->player->shotFrequency = PLAYER_SHOT_FREQUENCY;
-  }
+
 
 
 
