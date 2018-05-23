@@ -12,6 +12,7 @@
 #include "settings.h"
 #include "bounding.h"
 #include "texture.h"
+#include "route.h"
 #include <SDL/SDL.h>
 
 typedef enum entityCode {
@@ -44,6 +45,7 @@ typedef struct entity {
   int maxLife; /* Vie maximal de l'entité (???) */
   int attack; /* Point d'attaque de l'entité */
   EntityCode entityCode;
+  RouteList routes;
   BoundingBoxList boundingBox; /* Pointeur sur la liste de bounding box de l'entité */
   struct entity* next; /* Pointeur sur l'entité suivante dans la liste */
 } Entity, *EntityList;
@@ -223,5 +225,13 @@ void getDamaged(Entity *E, int damage);
  * <heal> : montant de vie regagnée
  */
 void getHealed(Entity *E, int heal);
+
+void executeRoutesEntityList(EntityList L, float xMax);
+
+void executeRouteList(Entity *E);
+
+int executeFirstRoute(Entity *E);
+
+void initRouteListForEnnemyOne(Entity *E);
 
 #endif

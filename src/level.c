@@ -79,7 +79,10 @@ int addEntityToLevel(EntityCode code, Level *level, float x, float y) {
     case ENNEMYONE_CODE:
       t = createTextureToList(&(level->textures), SRC_RATON, 1, 16);
       e = allocEntity(x, y, 0.6, 1.2, 1, 1, t, NULL, ENNEMYONE_CODE);
-      if (e != NULL) addEntityToList(&level->ennemies, e);
+      if (e != NULL) {
+        initRouteListForEnnemyOne(e);
+        addEntityToList(&level->ennemies, e);
+      }
       else r = 0;
       break;
 
@@ -97,7 +100,7 @@ int addEntityToLevel(EntityCode code, Level *level, float x, float y) {
       break;
 
     case DESTRUCTIBLE_CODE:
-      t = createTextureToList(&(level->textures), SRC_DESTRUCTIBLE_OBSTACLE, 2, 4);
+      t = createTextureToList(&(level->textures), SRC_DESTRUCTIBLE_OBSTACLE, 1, 1);
       e = allocEntity(x, y, 1, 1, 1, 1, t, createAABBBoundingBox(1., 1.), DESTRUCTIBLE_CODE);
       if (e != NULL) {
         addEntityToList(&level->obstacles, e);

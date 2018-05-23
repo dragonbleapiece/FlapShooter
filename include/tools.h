@@ -68,7 +68,7 @@ float clamp_end(float n, float a);
 void swap_a_b(float *a, float *b);
 
 /*
- * convert_speed 
+ * convert_speed
  * Convertie une vitesse de blocs par secondes en bloc par frame
  */
 float convert_speed(float speed);

@@ -95,4 +95,8 @@
 #define SHOT_BONUS_DURATION 5 /* en secondes */
 #define SHOT_BONUS_COEFF 4 /* Multiplication de la vitesse pendant ce bonus */
 
+#define ENNEMYONE_MOVE_X 0
+#define ENNEMYONE_MOVE_Y 0.5
+#define ENNEMYONE_MOVE_DURATION 1
+
 #endif

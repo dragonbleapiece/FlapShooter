@@ -23,6 +23,7 @@ void displayLevel(Level *lvl, Camera cam) {
   displayEntityList(&(lvl->bonus), cam.xMax, nextSprite);
   displayEntityList(&(lvl->player), cam.xMax, nextSprite);
   displayEntityList(&(lvl->obstacles), cam.xMax, nextSprite);
+  executeRoutesEntityList(lvl->ennemies, cam.xMax);
   displayEntityList(&(lvl->ennemies), cam.xMax, nextSprite);
   translateEntityListBySpeed(lvl->projectiles, cam.xMax);
   removeEntityInFront(&(lvl->projectiles), cam.xMax);

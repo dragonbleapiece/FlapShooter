@@ -35,6 +35,7 @@ Entity* allocEntity(float x, float y, float sizeX, float sizeY, int maxLife, int
   tmp->yTextureIndice = 0;
   tmp->entityCode = entityCode;
   tmp->boundingBox = boundingBox;
+  tmp->routes = NULL;
   tmp->next = NULL;
   return tmp;
 }
@@ -142,6 +143,7 @@ void freeEntity(Entity *E) {
   if (E != NULL) {
     /*On libère les bounding box puis l'entité*/
     freeBoundingBoxList(&(E->boundingBox));
+    freeRouteList(&(E->routes));
     free(E);
   }
 }
@@ -221,4 +223,60 @@ void getDamaged(Entity *E, int damage) {
 
 void getHealed(Entity *E, int heal) {
   E->life = clamp_end(E->life + heal, E->maxLife);
+}
+
+
+void executeRoutesEntityList(EntityList L, float xMax) {
+  while(L != NULL && L->x < xMax) {
+    executeRouteList(L);
+    L = L->next;
+  }
+}
+
+void executeRouteList(Entity *E) {
+
+  if(E->routes != NULL) {
+    if(E->routes == E->routes->first && E->routes->startTime == -1) E->routes->startTime = SDL_GetTicks();
+    if(!executeFirstRoute(E) && E->routes->next != NULL) {
+        E->routes->startTime = -1;
+        E->routes = E->routes->next;
+        E->routes->startTime = SDL_GetTicks();
+      }
+  }
+
+}
+
+int executeFirstRoute(Entity *E) {
+
+  if(E->routes == NULL) return -1;
+
+  float speedX, speedY;
+  speedX = (E->routes->destX - E->routes->depX) / E->routes->duration;
+  speedY = (E->routes->destY - E->routes->depY) / E->routes->duration;
+
+  if(E->routes->startTime + E->routes->duration * 1000 > SDL_GetTicks()) {
+    if (E->y < E->routes->destY) E->speedY = clamp_end(E->y + speedY, E->routes->destY) - E->y;
+    else if (E->y > E->routes->destY) E->speedY = clamp_start(E->y + speedY, E->routes->destY) - E->y;
+
+    if (E->x < E->routes->destX) E->speedX = clamp_end(E->x + speedX, E->routes->destX) - E->x;
+    else if (E->x > E->routes->destX) E->speedX = clamp_start(E->x + speedX, E->routes->destX) - E->x;
+
+    translateEntityBySpeed(E);
+
+    return 1;
+
+  }
+
+  return 0;
+}
+
+void initRouteListForEnnemyOne(Entity *E) {
+  int id = 0;
+  Route *temp = allocRoute(id++, E->x, E->y, E->x + ENNEMYONE_MOVE_X, E->y + ENNEMYONE_MOVE_Y, ENNEMYONE_MOVE_DURATION / 2.);
+  addRouteToList(&(E->routes), temp);
+  temp = allocRoute(id++, E->x + ENNEMYONE_MOVE_X, E->y + ENNEMYONE_MOVE_Y, E->x - ENNEMYONE_MOVE_X, E->y - ENNEMYONE_MOVE_Y, ENNEMYONE_MOVE_DURATION);
+  addRouteToList(&(E->routes), temp);
+  temp = allocRoute(id++, E->x - ENNEMYONE_MOVE_X, E->y - ENNEMYONE_MOVE_Y, E->x + ENNEMYONE_MOVE_X, E->y + ENNEMYONE_MOVE_Y, ENNEMYONE_MOVE_DURATION);
+  addRouteToList(&(E->routes), temp);
+  loopOnRouteByID(temp, 1);
 }
