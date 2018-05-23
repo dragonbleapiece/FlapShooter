@@ -70,6 +70,8 @@
 #define SRC_DESTRUCTIBLE_OBSTACLE SRC_RESOURCES_FOLDER "img/wood_box.png"
 #define SRC_OBSTACLE SRC_RESOURCES_FOLDER "img/obstacle.png"
 #define SRC_CARROTBALL SRC_RESOURCES_FOLDER "img/carrotball.png"
+#define SRC_WIN_UI SRC_RESOURCES_FOLDER "img/win_ui.png"
+#define SRC_LOSE_UI SRC_RESOURCES_FOLDER "img/lose_ui.png"
 
 /* ----------- Configuration des éléments du jeu ----------- */
 

@@ -22,7 +22,7 @@ Controls initControls() {
 }
 
 void executeControls(Controls c, Level *level, Camera cam) {
-
+  if (level-> playerStatus != 1) return;
   Entity *player = level->player;
   Entity *obstacle;
   CollisionList obstaclesCollision;
