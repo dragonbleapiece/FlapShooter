@@ -22,4 +22,8 @@ Finally, to start the game, simply run the command:
 ./bin/FlapShooter
 ```
 
+## Commands
+
+The rabbit can move horizontally and vertically on the screen using the directional keys and shoot with the space key. In addition, the F12 key allows to put the game in full screen (or reduce it if necessary).
+
 ### A 2d arcade game created by Nicolas CUSUMANO and Nicolas SENECAL
