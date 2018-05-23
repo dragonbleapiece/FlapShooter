@@ -19,7 +19,10 @@ void displayLevel(Level *lvl, Camera cam) {
     nextSprite = 1; // On passe a la sprite suivante
     lastTime = time;
   }
-  displayEntityBackgroundList(&(lvl->background), cam.xMin, nextSprite, lvl->speed * lvl->speedCoeff);
+  if (cam.xMax < lvl->width && lvl->playerStatus == 1) // si le niveau et le joueur sont en mouvement
+    displayEntityBackgroundList(&(lvl->background), cam.xMin, nextSprite, lvl->speed * lvl->speedCoeff);
+  else
+    displayEntityBackgroundList(&(lvl->background), cam.xMin, nextSprite, 0);
   displayEntityList(&(lvl->bonus), cam.xMax, nextSprite);
   displayEntityList(&(lvl->player), cam.xMax, nextSprite);
   displayEntityList(&(lvl->obstacles), cam.xMax, nextSprite);
@@ -172,7 +175,6 @@ void translateCamera(Camera *cam, float x, float y) {
   cam->yMax += y;
 }
 
-
 void displayEntityListOnCam(EntityList *L, Camera cam, int nextSprite) {
   EntityList cursor = *L;
   EntityList tmp;
@@ -202,17 +204,17 @@ void displayEntityListUILevel(UI *interface, Camera cam, int nextSprite, Level l
 
   while (cursor != NULL) {
     if (isTextured(*cursor)) {
-        if (nextSprite && upXSpriteEntity(cursor) && cursor->life == 0) { // dernière sprite de destruction
-          tmp = cursor->next;
-          removeEntityToList(&(interface->items), cursor);
-          cursor = tmp;
-        } else {
-          if((cursor->texture == heart && heartCount < level.player->life) || (cursor->texture != heart)) {
-            displayTexturedEntity(cursor, cam.xMin, cam.yMin);
-            if(cursor->texture == heart) ++heartCount;
-          }
-          cursor = cursor->next;
+      if (nextSprite && upXSpriteEntity(cursor) && cursor->life == 0) { // dernière sprite de destruction
+        tmp = cursor->next;
+        removeEntityToList(&(interface->items), cursor);
+        cursor = tmp;
+      } else {
+        if ((cursor->texture == heart && heartCount < level.player->life) || (cursor->texture != heart)) {
+          displayTexturedEntity(cursor, cam.xMin, cam.yMin);
+          if (cursor->texture == heart) ++heartCount;
         }
+        cursor = cursor->next;
+      }
     } else {
       displayEntity(cursor, cam.xMin, cam.yMin);
       cursor = cursor->next;
@@ -221,6 +223,5 @@ void displayEntityListUILevel(UI *interface, Camera cam, int nextSprite, Level l
 }
 
 void displayUILevel(UI *interface, Camera cam, Level level) {
-  //On pourrait y mettre d'autres trucs, mais quoi ? Score ? Bonus Actif ?
   displayEntityListUILevel(interface, cam, 0, level);
 }

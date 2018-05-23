@@ -31,7 +31,4 @@ void eventsInLevel(Level *level, Camera cam) {
   else
     level->player->shotFrequency = PLAYER_SHOT_FREQUENCY;
 
-
-
-
 }

@@ -32,6 +32,7 @@ typedef struct level {
   int height, width;
   float speed;
   float speedCoeff;
+  int playerStatus; /* Status du joueur : 1= en jeu, 2 = gagnant, 0 = mort */
 } Level;
 
 /*

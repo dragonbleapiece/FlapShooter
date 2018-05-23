@@ -67,11 +67,12 @@ int main(int argc, char** argv) {
   SDL_WM_SetCaption("FlapShooter", NULL);
 
   int loop = 1;
+  char levelName[] = SRC_RESOURCES_FOLDER "levelOne.ppm";
   // option de blending OpenGL
   glEnable(GL_BLEND);
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-  Level level = generateLevelFromFile(SRC_RESOURCES_FOLDER "levelOne.ppm");
+  Level level = generateLevelFromFile(levelName);
   /* Initialisation de l'affichage */
   Camera cam = initCamera(level.height);
   Controls controls = initControls();
@@ -100,17 +101,26 @@ int main(int argc, char** argv) {
     glPushMatrix();
     glLoadIdentity();
     gluOrtho2D(cam.xMin, cam.xMax, cam.yMax, cam.yMin);
-    removeLevelBehind(&level, cam.xMin);
     displayLevel(&level, cam);
-    displayUILevel(&interface, cam, level);
-    eventsInLevel(&level, cam);
-    translateCamera(&cam, level.speed * level.speedCoeff, 0);
+    if (level.player == NULL) // le joueur est mort
+      level.playerStatus = 0;
+    else if (level.player->x > level.width) // le joueur c'est dépacé la fin du niveau
+      level.playerStatus = 2;
+    else if (level.playerStatus == 1) { // si le joueur est en jeu
+      displayUILevel(&interface, cam, level);
+      eventsInLevel(&level, cam);
+      executeControls(controls, &level, cam);
+      removeLevelBehind(&level, cam.xMin);
+      if (cam.xMax < level.width) // on déplace la caméra, si elle n'est pas arrivé a la fin
+        translateCamera(&cam, level.speed * level.speedCoeff, 0);
+    }
+
     glPopMatrix();
 
     SDL_GL_SwapBuffers();
+    //level.player != NULL && level.player->x < cam.xMax
 
 
-    executeControls(controls, &level, cam);
 
     /* Boucle traitant les evenements */
     SDL_Event e;
@@ -162,6 +172,18 @@ int main(int argc, char** argv) {
 
             case SDLK_DOWN:
               controls.down = 1;
+              break;
+
+            case SDLK_ESCAPE: // touche "échap" pour quitter
+              loop = 0;
+              break;
+
+            case SDLK_r: // touche "r", recommencer le niveau si le joueur n'est plus en jeu
+              if (level.playerStatus != 1) {
+                freeLevel(&level);
+                level = generateLevelFromFile(levelName);
+                cam = initCamera(level.height);
+              }
               break;
 
             default:

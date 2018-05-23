@@ -53,6 +53,7 @@ void initialiseLevel(Level *level) {
   level->background = NULL;
   level->textures = NULL;
   level->currentBonus = NULL;
+  level->playerStatus = 1;
 }
 
 int addEntityToLevel(EntityCode code, Level *level, float x, float y) {
@@ -82,8 +83,7 @@ int addEntityToLevel(EntityCode code, Level *level, float x, float y) {
       if (e != NULL) {
         initRouteListForEnnemyOne(e);
         addEntityToList(&level->ennemies, e);
-      }
-      else r = 0;
+      } else r = 0;
       break;
 
     case ENNEMYTWO_CODE:
@@ -148,7 +148,7 @@ int addEntityToLevel(EntityCode code, Level *level, float x, float y) {
 }
 
 void removeLevelBehind(Level *level, float xMax) {
-  //removeEntityBehind(&level->player, xMax);
+  removeEntityBehind(&level->player, xMax);
   removeEntityBehind(&level->obstacles, xMax);
   removeEntityBehind(&level->ennemies, xMax);
   removeEntityBehind(&level->bonus, xMax);
