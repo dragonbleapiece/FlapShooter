@@ -45,7 +45,7 @@ typedef struct entity {
   int maxLife; /* Vie maximal de l'entité (???) */
   int attack; /* Point d'attaque de l'entité */
   EntityCode entityCode;
-  RouteList routes;
+  RouteList routes; /* Liste triée par id des routes */
   BoundingBoxList boundingBox; /* Pointeur sur la liste de bounding box de l'entité */
   struct entity* next; /* Pointeur sur l'entité suivante dans la liste */
 } Entity, *EntityList;
@@ -226,12 +226,34 @@ void getDamaged(Entity *E, int damage);
  */
 void getHealed(Entity *E, int heal);
 
+/*
+ * executeRoutesEntityList
+ * exécute les routes de la liste d'entités
+ * <L> : liste d'entités
+ * <xMax> : position max des entités
+ */
 void executeRoutesEntityList(EntityList L, float xMax);
 
+/*
+ * executeRouteList
+ * exécute les routes d'une entité
+ * <*E> : pointeur sur l'entité
+ */
 void executeRouteList(Entity *E);
 
+/*
+ * executeFirstRoute
+ * exécute la route de l'entité
+ * <*E> : pointeur sur l'entité
+ * Retourne -1 si la route est null, 1 si la route est en cours d'exécution, 0 sinon
+ */
 int executeFirstRoute(Entity *E);
 
+/*
+ * initRouteListForEnnemyOne
+ * initialise la liste de routes pour l'ennemi un
+ * <*E> : pointeur sur l'entité
+ */
 void initRouteListForEnnemyOne(Entity *E);
 
 #endif

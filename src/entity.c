@@ -241,6 +241,8 @@ void executeRouteList(Entity *E) {
         E->routes->startTime = -1;
         E->routes = E->routes->next;
         E->routes->startTime = SDL_GetTicks();
+        //E->x = E->routes->depX;
+        //E->y = E->routes->depY;
       }
   }
 

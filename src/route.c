@@ -1,5 +1,12 @@
-#include "route.h"
+/*
+ * route.c
+ * Déclaration des fonctions et structure des chemins des ennemis
+ *
+ * Auteur : Nicolas CUSUMANO & Nicolas SENECAL
+ * IMAC1 - S2 - Promotion 2020
+ */
 
+#include "route.h"
 
 Route *allocRoute(int id, float depX, float depY, float destX, float destY, int duration) {
   Route *tmp = (Route *)malloc(sizeof(Route));
@@ -25,13 +32,13 @@ Route *allocRoute(int id, float depX, float depY, float destX, float destY, int 
 void freeRouteList(RouteList *R) {
   Route *temp;
   if(*R != NULL) {
-    *R = (*R)->first;
-    while(*R != NULL && (*R)->first != *R) {
-      temp = (*R)->next;
+    *R = (*R)->first; /* Récupère la première route de la liste */
+    while(*R != NULL) {
+      if((*R)->next != NULL && (*R)->next->id > (*R)->id) temp = NULL; /*Erreur ici*/
+      else temp = (*R)->next;
       free(*R);
       *R = temp;
     }
-    *R = NULL;
   }
 }
 
@@ -59,6 +66,8 @@ void addRouteToList(RouteList *R, Route *route) {
         allRoutesToFirstRoute(*R);
       }
       return;
+    } else if(route->id == cursor->id) {
+      return;
     }
     /* Sinon on continue la boucle */
     cursorPrev = cursor;
@@ -79,7 +88,8 @@ void allRoutesToFirstRoute(RouteList R) {
 }
 
 Route *getRouteByID(RouteList R, int id) {
-  if(R != NULL && R->id != id && R->next != R->first) {
+  if(R != NULL && R->id < id && R->next != R->first) {
+    if(R->next != NULL && R->id >= R->next->id) return NULL;
     return getRouteByID(R->next, id);
   } else {
     return R;

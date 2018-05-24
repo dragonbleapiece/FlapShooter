@@ -31,6 +31,13 @@ typedef struct controls {
  */
 Controls initControls();
 
+/*
+ * executeControls
+ * execute les controles du joueur
+ * <c> : controles du joueur
+ * <*level> : pointeur vers level
+ * <cam> : camera
+ */
 void executeControls(Controls c, Level *level, Camera cam);
 
 #endif
