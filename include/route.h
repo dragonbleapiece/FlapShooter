@@ -1,6 +1,6 @@
 /*
  * route.h
- * Déclaration des fonctions et structure des chemins des ennemis
+ * Déclaration des fonctions et structure des déplacement des entités
  *
  * Auteur : Nicolas CUSUMANO & Nicolas SENECAL
  * IMAC1 - S2 - Promotion 2020
