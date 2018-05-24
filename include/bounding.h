@@ -40,8 +40,8 @@ typedef struct boundingBox {
   ShapeType type;
   /* 
    * Forme de la bounding box dans le repère de l'entité 
-   *  - (0,0) pour le point en bas a gauche
-   *  - (1,1) pour le point en haut a droite
+   *  - (0,0) pour le point en bas à gauche
+   *  - (1,1) pour le point en haut à droite
    */
   BoundingShape shape;
   struct boundingBox* next;
@@ -49,7 +49,7 @@ typedef struct boundingBox {
 
 /*
  * allocBoundingBox
- * Alloue une BoundingBox dans l'espace mémoire et initialise ses paramétres
+ * Alloue une BoundingBox dans l'espace mémoire et initialise ses paramètres
  * Quitte le programme en cas d'erreur d'allocation
  * <shape> : Forme de la bounding box (structure AABB ou Circle)
  * <type> : Type de la forme (AABB_SHAPE, CIRCLE_SHAPE)
@@ -59,7 +59,7 @@ BoundingBox* allocBoundingBox(BoundingShape shape, ShapeType type);
 
 /*
  * freeBoundingBoxList
- * Libére la mémoire occupée par toutes les bounding box de la liste <*L>
+ * Libère la mémoire occupée par toutes les bounding box de la liste <*L>
  * <*L> : Pointeur de la liste de bounding box
  */
 void freeBoundingBoxList(BoundingBoxList *L);
@@ -68,13 +68,13 @@ void freeBoundingBoxList(BoundingBoxList *L);
  * addBoundingBoxToList
  * Ajoute la BoundingBox <*B> au début de la liste <*L>
  * <*L> : Pointeur de la liste de BoundingBox
- * <*E> : BoundingBox a ajouter, supposé dans aucune liste
+ * <*E> : BoundingBox à ajouter, supposée dans aucune liste
  */
 void addBoundingBoxToList(BoundingBoxList *L, BoundingBox *B);
 
 /*
  * createAABBBoundingBox
- * Créée et alloue une BoundingBox AABB, centré sur le milieu,
+ * Crée et alloue une BoundingBox AABB, centrée sur le milieu,
  * de hauteur <h> et de largeur <w>
  * <w> : Largeur dans le repère de l'entité (ex: 1 = taille de l'entité)
  * <h> : Hauteur dans le repère de l'entité (ex: 1 = taille de l'entité)
@@ -84,8 +84,8 @@ BoundingBox* createAABBBoundingBox(float w, float h);
 
 /*
  * createSquareBoundingBox
- * Créée et alloue une BoundingBox AABB carré, 
- * centré sur le milieu et de hauteur <size>
+ * Crée et alloue une BoundingBox AABB carré, 
+ * centrée sur le milieu et de hauteur <size>
  * <size> : Taille dans le repère de l'entité (ex: 1 = taille de l'entité)
  * Retourne un pointeur sur la BoundingBox
  */
@@ -93,8 +93,8 @@ BoundingBox* createSquareBoundingBox(float size);
 
 /*
  * createCircleBoundingBox
- * Créée et alloue une BoundingBox circulaire, 
- * centré sur le milieu et de rayon <radius>
+ * Crée et alloue une BoundingBox circulaire, 
+ * centrée sur le milieu et de rayon <radius>
  * <radius> : Rayon dans le repère de l'entité (ex: 1 = taille de l'entité)
  * Retourne un pointeur sur la BoundingBox
  */
@@ -102,7 +102,7 @@ BoundingBox* createCircleBoundingBox(float radius);
 
 /*
  * createCapsuleBoundingBox
- * Créée et alloue une BoundingBox type capsule collider, centré sur le milieu,
+ * Crée et alloue une BoundingBox type capsule collider, centrée sur le milieu,
  * de hauteur <h> et de largeur <w>
  * <w> : Largeur dans le repère de l'entité (ex: 1 = taille de l'entité)
  * <h> : Hauteur dans le repère de l'entité (ex: 1 = taille de l'entité)
@@ -112,32 +112,32 @@ BoundingBox* createCapsuleBoundingBox(float w, float h);
 
 /*
  * convertShapeToAbsolute
- * Converti les coordonnées relatif d'une forme en coordonnées absolu
+ * Convertit les coordonnées relatives d'une forme en coordonnées absolues
  * <shape> : Forme de la bounding box (structure AABB ou Circle)
  * <type> : Type de la forme (AABB_SHAPE, CIRCLE_SHAPE)
- * <x> et <y> : Coordonnées de position en bas a gauche de l'entité
+ * <x> et <y> : Coordonnées de position en bas à gauche de l'entité
  * <sizeX> et <sizeY> : Hauteur et largeur de l'entité
- * Retourne la structure de la forme en coordonnées absolu
+ * Retourne la structure de la forme en coordonnées absolues
  */
 BoundingShape convertShapeToAbsolute(BoundingShape shape, ShapeType type, float x, float y, float sizeX, float sizeY);
 
 /*
  * convertAABBtoAbsolute
- * Converti les coordonnées relatif d'un AABB en coordonnées absolu
- * <box> : La structure AABB en coordonnées relatif
- * <x> et <y> : Coordonnées de position en bas a gauche de l'entité
+ * Convertit les coordonnées relatives d'un AABB en coordonnées absolues
+ * <box> : La structure AABB en coordonnées relatives
+ * <x> et <y> : Coordonnées de position en bas à gauche de l'entité
  * <sizeX> et <sizeY> : Hauteur et largeur de l'entité
- * Retourne une structure AABB en coordonnées absolu
+ * Retourne une structure AABB en coordonnées absolues
  */
 AABB convertAABBtoAbsolute(AABB box, float x, float y, float sizeX, float sizeY);
 
 /*
  * convertCircletoAbsolute
- * Converti les coordonnées relatif d'un cercle en coordonnées absolu
- * <circle> : La structure AABB en coordonnées relatif
- * <x> et <y> : Coordonnées de position en bas a gauche de l'entité
+ * Convertit les coordonnées relatives d'un cercle en coordonnées absolues
+ * <circle> : La structure AABB en coordonnées relatives
+ * <x> et <y> : Coordonnées de position en bas à gauche de l'entité
  * <sizeX> et <sizeY> : Hauteur et largeur de l'entité
- * Retourne une structure Circle en coordonnées absolu
+ * Retourne une structure Circle en coordonnées absolues
  */
 Circle convertCircleToAbsolute(Circle circle, float x, float y, float sizeX, float sizeY);
 
@@ -149,7 +149,7 @@ AABB convertCircleToAABB(Circle circle);
 
 /*
  * isCollidingShape
- * Teste si la forme <S1> et en collision avec la forme <S2> (supposé dans le même référentiel)
+ * Teste si la forme <S1> et en collision avec la forme <S2> (supposée dans le même référentiel)
  * <S1> : Première forme (structure AABB ou Circle)
  * <type1> : Type de la première forme (AABB_SHAPE, CIRCLE_SHAPE)
  * <S2> : Deuxieme forme (structure AABB ou Circle)
@@ -201,11 +201,11 @@ int isCollidingPointAndAABB(float x, float y, AABB box);
 
 /*
  * projectionOnSegment
- * Calcul la projection de C sur (AB) et teste si elle appartient a [AB]
- * <Cx> et <Cy> : Cordonnée x et y de C
- * <Ax> et <Ay> : Cordonnée x et y de A
- * <Bx> et <By> : Cordonnée x et y de B
- * Retourne 1 si la projection appartient a [AB], 0 sinon
+ * Calcule la projection de C sur (AB) et teste si elle appartient à [AB]
+ * <Cx> et <Cy> : Cordonnées x et y de C
+ * <Ax> et <Ay> : Cordonnées x et y de A
+ * <Bx> et <By> : Cordonnées x et y de B
+ * Retourne 1 si la projection appartient à [AB], 0 sinon
  */
 int projectionOnSegment(int Cx, int Cy, int Ax, int Ay, int Bx, int By);
 

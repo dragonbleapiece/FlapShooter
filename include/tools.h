@@ -33,7 +33,7 @@ int strIndexOf(const char str[], const char *tab[], int size);
 
 /*
  * clamp
- * Restreint la valeur n dans l'intervalle [a, b] donnée
+ * Restreint la valeur n dans l'intervalle [a, b] donné
  * <n> : valeur à controler
  * <a> : valeur minimale
  * <b> : valeur maximale
@@ -43,7 +43,7 @@ float clamp(float n, float a, float b);
 
 /*
  * clamp_start
- * Restreint la valeur n dans l'intervalle [a, .[ donnée
+ * Restreint la valeur n dans l'intervalle [a, .[ donné
  * <n> : valeur à controler
  * <a> : valeur minimale
  * Retourne n si n >= a, retourne a sinon
@@ -52,7 +52,7 @@ float clamp_start(float n, float a);
 
 /*
  * clamp_end
- * Restreint la valeur n dans l'intervalle ]., a] donnée
+ * Restreint la valeur n dans l'intervalle ]., a] donné
  * <n> : valeur à controler
  * <a> : valeur maximale
  * Retourne n si n <= a, retourne a sinon
@@ -69,7 +69,7 @@ void swap_a_b(float *a, float *b);
 
 /*
  * convert_speed
- * Convertie une vitesse de blocs par secondes en bloc par frame
+ * Convertit une vitesse de blocs par seconde en blocs par frame
  */
 float convert_speed(float speed);
 
@@ -82,13 +82,13 @@ int **allocTable(int lines, int columns);
 
 /*
  * freeTable
- * Libère les données d'un tableau a 2 dimensions
+ * Libère les données d'un tableau à 2 dimensions
  */
 void freeTable(int **table);
 
 /*
  * rand_a_b
- * Retourne un nombre aléatoire en <a> (inclus) et <b> (exclu)
+ * Retourne un nombre aléatoire entre <a> (inclus) et <b> (exclu)
  * On suppose que a < b
  * N.B. N'initialise pas le rand (seed)
  */

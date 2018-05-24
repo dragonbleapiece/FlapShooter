@@ -1,6 +1,6 @@
 /*
  * controls.c
- * Déclaration de la structure et des fonctions de controles
+ * Déclaration de la structure et des fonctions de contrôles
  *
  * N.B. Les descriptifs des fonctions sont dans display.h
  *
@@ -58,7 +58,6 @@ void executeControls(Controls c, Level *level, Camera cam) {
   if (c.right) player->speedX = clamp(player->speedX + acceleration, -maxspeed, maxspeed + levelSpeed);
   else if (!c.left && player->speedX > levelSpeed) player->speedX = clamp(player->speedX - INERTIE, levelSpeed, maxspeed + levelSpeed);
 
-  //printf("%f %f \n", player->speedX, player->speedY);
   if (cam.xMax < level->width) {// si le niveau est en mouvement
     player->speedX = (clamp(convert_speed(player->speedX) + player->x, cam.xMin, cam.xMin + (cam.xMax - cam.xMin) * FREE_MOVES - player->sizeX) - player->x) * 1. / (floor(ROUND_DECIMAL / FPS) / ROUND_DECIMAL);
     player->speedY = (clamp(convert_speed(player->speedY) + player->y, cam.yMin, cam.yMax - 1 - player->sizeY) - player->y) * 1. / (floor(ROUND_DECIMAL / FPS) / ROUND_DECIMAL);
@@ -69,7 +68,7 @@ void executeControls(Controls c, Level *level, Camera cam) {
 
   obstaclesCollision = willCollidingWith(*player, level->obstacles, cam.xMax);
   obstacle = popCollision(&obstaclesCollision);
-  /* À améliorer en rendant dépendant aux bounding box et en le debuguant */
+
   while (obstacle != NULL) {
 
     if (!willColliding(*player, *obstacle)) {

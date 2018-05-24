@@ -48,10 +48,10 @@ int createBonusToList(BonusList *L, EntityCode entityCode) {
   }
 
   while (cursor != NULL) {
-    /* Si l'entityCode est plus petit, l'entité doit etre ajouté avant le curseur */
+    /* Si l'entityCode est plus petit, l'entité doit etre ajoutée avant le curseur */
     if (entityCode < cursor->entityCode) {
       tmp = allocBonus(entityCode, SDL_GetTicks(), getBonusDuration(entityCode));
-      if (cursorPrev) { /* S'il y a un bonus précédent, on ajoute tmp après celle-ci */
+      if (cursorPrev) { /* S'il y a un bonus précédent, on ajoute tmp après celui-ci */
         tmp->next = cursorPrev->next;
         cursorPrev->next = tmp;
       } else { /* Sinon, on ajoute tmp au début de la liste*/
@@ -77,7 +77,7 @@ void freeBonusList(BonusList *L) {
   if (*L != NULL) {
     freeBonusList(&(*L)->next);
     free(*L);
-    /*Lui assigne NULL, prévient de bugs */
+    /*Lui assigner NULL, prévient des bugs */
     *L = NULL;
   }
 }
@@ -91,7 +91,6 @@ int haveBonus(BonusList *L, EntityCode entityCode) {
   BonusList cursor = *L;
   BonusList cursorPrev = NULL;
   while (cursor != NULL && entityCode >= cursor->entityCode) {
-    // printf("%d - ", cursor->entityCode);
     if (entityCode == cursor->entityCode) {
       if (isExpiredBonus(*cursor)) { /* Bonus expiré, on libère la mémoire */
         if (cursorPrev != NULL) cursorPrev->next = cursor->next;

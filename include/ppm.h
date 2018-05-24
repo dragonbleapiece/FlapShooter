@@ -19,9 +19,9 @@ typedef struct ppmimage {
 
 /*
  * generatePPMImageFromFile
- * Génére une PPMImage depuis un fichier PPM
+ * Génère une PPMImage depuis un fichier PPM
  * <fileName[]> : nom du fichier au format PPM décrivant le niveau
- * Retourne NULL si l'allocation a échoué, pointeur sur
+ * Retourne NULL si l'allocation a échoué, pointeur sur PPMImage sinon
  */
 PPMImage *generatePPMImageFromFile(const char filename[]);
 
@@ -34,7 +34,7 @@ void printPPMImage(PPMImage ppm);
 /*
  * freeLevel
  * Libére la mémoire occupée
- * <*ppm> : Pointeur de la liste triée d'entité
+ * <*ppm> : Pointeur de la liste triée d'entités
  */
 void freePPMImage(PPMImage *ppm);
 

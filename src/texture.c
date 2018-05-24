@@ -72,7 +72,7 @@ Texture* createTexture(char fileName[], int verticalDiv, int horizontalDiv) {
           surface->pixels);
   glBindTexture(GL_TEXTURE_2D, 0);
 
-  /* LIBERER LA SURFACE */
+  /* LIBERE LA SURFACE */
   SDL_FreeSurface(surface);
 
   /* ALLOCATION DE LA TEXTURE */
@@ -94,12 +94,12 @@ Texture* createTextureToList(TextureList *L, char fileName[], int verticalDiv, i
   while (cursor != NULL) {
     resStrCmp = strcmp(fileName, cursor->fileName);
 
-    if (resStrCmp < 0) { /* fileName est inférieur lexicographiquement au mot du curseur, donc il n'est pas dans la liste et il doit etre creer avant celui-ci */
+    if (resStrCmp < 0) { /* fileName est inférieur lexicographiquement au mot du curseur, donc il n'est pas dans la liste et il doit être créé avant celui-ci */
       Texture *newTexture = createTexture(fileName, verticalDiv, horizontalDiv);
-      if (cursorPrec) { /* S'il y a une texture précédente, on creer la cellule après celle-ci */
+      if (cursorPrec) { /* S'il y a une texture précédente, on crée la cellule après celle-ci */
         newTexture->next = cursorPrec->next;
         cursorPrec->next = newTexture;
-      } else { /* Sinon, on creer une cellule au début */
+      } else { /* Sinon, on crée une cellule au début */
         newTexture->next = *L;
         *L = newTexture;
       }
@@ -110,7 +110,7 @@ Texture* createTextureToList(TextureList *L, char fileName[], int verticalDiv, i
     cursorPrec = cursor;
     cursor = cursor->next;
   }
-  /* Le mot n'est pas dans la liste et doit être mis a la fin */
+  /* Le mot n'est pas dans la liste et doit être mis à la fin */
   Texture *newTexture = createTexture(fileName, verticalDiv, horizontalDiv);
   cursorPrec->next = newTexture;
   return newTexture;
@@ -124,7 +124,7 @@ void freeTextureList(TextureList *L) {
     free((*L)->id);
     free((*L)->fileName);
     free(*L);
-    /*Lui assigne NULL, prévient de bugs */
+    /* Lui assigner NULL, prévient des bugs */
     *L = NULL;
   }
 }
@@ -145,6 +145,6 @@ Texture* getTextureFromList(TextureList L, char fileName[]) {
       return cursor;
     cursor = cursor->next;
   }
-  /* Si rien n'a était trouvé dans la liste */
+  /* Si rien n'a été trouvé dans la liste, on retourne NULL */
   return NULL;
 }

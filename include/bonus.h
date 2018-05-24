@@ -29,7 +29,7 @@ typedef struct bonus {
 
 /*
  * allocBonus
- * Alloue un bonus dans l'espace mémoire et initialise ses paramétres
+ * Alloue un bonus dans l'espace mémoire et initialise ses paramètres
  * Quitte le programme en cas d'erreur d'allocation
  * <entityCode> : Code de l'entité bonus (identifiant)
  * <startTime> : Début de l'effet du bonus
@@ -40,40 +40,40 @@ Bonus* allocBonus(EntityCode entityCode, int startTime, int duration);
 
 /*
  * getBonusDuration
- * Renvoie la durée normal du bonus <entityCode>, 0 si introuvable
+ * Renvoie la durée normale du bonus <entityCode>, 0 si introuvable
  */
 int getBonusDuration(EntityCode entityCode);
 
 /*
  * createBonusToList
- * Créer et ajoute un bonus à la liste <*L> triée par ordre croissant d'identifiant
- * Si le bonus est deja présent, on met a jours sa durée
+ * Crée et ajoute un bonus à la liste <*L> triée par ordre croissant d'identifiants
+ * Si le bonus est déjà présent, on met à jour sa durée
  * <*L> : Pointeur de la liste triée de bonus
  * <entityCode> : Code de l'entité
- * Retourne 1 si le bonus a été créé, 0 si il a été mis a jours
+ * Retourne 1 si le bonus a été créé, 0 si il a été mis à jour
  */
 int createBonusToList(BonusList *L, EntityCode entityCode);
 
 /*
  * freeBonusList
- * Libére la mémoire occupée par tous les bonus de la liste <*L>
+ * Libère la mémoire occupée par tous les bonus de la liste <*L>
  * <*L> : Pointeur de la liste triée de bonus
  */
 void freeBonusList(BonusList *L);
 
 /*
  * isExpiredBonus
- * Test si le bonus <B> a expiré
+ * Teste si le bonus <B> a expiré
  * Retourne 1 si le bonus a expiré, 0 sinon
  */
 int isExpiredBonus(Bonus B);
 
 /*
  * haveBonus
- * Test si la liste <*L> a le bonus <entityCode>
- * Si le bonus a expiré, la mémoire est libéré et la fonction retourne 0
+ * Teste si la liste <*L> a le bonus <entityCode>
+ * Si le bonus a expiré, la mémoire est libérée et la fonction retourne 0
  * Retourne 1 si le bonus est présent dans la liste, 
- *         -1 s'il est présent mais qu'il vient d'expiré
+ *         -1 s'il est présent mais qu'il vient d'expirer
  *          0 sinon
  */
 int haveBonus(BonusList *L, EntityCode entityCode);

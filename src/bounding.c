@@ -1,6 +1,6 @@
 /*
  * bounding.c
- * Déclaration de la structure et des fonctions de gestion des bounding box et de leurs forme
+ * Déclaration de la structure et des fonctions de gestion des bounding box et de leurs formes
  *
  * N.B. Les descriptifs des fonctions sont dans bounding.h
  *
@@ -27,7 +27,7 @@ void freeBoundingBoxList(BoundingBoxList *L) {
   if (*L != NULL) {
     freeBoundingBoxList(&(*L)->next);
     free(*L);
-    /*Lui assigne NULL, prévient de bugs */
+    /*Lui assigner NULL, prévient des bugs */
     *L = NULL;
   }
 }
@@ -147,22 +147,22 @@ int isCollidingCircle(Circle C1, Circle C2) {
 }
 
 int isCollidingAABBandCircle(AABB B, Circle C) {
-  /* On test s'il y a une collision entre B et la représentation AABB de C */
+  /* On teste s'il y a une collision entre B et la représentation AABB de C */
   if (!isCollidingAABB(B, convertCircleToAABB(C)))
     return 0;
 
-  /* On test si un des sommets de B est dans C */
+  /* On teste si un des sommets de B est dans C */
   if (isCollidingPointAndCircle(B.xMin, B.yMin, C)
           || isCollidingPointAndCircle(B.xMin, B.yMax, C)
           || isCollidingPointAndCircle(B.xMax, B.yMax, C)
           || isCollidingPointAndCircle(B.xMax, B.yMin, C))
     return 1;
 
-  /* On test si le centre du cercle est dans le AABB */
+  /* On teste si le centre du cercle est dans le AABB */
   if (isCollidingPointAndAABB(C.x, C.y, B))
     return 1; // troisieme test
 
-  /* On test les projections du centre du cercle sur les segments de AABB */
+  /* On teste les projections du centre du cercle sur les segments de AABB */
   int projvertical = projectionOnSegment(C.x, C.y, B.xMin, B.yMin, B.xMin, B.yMax);
   int projhorizontal = projectionOnSegment(C.x, C.y, B.xMin, B.yMin, B.xMax, B.yMin);
   return (projvertical || projhorizontal);

@@ -2,6 +2,8 @@
  * level.c
  * Déclaration de la structure et des fonctions de gestion des entités (vaiseaux, obstacles, bonus etc...)
  *
+ * N.B. Les descriptifs des fonctions sont dans level.h
+ * 
  * Auteur : Nicolas CUSUMANO & Nicolas SENECAL
  * IMAC1 - S2 - Promotion 2020
  */
@@ -14,8 +16,6 @@ Level generateLevelFromFile(const char filename[]) {
   initialiseLevel(&level);
   PPMImage *img = generatePPMImageFromFile(filename);
 
-  //printPPMImage(*img);
-
   if (!img) {
     fprintf(stderr, "Cannot start the game...\n");
     exit(1);
@@ -23,7 +23,7 @@ Level generateLevelFromFile(const char filename[]) {
 
   level.height = img->y;
   level.width = img->x;
-  // On arrondie le vitesse pour prévenir des défauts d'affichage
+  // On arrondit la vitesse pour prévenir des défauts d'affichage
   level.speedCoeff = 1.;
   level.speed = convert_speed(LEVEL_SPEED);
 

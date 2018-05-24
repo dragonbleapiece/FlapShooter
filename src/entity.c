@@ -51,7 +51,7 @@ void addEntityToList(EntityList *L, Entity *E) {
   }
 
   while (cursor != NULL) {
-    /* Si la position est plus petite, l'entité doit etre ajouté avant le curseur */
+    /* Si la position est plus petite, l'entité doit être ajoutée avant le curseur */
     if (E->x < cursor->x) {
       if (cursorPrev) { /* S'il y a une entité précédente, on ajoute E après celle-ci */
         E->next = cursorPrev->next;
@@ -66,7 +66,7 @@ void addEntityToList(EntityList *L, Entity *E) {
     cursorPrev = cursor;
     cursor = cursor->next;
   }
-  /* L'entité est la plus éloigné, on la met a la fin de la liste */
+  /* L'entité est la plus éloignée, on la met à la fin de la liste */
   cursorPrev->next = E;
   return;
 }
@@ -101,9 +101,9 @@ int removeEntityToList(EntityList *L, EntityList E) {
     cursor = cursor->next;
   }
 
-  /*Si une fois sorti de la boucle, le cursor est à E*/
+  /* Si une fois sorti de la boucle, le curseur est à E */
   if (cursor == E) {
-    /*Si le cursorPrev est à NULL alors, *E est en tête de liste*/
+    /* Si le curseur précédent est à NULL alors, *E est en tête de liste */
     if (cursorPrev != NULL) cursorPrev->next = E->next;
     else *L = E->next;
     /* On libère les bounding box puis l'entité */
@@ -141,7 +141,7 @@ void removeEntityInFront(EntityList *L, float xMax) {
 
 void freeEntity(Entity *E) {
   if (E != NULL) {
-    /*On libère les bounding box puis l'entité*/
+    /* On libère les bounding box puis l'entité */
     freeBoundingBoxList(&(E->boundingBox));
     freeRouteList(&(E->routes));
     free(E);

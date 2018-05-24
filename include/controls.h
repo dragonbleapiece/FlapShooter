@@ -1,6 +1,6 @@
 /*
  * controls.h
- * Déclaration de la structure et des fonctions de controles
+ * Déclaration de la structure et des fonctions de contrôles
  *
  * Auteur : Nicolas CUSUMANO & Nicolas SENECAL
  * IMAC1 - S2 - Promotion 2020
@@ -33,10 +33,10 @@ Controls initControls();
 
 /*
  * executeControls
- * execute les controles du joueur
+ * Exécute les controles du joueur
  * <c> : controles du joueur
  * <*level> : pointeur vers level
- * <cam> : camera
+ * <cam> : Caméra
  */
 void executeControls(Controls c, Level *level, Camera cam);
 

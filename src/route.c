@@ -2,6 +2,8 @@
  * route.c
  * Déclaration des fonctions et structure des déplacements des entités
  *
+ * N.B. Les descriptifs des fonctions sont dans route.h
+ * 
  * Auteur : Nicolas CUSUMANO & Nicolas SENECAL
  * IMAC1 - S2 - Promotion 2020
  */
@@ -9,7 +11,7 @@
 #include "route.h"
 
 Route *allocRoute(int id, float depX, float depY, float destX, float destY, int duration) {
-  Route *tmp = (Route *)malloc(sizeof(Route));
+  Route *tmp = (Route *) malloc(sizeof (Route));
 
   if (!tmp) {
     printf("Memory run out\n");
@@ -31,10 +33,10 @@ Route *allocRoute(int id, float depX, float depY, float destX, float destY, int 
 
 void freeRouteList(RouteList *R) {
   Route *temp;
-  if(*R != NULL) {
+  if (*R != NULL) {
     *R = (*R)->first; /* Récupère la première route de la liste */
-    while(*R != NULL) {
-      if((*R)->next != NULL && (*R)->next->id > (*R)->id) temp = NULL; /*Erreur ici*/
+    while (*R != NULL) {
+      if ((*R)->next != NULL && (*R)->next->id > (*R)->id) temp = NULL; /* FIXME !! */
       else temp = (*R)->next;
       free(*R);
       *R = temp;
@@ -66,14 +68,14 @@ void addRouteToList(RouteList *R, Route *route) {
         allRoutesToFirstRoute(*R);
       }
       return;
-    } else if(route->id == cursor->id) {
+    } else if (route->id == cursor->id) {
       return;
     }
     /* Sinon on continue la boucle */
     cursorPrev = cursor;
     cursor = cursor->next;
   }
-  /* L'entité est la plus éloigné, on la met a la fin de la liste */
+  /* La route est la plus grande, on la met à la fin de la liste */
   cursorPrev->next = route;
   route->first = *R;
   return;
@@ -81,15 +83,15 @@ void addRouteToList(RouteList *R, Route *route) {
 
 void allRoutesToFirstRoute(RouteList R) {
   Route *temp = R;
-  while(temp != NULL) {
+  while (temp != NULL) {
     temp->first = R;
     temp = temp->next;
   }
 }
 
 Route *getRouteByID(RouteList R, int id) {
-  if(R != NULL && R->id < id && R->next != R->first) {
-    if(R->next != NULL && R->id >= R->next->id) return NULL;
+  if (R != NULL && R->id < id && R->next != R->first) {
+    if (R->next != NULL && R->id >= R->next->id) return NULL;
     return getRouteByID(R->next, id);
   } else {
     return R;

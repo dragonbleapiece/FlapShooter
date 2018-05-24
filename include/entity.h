@@ -30,7 +30,7 @@ typedef enum entityCode {
 } EntityCode;
 
 typedef struct entity {
-  float x, y; /* Coordonnées de position en bas a gauche de l'entité */
+  float x, y; /* Coordonnées de position en haut à gauche de l'entité */
   float sizeX, sizeY; /* Hauteur et largeur de l'entité */
   Texture *texture;
   float speedX;
@@ -39,10 +39,10 @@ typedef struct entity {
   float shotY;
   Uint32 lastShot;
   float shotFrequency;
-  int xTextureIndice; /* Division horizontal actuel de l'image pour les sprites, 0 par défaut (1er sprite) */
-  int yTextureIndice; /* Division vertical actuel de l'image pour les "sprites",  0 par défaut (1er sprite) */
+  int xTextureIndice; /* Division horizontale actuelle de l'image pour les "sprite"s, 0 par défaut (1ere sprite) */
+  int yTextureIndice; /* Division verticale actuelle de l'image pour les "sprites",  0 par défaut (1ere sprite) */
   int life; /* Vie actuelle de l'entité, -1 si invincible */
-  int maxLife; /* Vie maximal de l'entité (???) */
+  int maxLife; /* Vie maximale de l'entité */
   int attack; /* Point d'attaque de l'entité */
   EntityCode entityCode;
   RouteList routes; /* Liste triée par id des routes */
@@ -52,13 +52,13 @@ typedef struct entity {
 
 /*
  * allocEntity
- * Alloue une entité dans l'espace mémoire et initialise ses paramétres
+ * Alloue une entité dans l'espace mémoire et initialise ses paramètres
  * Quitte le programme en cas d'erreur d'allocation
  * <x> : Position x de l'entité
  * <y> : Position y de l'entité
  * <sizeX> : Largeur de l'entité
  * <sizeY> : Hauteur de l'entité
- * <maxLife> : Vie maximal et actuelle de l'entité
+ * <maxLife> : Vie maximale et actuelle de l'entité
  * <attack> : Point d'attaque de l'entité
  * <textureID> : id de la texture
  * <*boundingBox> : Pointeur sur la/les bounding box de l'entité
@@ -70,65 +70,65 @@ Entity* allocEntity(float x, float y, float sizeX, float sizeY, int maxLife, int
 /*
  * addEntityToList
  * Ajoute l'entité <*E> à la liste <*L> triée par position x
- * <*L> : Pointeur de la liste triée d'entité
- * <*E> : Entité a ajouter, supposé dans aucune liste
+ * <*L> : Pointeur de la liste triée d'entités
+ * <*E> : Entité à ajouter, supposée dans aucune liste
  */
 void addEntityToList(EntityList *L, Entity *E);
 
 /*
  * addEntityToUnsortedList
- * Ajoute l'entité <*E> à la liste <*L> sans trie, a la suite
- * <*L> : Pointeur de la liste d'entité
- * <*E> : Entité a ajouter, supposé dans aucune liste
+ * Ajoute l'entité <*E> à la liste <*L> sans la trier, à la dernière position
+ * <*L> : Pointeur de la liste d'entités
+ * <*E> : Entité à ajouter, supposée dans aucune liste
  */
 void addEntityToUnsortedList(EntityList *L, Entity *E);
 
 /*
  * printEntityList
- * Affiche récursivement la liste d'entité pour debugage
- * <L> : Pointeur de la liste triée d'entité
+ * Affiche récursivement la liste d'entités pour debugage
+ * <L> : Pointeur de la liste triée d'entités
  */
 void printEntityList(EntityList L);
 
 /*
  * removeEntityToList
- * Enleve l'entité <E> de la liste <*L> et libére la mémoire occupée
+ * Enlève l'entité <E> de la liste <*L> et libère la mémoire occupée
  * par l'entité et ses Bounding Box
- * <*L> : Pointeur de la liste triée d'entité
- * <E> : Entité a supprimer, supposé dans la liste
+ * <*L> : Pointeur de la liste triée d'entités
+ * <E> : Entité à supprimer, supposée dans la liste
  * retourne 1 si l'entité a été enlevée, 0 sinon
  */
 int removeEntityToList(EntityList *L, EntityList E);
 
 /*
  * removeEntityBehind
- * Enleve toutes les entités de la liste <*L> jusqu'à xMax
- * et libére la mémoire occupée. Prend en compte la taille des entités.
- * <*L> : Pointeur de la liste triée d'entité
- * <xMax> : Coordonnée maximum en x des entités a supprimer
+ * Enlève toutes les entités de la liste <*L> jusqu'à xMax
+ * et libère la mémoire occupée. Prend en compte la taille des entités.
+ * <*L> : Pointeur de la liste triée d'entités
+ * <xMax> : Coordonnée maximum en x des entités à supprimer
  */
 void removeEntityBehind(EntityList *L, float xMax);
 
 /*
  * removeEntityInFront
- * Enleve toutes les entités de la liste <*L> après xMax
- * et libére la mémoire occupée. Prend en compte la taille des entités.
- * <*L> : Pointeur de la liste triée d'entité
- * <xMax> : Coordonnée minimum en x des entités a supprimer
+ * Enlève toutes les entités de la liste <*L> après xMax
+ * et libère la mémoire occupée. Prend en compte la taille des entités.
+ * <*L> : Pointeur de la liste triée d'entités
+ * <xMax> : Coordonnée minimum en x des entités à supprimer
  */
 void removeEntityInFront(EntityList *L, float xMax);
 
 /*
  * freeEntity
- * Libére la mémoire occupée par l'entité <*E>
+ * Libère la mémoire occupée par l'entité <*E>
  * <*E> : Pointeur de l'entité
  */
 void freeEntity(Entity *E);
 
 /*
  * freeEntityList
- * Libére la mémoire occupée par toutes les entités de la liste <*L>
- * <*L> : Pointeur de la liste triée d'entité
+ * Libère la mémoire occupée par toutes les entités de la liste <*L>
+ * <*L> : Pointeur de la liste triée d'entités
  */
 void freeEntityList(EntityList *L);
 
@@ -141,16 +141,16 @@ int isTextured(Entity E);
 /*
  * upXSpriteEntity
  * Passe a la sprite horizontale suivante pour l'entité <*E>
- * Si on est à la fin de la ligne, le sprite revient a l'état de repos (0,0)
- * <*E> : Entité a modifier
- * Retourne 1 si on est revenu a l'êtat de repos, 0 sinon
+ * Si on est à la fin de la ligne, la sprite revient à l'état de repos (0,0)
+ * <*E> : Entité à modifier
+ * Retourne 1 si on est revenu à l'état de repos, 0 sinon
  */
 int upXSpriteEntity(Entity *E);
 
 /*
  * setSpriteEntity
- * Redéfinis la sprite actuelle de l'entité
- * <*E> : Entité a modifier
+ * Redéfinit la sprite actuelle de l'entité
+ * <*E> : Entité à modifier
  * <x> : Nouvelle division horizontale de l'image pour les sprites, 0 = 1ere sprite
  * <y> : Nouvelle division verticale de l'image pour les sprites, 0 = 1ere sprite
  * Retourne 0 si la nouvelle sprite n'existe pas, 1 sinon
@@ -160,7 +160,7 @@ int setSpriteEntity(Entity *E, int x, int y);
 /*
  * translateEntity
  * Déplace l'entité <*E> de <x> et <y> unité
- * <*E> : Entité a déplacer
+ * <*E> : Entité à déplacer
  * <x> : Déplacement en x de l'entité
  * <y> : Déplacement en y de l'entité
  */
@@ -169,26 +169,26 @@ void translateEntity(Entity *E, float x, float y);
 /*
  * translateEntityList
  * Déplace toutes les entités de la liste <L> de <x> et <y> unité
- * <L> : La liste d'entité a déplacer
+ * <L> : La liste d'entités à déplacer
  * <x> : Déplacement en x de l'entité
  * <y> : Déplacement en y de l'entité
- * <xMax> : Coordonnée maximum en x des entités a déplacer
+ * <xMax> : Coordonnée maximum en x des entités à déplacer
  */
 void translateEntityList(EntityList L, float x, float y, float xMax);
 
 /*
  * translateEntityBySpeed
  * Déplace l'entité <*E> par son vecteur vitesse
- * N.B. les entités dont la vie est a 0 ne sont pas déplacé
- * <*E> : Entité a déplacer
+ * N.B. les entités dont la vie est à 0 ne sont pas déplacées
+ * <*E> : Entité à déplacer
  */
 void translateEntityBySpeed(Entity *E);
 
 /*
  * translateEntityListBySpeed
- * Déplace toutes les entités de la liste <L> par leurs vecteur vitesse
- * <L> : La liste d'entité a déplacer
- * <xMax> : Coordonnée maximum en x des entités a déplacer
+ * Déplace toutes les entités de la liste <L> par leurs vecteurs vitesse
+ * <L> : La liste d'entités à déplacer
+ * <xMax> : Coordonnée maximum en x des entités à déplacer
  */
 void translateEntityListBySpeed(EntityList L, float xMax);
 
@@ -196,14 +196,14 @@ void translateEntityListBySpeed(EntityList L, float xMax);
  * attacks
  * Attaque d'une entité sur une autre
  * <*E1> : entité qui attaque
- * <*E2> : entité qui subit
+ * <*E2> : entité qui subit l'attaque
  */
 void attacks(Entity *E1, Entity *E2);
 
 /*
  * attacksBetween
  * Attaque réciproque d'une entité sur une autre
- * <E1> : entité impliquée
+ * <*E1> : entité impliquée
  * <*E2> : entité impliquée
  */
 void attacksBetween(Entity *E1, Entity *E2);
@@ -211,10 +211,10 @@ void attacksBetween(Entity *E1, Entity *E2);
 /*
  * getDamaged
  * L'entité subit des dégats
- * Si la vie tombe a 0, on met l'entité sur sa sprite de destruction
+ * Si la vie tombe à 0, on met l'entité sur sa sprite de destruction
  * et on supprime sa boundingbox
  * <*E> : l'entité qui subit des dégats
- * <damage> : montant de dégats que subit l'entité (-1 si l'entité doit mourir sur le coup)
+ * <damage> : montant des dégats que subit l'entité (-1 si l'entité doit mourir sur le coup)
  */
 void getDamaged(Entity *E, int damage);
 
@@ -222,7 +222,7 @@ void getDamaged(Entity *E, int damage);
  * getHealed
  * L'entité regagne de la vie
  * <*E> : l'entité qui regagne de la vie
- * <heal> : montant de vie regagnée
+ * <heal> : montant de vies regagnées
  */
 void getHealed(Entity *E, int heal);
 
@@ -245,7 +245,7 @@ void executeRouteList(Entity *E);
  * executeFirstRoute
  * exécute la route de l'entité
  * <*E> : pointeur sur l'entité
- * Retourne -1 si la route est null, 1 si la route est en cours d'exécution, 0 sinon
+ * Retourne -1 si la route est NULL, 1 si la route est en cours d'exécution, 0 sinon
  */
 int executeFirstRoute(Entity *E);
 

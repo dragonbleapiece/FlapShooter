@@ -2,6 +2,8 @@
  * shot.c
  * Déclaration des fonctions des projectiles
  *
+ * N.B. Les descriptifs des fonctions sont dans shot.h
+ * 
  * Auteur : Nicolas CUSUMANO & Nicolas SENECAL
  * IMAC1 - S2 - Promotion 2020
  */
@@ -40,15 +42,15 @@ void ennemyOneShot(Level *level, Entity *ennemy) {
 
 void ennemiesShot(Level *level, float xMax) {
   EntityList ennemies = level->ennemies;
-  while(ennemies != NULL && ennemies->x < xMax) {
-    if(ennemies->yTextureIndice == 1 && ennemies->xTextureIndice == 15)
+  while (ennemies != NULL && ennemies->x < xMax) {
+    if (ennemies->yTextureIndice == 1 && ennemies->xTextureIndice == 15)
       setSpriteEntity(ennemies, 0, 2);
 
-    if(ennemies->yTextureIndice == 0 && ennemies->lastShot + ENNEMY_SPAWN_SHOT * 1000 < SDL_GetTicks()) {
+    if (ennemies->yTextureIndice == 0 && ennemies->lastShot + ENNEMY_SPAWN_SHOT * 1000 < SDL_GetTicks()) {
       setSpriteEntity(ennemies, 0, 1);
     }
 
-    if(ennemies->life != 0 && ennemies->yTextureIndice == 2 && ennemies->lastShot + ennemies->shotFrequency * 1000 < SDL_GetTicks()) {
+    if (ennemies->life != 0 && ennemies->yTextureIndice == 2 && ennemies->lastShot + ennemies->shotFrequency * 1000 < SDL_GetTicks()) {
       ennemyOneShot(level, ennemies);
     }
     ennemies = ennemies->next;

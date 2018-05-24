@@ -21,14 +21,14 @@
 #include "bonus.h"
 
 typedef struct level {
-  EntityList player; /* Liste de l'entité joueur */
-  EntityList obstacles; /* Liste triée d'entité obstacles */
-  EntityList ennemies; /* Liste triée d'entité ennemis */
-  EntityList bonus; /* Liste triée d'entité bonus */
-  EntityList projectiles; /* Liste triée d'entité projectiles */
+  EntityList player; /* Pointeur sur l'entité joueur */
+  EntityList obstacles; /* Liste triée d'entités obstacles */
+  EntityList ennemies; /* Liste triée d'entités ennemis */
+  EntityList bonus; /* Liste triée d'entités bonus */
+  EntityList projectiles; /* Liste triée d'entités projectiles */
   EntityList background; /* liste NON triée des éléments du background */
-  TextureList textures; /* Liste triée contenant toute les textures utilisées */
-  BonusList currentBonus; /* Liste des bonus actif */
+  TextureList textures; /* Liste triée contenant toutes les textures utilisées */
+  BonusList currentBonus; /* Liste des bonus actifs */
   int height, width;
   float speed;
   float speedCoeff;
@@ -37,12 +37,11 @@ typedef struct level {
 
 /*
  * generateLevelFromFile
- * Génére toutes les entités d'un niveau depuis un fichier PPM
+ * Génère toutes les entités d'un niveau depuis un fichier PPM
  * <fileName[]> : nom du fichier au format PPM décrivant le niveau
  * Retourne une structure Level
  */
 Level generateLevelFromFile(const char filename[]);
-
 
 /*
  * initialiseLevel
@@ -58,16 +57,16 @@ void initialiseLevel(Level *level);
  * <*level> : pointeur sur le level dans lequel on ajoute
  * <x> : position en x UNITE
  * <y> : position en Y UNITE
- * Retourne false si l'élément n'a pas pu être alloué, true sinon
+ * Retourne 0 si l'élément n'a pas pu être alloué, 1 sinon
  */
 int addEntityToLevel(EntityCode code, Level *level, float x, float y);
 
 /*
  * removeLevelBehind
- * Enleve toutes les entités des listes du level jusqu'à xMax
- * et libére la mémoire occupée. Prend en compte la taille des entités.
+ * Enlève toutes les entités des listes du level jusqu'à xMax
+ * et libère la mémoire occupée. Prend en compte la taille des entités
  * <*level> : Pointeur sur le level
- * <xMax> : Coordonnée maximum en x des entités a supprimer
+ * <xMax> : Coordonnée maximum en x des entités à supprimer
  */
 void removeLevelBehind(Level *level, float xMax);
 

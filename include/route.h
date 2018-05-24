@@ -1,6 +1,6 @@
 /*
  * route.h
- * Déclaration des fonctions et structure des déplacement des entités
+ * Déclaration des fonctions et structure des déplacements des entités
  *
  * Auteur : Nicolas CUSUMANO & Nicolas SENECAL
  * IMAC1 - S2 - Promotion 2020
@@ -23,7 +23,7 @@ typedef struct route {
 
 /*
  * allocRoute
- * Alloue un chemin dans l'espace mémoire et initialise ses paramétres
+ * Alloue un chemin dans l'espace mémoire et initialise ses paramètres
  * Quitte le programme en cas d'erreur d'allocation
  * <id> : id de la route
  * <depX> : position de départ en x
@@ -44,7 +44,7 @@ void freeRouteList(RouteList *R);
 
 /*
  * addRouteToList
- * Ajoute une route à une liste de routes trié dans l'ordre croissant des id
+ * Ajoute une route à une liste de routes triée dans l'ordre croissant des id
  * Ne rajoute pas la route si elle a un id existant
  * <*R> : pointeur sur la liste de routes
  * <*route> : pointeur sur la route à ajouter

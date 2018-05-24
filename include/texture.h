@@ -22,23 +22,23 @@
 #include "tools.h"
 
 typedef struct texture {
-  char *fileName; /* Chaine de caractère représentant le nom et l'extention de l'image, sert d'identifiant */
+  char *fileName; /* Chaine de caractères représentant le nom et l'extention de l'image, sert d'identifiant */
   GLuint *id; /* Identifiant GLuint de la texture */
   GLint format; /* Format de l'image (GL_RGB ou GL_RGBA), déterminé automatiquement en fonction de l'extention de l'image */
-  int verticalDiv; /* Division vertical de l'image pour les sprites, 1 si aucune */
-  int horizontalDiv; /* Division horizontal de l'image pour les "sprites", 1 si aucune */
+  int verticalDiv; /* Division verticale de l'image pour les "sprites", 1 si aucune */
+  int horizontalDiv; /* Division horizontale de l'image pour les "sprites", 1 si aucune */
   struct texture* next; /* Pointeur sur la texture suivante dans la liste */
 } Texture, *TextureList;
 
 /*
  * allocTexture
- * Alloue une texture dans l'espace mémoire et initialise ses paramétres
+ * Alloue une texture dans l'espace mémoire et initialise ses paramètres
  * Quitte le programme en cas d'erreur d'allocation
  * <fileName[]> : Nom et extention de l'image (identifiant)
  * <*id> : Identifiant GLuint de la texture
  * <format> : Format de l'image (GL_RGB ou GL_RGBA)
- * <verticalDiv> : Division vertical de l'image
- * <horizontalDiv> : Division horizontal de l'image 
+ * <verticalDiv> : Division verticale de l'image
+ * <horizontalDiv> : Division horizontale de l'image 
  * Retourne un pointeur sur la texture
  */
 Texture* allocTexture(char fileName[], GLuint *id, GLint format, int verticalDiv, int horizontalDiv);
@@ -47,27 +47,27 @@ Texture* allocTexture(char fileName[], GLuint *id, GLint format, int verticalDiv
  * createTexture
  * Charge une texture et l'alloue dans l'espace mémoire :
  *    - Charge l'image
- *    - Détermine son format en fonction de son extention
- *    - Créer l'objet texture en OpenGL et envoie les données au GPU
+ *    - Détermine son format
+ *    - Crée l'objet texture en OpenGL et envoie les données au GPU
  *    - Libère les données CPU
  * Quitte le programme en cas d'erreur
  * <fileName[]> : Nom et extention de l'image
- * <verticalDiv> : Division vertical de l'image
- * <horizontalDiv> : Division horizontal de l'image 
- * Retourne un pointeur sur la texture alloué avec allocTexture
+ * <verticalDiv> : Division verticale de l'image
+ * <horizontalDiv> : Division horizontale de l'image 
+ * Retourne un pointeur sur la texture allouée avec allocTexture
  */
 Texture* createTexture(char fileName[], int verticalDiv, int horizontalDiv);
 
 /*
  * createTextureToList
- * Créer et ajoute une texture à la liste <*L> triée par ordre alphabétique de fileName
+ * Crée et ajoute une texture à la liste <*L> triée par ordre alphabétique de fileName
  * L'ajout se fait uniquement si la texture <fileName> n'est pas dans la liste,
  * Sinon la fonction renvoie la texture existante
- * <*L> : Pointeur de la liste triée de texture
+ * <*L> : Pointeur de la liste triée de textures
  * <fileName[]> : Nom et extention de l'image
- * <verticalDiv> : Division vertical de l'image
- * <horizontalDiv> : Division horizontal de l'image
- * Returne un pointeur sur la texture ajouté ou celle dejà présente
+ * <verticalDiv> : Division verticale de l'image
+ * <horizontalDiv> : Division horizontale de l'image
+ * Retourne un pointeur sur la texture ajoutée ou celle dejà présente
  */
 Texture* createTextureToList(TextureList *L, char fileName[], int verticalDiv, int horizontalDiv);
 
@@ -81,9 +81,9 @@ void freeTextureList(TextureList *L);
 /*
  * getTextureFromList
  * Cherche et retourne la texture de la liste <*L> correspondant à <fileName>
- * <L> : Liste triée de texture
+ * <L> : Liste triée de textures
  * <fileName[]> : Nom et extention de l'image
- * Returne un pointeur sur la texture, NULL si inexistante
+ * Retourne un pointeur sur la texture, NULL si inexistante
  */
 Texture* getTextureFromList(TextureList L, char fileName[]);
 

@@ -1,3 +1,13 @@
+/*
+ * events.c
+ * Déclaration de la fonction de gestion des événements dans le niveau
+ *
+ * N.B. Les descriptifs des fonctions sont dans events.h
+ * 
+ * Auteur : Nicolas CUSUMANO & Nicolas SENECAL
+ * IMAC1 - S2 - Promotion 2020
+ */
+
 #include "events.h"
 
 void eventsInLevel(Level *level, Camera cam) {

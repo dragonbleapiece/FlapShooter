@@ -1,6 +1,6 @@
 /*
  * settings.h
- * Déclaration des paramètres : variables globales et statiques
+ * Déclaration des paramètres : variables globales
  *
  * Auteur : Nicolas CUSUMANO & Nicolas SENECAL
  * IMAC1 - S2 - Promotion 2020
@@ -11,10 +11,9 @@
 
 #define CERCLE_LIGNES 50 /* Nombre de polygones d'un cercle */
 
-#define UNTEXTURED_BOX_COLOR 255,0,255,255 /* Couleur RGBA des objets non texturé */
+#define UNTEXTURED_BOX_COLOR 255,0,255,255 /* Couleur RGBA des objets non texturés */
 
 #define SRC_RESOURCES_FOLDER "assets/"
-
 
 /* ----------------------- DEBUG ------------------------ */
 #define SHOW_BOUNDING_BOX 0 /* Afficher les bounding box en violet sur les entités */
@@ -22,25 +21,25 @@
 
 /* -------------- DIMENSIONS DE LA FENETRE -------------- */
 
-#define UNITE 37 /*Unite en px*/
-#define RATIO 16/9
+#define UNITE 37 /*Unité en px*/
+#define RATIO 16/9 /* Ratio de la résolution de l'écran */
 
-#define DEFAULT_WINDOW_HEIGHT 720
-#define DEFAULT_WINDOW_WIDTH DEFAULT_WINDOW_HEIGHT*RATIO
+#define DEFAULT_WINDOW_HEIGHT 720 /* Hauteur par défaut de la fenêtre */
+#define DEFAULT_WINDOW_WIDTH DEFAULT_WINDOW_HEIGHT*RATIO /* Largeur par défaut de la fenêtre */
 
 /*
- * Nombre de décimal après la virgule pour les arrondie
- * Permet d'éviter les defauts d'affichages SDL
+ * Nombre de décimales après la virgule pour les arrondis
+ * Permet d'éviter les defauts d'affichage SDL
  */
 #define ROUND_DECIMAL 100.
 
 /* Nombre de bits par pixel de la fenêtre */
 #define BIT_PER_PIXEL 32
 
-/* Nombre minimal de millisecondes separant le rendu de deux images */
+/* Nombre minimal de millisecondes séparant le rendu de deux images */
 #define FPS 60
 #define FRAMERATE_MILLISECONDS 1000 / FPS
-#define SPRITES_PER_SECOND 30 /* Nombre de sprite par seconde */
+#define SPRITES_PER_SECOND 30 /* Nombre de sprites par seconde */
 
 /* ---------------------- BACKGROUND ---------------------- */
 
@@ -50,7 +49,7 @@
 #define SRC_BACKGROUND3 SRC_RESOURCES_FOLDER "img/ground.png"
 
 /* Taille en px */
-#define MAX_HEIGHT_BACKGROUND 400 // Hauteur maximal des backgrounds pour prendre tout l'écran
+#define MAX_HEIGHT_BACKGROUND 400 // Hauteur maximale des backgrounds pour prendre tout l'écran
 #define HEIGHT_BACKGROUND0 400
 #define WIDTH_BACKGROUND0 1200
 #define HEIGHT_BACKGROUND1 400
@@ -76,7 +75,7 @@
 
 /* ----------- Configuration des éléments du jeu ----------- */
 
-#define LEVEL_SPEED 5 /* Vitesse du niveau par défaut (bloc par secondes) */
+#define LEVEL_SPEED 5 /* Vitesse du niveau par défaut (blocs par secondes) */
 
 #define ACCELERATION 1
 

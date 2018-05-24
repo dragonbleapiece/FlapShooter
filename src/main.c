@@ -10,7 +10,7 @@
 /* Dimensions de la fenêtre */
 static unsigned int WINDOW_WIDTH = DEFAULT_WINDOW_WIDTH;
 static unsigned int WINDOW_HEIGHT = DEFAULT_WINDOW_HEIGHT;
-static unsigned int FULLSCREEN = 0; /* 1 pour pleine écran */
+static unsigned int FULLSCREEN = 0; /* 1 pour plein écran */
 
 void resizeViewport(Camera cam) {
   // Taille du jeu, en fonction du ratio
@@ -21,7 +21,7 @@ void resizeViewport(Camera cam) {
   // L'inverse du ratio
   float reverseRatio = 1. / ((float) RATIO);
 
-  /* Calcul de la taille du jeu par rapport a la fenetre */
+  /* Calcul de la taille du jeu par rapport à la fenêtre */
   if (maxWidth <= WINDOW_WIDTH) { // Trop large
     extraWidth = WINDOW_WIDTH - maxWidth;
   } else { // Pas assez large
@@ -47,11 +47,11 @@ int main(int argc, char** argv) {
     return EXIT_FAILURE;
   }
 
-  /* On récupère la taille maximal de la fenetre de l'utilisateur*/
+  /* On récupère la taille maximale de la fenêtre de l'utilisateur */
   const SDL_VideoInfo* vidinfo = SDL_GetVideoInfo();
   int maxWindowHeight = vidinfo->current_h;
   int maxWindowWidth = vidinfo->current_w;
-  /* Dernière taille de fenetre avant le pleine écran */
+  /* Dernière taille de fenêtre avant le plein écran */
   int lowWindowHeight = WINDOW_HEIGHT;
   int lowWindowWidth = WINDOW_WIDTH;
   /* Initialisation du rand (seed) */
@@ -68,7 +68,7 @@ int main(int argc, char** argv) {
 
   int loop = 1;
   char levelName[] = SRC_RESOURCES_FOLDER "levelOne.ppm";
-  // option de blending OpenGL
+  /* Options de blending OpenGL */
   glEnable(GL_BLEND);
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
@@ -105,7 +105,7 @@ int main(int argc, char** argv) {
 
     if (level.player == NULL) // le joueur est mort
       level.playerStatus = 0;
-    else if (level.player->x > level.width) // le joueur c'est dépacé la fin du niveau
+    else if (level.player->x > level.width) // le joueur s'est déplacé à la fin du niveau
       level.playerStatus = 2;
 
     displayUILevel(&interface, cam, level);
@@ -114,18 +114,16 @@ int main(int argc, char** argv) {
       eventsInLevel(&level, cam);
       executeControls(controls, &level, cam);
       removeLevelBehind(&level, cam.xMin);
-      if (cam.xMax < level.width) // on déplace la caméra, si elle n'est pas arrivé a la fin
+      if (cam.xMax < level.width) // on déplace la caméra, si elle n'est pas arrivée à la fin
         translateCamera(&cam, level.speed * level.speedCoeff, 0);
     }
 
     glPopMatrix();
 
     SDL_GL_SwapBuffers();
-    //level.player != NULL && level.player->x < cam.xMax
 
 
-
-    /* Boucle traitant les evenements */
+    /* Boucle traitant les événements */
     SDL_Event e;
     while (SDL_PollEvent(&e)) {
 
@@ -139,10 +137,10 @@ int main(int argc, char** argv) {
           break;
 
 
-        case SDL_KEYDOWN: /*Evénements à l'appui d'une touche*/
+        case SDL_KEYDOWN: /* Evénements à l'appui d'une touche */
 
           switch (e.key.keysym.sym) {
-            case SDLK_F12: /* Pleine écran */
+            case SDLK_F12: /* Plein écran */
               FULLSCREEN = !FULLSCREEN;
               if (FULLSCREEN) {
                 lowWindowHeight = WINDOW_HEIGHT;
@@ -195,7 +193,7 @@ int main(int argc, char** argv) {
 
           break;
 
-        case SDL_KEYUP: /*Evénements au relachement d'une touche*/
+        case SDL_KEYUP: /* Evénements au relachement d'une touche */
 
           switch (e.key.keysym.sym) {
             case SDLK_SPACE:

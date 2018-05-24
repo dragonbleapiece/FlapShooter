@@ -16,7 +16,7 @@ void displayLevel(Level *lvl, Camera cam) {
   int time = SDL_GetTicks();
   // Si le temps entre 2 sprites est écoulé
   if (time - lastTime > 1000 / SPRITES_PER_SECOND) {
-    nextSprite = 1; // On passe a la sprite suivante
+    nextSprite = 1; // On passe à la sprite suivante
     lastTime = time;
   }
   if (cam.xMax < lvl->width && lvl->playerStatus == 1) // si le niveau et le joueur sont en mouvement

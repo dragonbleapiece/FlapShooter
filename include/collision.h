@@ -13,7 +13,7 @@
 #include "entity.h"
 
 /*
- * File de collision entre entités
+ * File de collisions entre entités
  */
 typedef struct collision {
   Entity *E;
@@ -22,49 +22,49 @@ typedef struct collision {
 
 /*
  * pushCollision
- * Rajoute une nouvelle collision a la fin de la file
+ * Rajoute une nouvelle collision à la fin de la file
  * Alloue la mémoire et quitte le programme en cas d'erreur d'allocation
- * <*L> : Pointeur sur la liste de collision
+ * <*L> : Pointeur sur la liste de collisions
  * <*E> : Pointeur sur l'entité
  */
 void pushCollision(CollisionList *L, Entity *E);
 
 /*
  * popCollision
- * Supprime la première cellule de la file de colision en libérant la mémoire
- * <*L> : Pointeur sur la liste de collision
+ * Supprime la première cellule de la file de colisions en libérant la mémoire
+ * <*L> : Pointeur sur la liste de collisions
  * Retourne l'entité de la liste
  */
 Entity* popCollision(CollisionList *L);
 
 /*
  * isColliding
- * Test si l'entité <E1> est en collision avec l'entité <E2>
+ * Teste si l'entité <E1> est en collision avec l'entité <E2>
  * Retourne 1 si collision, 0 sinon
  */
 int isColliding(Entity E1, Entity E2);
 
 /*
  * isCollidingWith
- * Test si l'entité <E> est en collision avec l'une des entités de la liste <L>
- * <xMax> : Coordonnée maximum en x des entités a tester
- * Retourne une file de collision des entités qui sont en collision avec <E>
+ * Teste si l'entité <E> est en collision avec l'une des entités de la liste <L>
+ * <xMax> : Coordonnée maximum en x des entités à tester
+ * Retourne une file de collisions des entités qui sont en collision avec <E>
  * Retourne NULL si aucune collision
  */
 CollisionList isCollidingWith(Entity E, EntityList L, float xMax);
 
 /*
  * willColliding
- * Test si l'entité <E1> entrera en collision avec l'entité <E2>
+ * Teste si l'entité <E1> entrera en collision avec l'entité <E2>
  * Retourne 1 si collision, 0 sinon
  */
 int willColliding(Entity E1, Entity E2);
 
 /*
  * willCollidingWith
- * Test si l'entité <E> rentrera en collision avec l'une des entités de la liste <L>
- * <xMax> : Coordonnée maximum en x des entités a tester
- * Retourne une file de collision des entités qui sont en collision avec <E>
+ * Teste si l'entité <E> rentrera en collision avec l'une des entités de la liste <L>
+ * <xMax> : Coordonnée maximum en x des entités à tester
+ * Retourne une file de collisions des entités qui sont en collision avec <E>
  * Retourne NULL si aucune collision
  */
 CollisionList willCollidingWith(Entity E, EntityList L, float xMax);
@@ -72,17 +72,17 @@ CollisionList willCollidingWith(Entity E, EntityList L, float xMax);
 /*
  * freeCollisionList
  * Libère l'espace alloué pour la liste de collisions
- * <collision> : liste de collision
+ * <collision> : liste de collisions
  */
 void freeCollisionList(CollisionList collision);
 
 /*
  * isCollidingOnce
  * Vérifie si une collision se fait entre une entité et une liste d'entités
- * S'il y a collision, appelle le callback pour les entités impliquée
+ * S'il y a collision, appelle le callback pour les entités impliquées
  * <*E> : pointeur sur entité
  * <L> : liste d'entités
- * <xMax> : Coordonnée maximum en x des entités a tester
+ * <xMax> : Coordonnée maximum en x des entités à tester
  * <*callback> : fonction de callback(Entity*, Entity *)
  * Renvoie 1 s'il y a eu collision, 0 sinon
  */
@@ -90,11 +90,11 @@ int isCollidingOnce(Entity *E, EntityList L, float xMax, void (*callback)(Entity
 
 /*
  * isCollidingNTimes
- * Vérifie si 0 jusqu'à n collisions se font entre une entité et une liste d'entités
- * S'il y a collision, appelle le callback pour les entités impliquée
+ * Vérifie si 0 jusqu'à <n> collisions se font entre une entité et une liste d'entités
+ * S'il y a collision, appelle le callback pour les entités impliquées
  * <*E> : pointeur sur entité
  * <L> : liste d'entités
- * <xMax> : Coordonnée maximum en x des entités a tester
+ * <xMax> : Coordonnée maximum en x des entités à tester
  * <*callback> : fonction de callback(Entity*, Entity *)
  * <n> : nombre max de collisions
  * Renvoie le nombre de collisions obtenues
@@ -104,10 +104,10 @@ int isCollidingNTimes(Entity *E, EntityList L, float xMax, void (*callback)(Enti
 /*
  * isCollidingRepeat
  * Vérifie si une ou plusieurs collisions se font entre une entité et une liste d'entités
- * S'il y a collision, appelle le callback pour les entités impliquée
+ * S'il y a collision, appelle le callback pour les entités impliquées
  * <*E> : pointeur sur entité
  * <L> : liste d'entités
- * <xMax> : Coordonnée maximum en x des entités a tester
+ * <xMax> : Coordonnée maximum en x des entités à tester
  * <*callback> : fonction de callback(Entity*, Entity *)
  * Renvoie le nombre de collisions obtenues
  */
@@ -115,11 +115,11 @@ int isCollidingRepeat(Entity *E, EntityList L, float xMax, void (*callback)(Enti
 
 /*
  * areCollidingOnce
- * Vérifie si une  collision se fait entre deux listes d'entités
- * S'il y a collision, appelle le callback pour les entités impliquée
+ * Vérifie si une collision se fait entre deux listes d'entités
+ * S'il y a collision, appelle le callback pour les entités impliquées
  * <E> : liste d'entités
  * <L> : liste d'entités
- * <xMax> : Coordonnée maximum en x des entités a tester
+ * <xMax> : Coordonnée maximum en x des entités à tester
  * <*callback> : fonction de callback(Entity*, Entity *)
  * Renvoie le nombre de collisions obtenues
  */
