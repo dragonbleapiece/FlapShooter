@@ -1,7 +1,7 @@
 #include "events.h"
 
 void eventsInLevel(Level *level, Camera cam) {
-  if (level-> playerStatus != 1) return;
+  if (level->player == NULL) return;
   CollisionList collisions;
   Entity *obstacle;
 
