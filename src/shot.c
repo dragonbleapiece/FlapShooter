@@ -41,7 +41,14 @@ void ennemyOneShot(Level *level, Entity *ennemy) {
 void ennemiesShot(Level *level, float xMax) {
   EntityList ennemies = level->ennemies;
   while(ennemies != NULL && ennemies->x < xMax) {
-    if(ennemies->lastShot + ennemies->shotFrequency * 1000 < SDL_GetTicks()) {
+    if(ennemies->yTextureIndice == 1 && ennemies->xTextureIndice == 15)
+      setSpriteEntity(ennemies, 0, 2);
+
+    if(ennemies->yTextureIndice == 0 && ennemies->lastShot + ENNEMY_SPAWN_SHOT * 1000 < SDL_GetTicks()) {
+      setSpriteEntity(ennemies, 0, 1);
+    }
+
+    if(ennemies->yTextureIndice == 2 && ennemies->lastShot + ennemies->shotFrequency * 1000 < SDL_GetTicks()) {
       ennemyOneShot(level, ennemies);
     }
     ennemies = ennemies->next;
