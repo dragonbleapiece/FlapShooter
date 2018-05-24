@@ -61,7 +61,7 @@ void executeControls(Controls c, Level *level, Camera cam) {
   //printf("%f %f \n", player->speedX, player->speedY);
   if (cam.xMax < level->width) {// si le niveau est en mouvement
     player->speedX = (clamp(convert_speed(player->speedX) + player->x, cam.xMin, cam.xMin + (cam.xMax - cam.xMin) * FREE_MOVES - player->sizeX) - player->x) * 1. / (floor(ROUND_DECIMAL / FPS) / ROUND_DECIMAL);
-    player->speedY = (clamp(convert_speed(player->speedY) + player->y, cam.yMin, cam.yMax - player->sizeY) - player->y) * 1. / (floor(ROUND_DECIMAL / FPS) / ROUND_DECIMAL);
+    player->speedY = (clamp(convert_speed(player->speedY) + player->y, cam.yMin, cam.yMax - 1 - player->sizeY) - player->y) * 1. / (floor(ROUND_DECIMAL / FPS) / ROUND_DECIMAL);
   } else if (cam.xMax - 3 < player->x) {
     player->speedX = levelSpeed;
     player->speedY = 0;
