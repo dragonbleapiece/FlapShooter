@@ -7,6 +7,7 @@
 #include "bounding.h"
 #include "display.h"
 #include "collision.h"
+#include "shot.h"
 
 
 void eventsInLevel(Level *level, Camera cam);

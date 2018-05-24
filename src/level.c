@@ -66,7 +66,7 @@ int addEntityToLevel(EntityCode code, Level *level, float x, float y) {
 
     case PLAYER_CODE:
       t = createTextureToList(&(level->textures), SRC_RABBIT, 2, 16);
-      e = allocEntity(x, y, 1.4, 1.4 * 0.75, 10, 1, t, createAABBBoundingBox(0.925, 0.87), PLAYER_CODE);
+      e = allocEntity(x, y, 1.4, 1.4 * 0.75, 10, 1, t, createAABBBoundingBox(0.925, 0.87), code);
       if (e != NULL) {
         e->speedX = LEVEL_SPEED * level->speedCoeff;
         e->shotX = 76. / 80.;
@@ -79,29 +79,32 @@ int addEntityToLevel(EntityCode code, Level *level, float x, float y) {
 
     case ENNEMYONE_CODE:
       t = createTextureToList(&(level->textures), SRC_RATON, 1, 16);
-      e = allocEntity(x, y, 0.6, 1.2, 1, 1, t, NULL, ENNEMYONE_CODE);
+      e = allocEntity(x, y, 0.6, 1.2, 1, 1, t, createAABBBoundingBox(1., 1.), code);
       if (e != NULL) {
         initRouteListForEnnemyOne(e);
+        e->shotFrequency = ENNEMY_SHOT_FREQUENCY;
+        e->shotX = -16. / 32.;
+        e->shotY = 10. / 64.;
         addEntityToList(&level->ennemies, e);
       } else r = 0;
       break;
 
     case ENNEMYTWO_CODE:
-      e = allocEntity(x, y, 1, 1, 1, 1, NULL, NULL, ENNEMYTWO_CODE);
+      e = allocEntity(x, y, 1, 1, 1, 1, NULL, NULL, code);
       if (e != NULL) addEntityToList(&level->ennemies, e);
       else r = 0;
       break;
 
     case OBSTACLE_CODE:
       t = createTextureToList(&(level->textures), SRC_OBSTACLE, 1, 1);
-      e = allocEntity(x, y, 1, 1, -1, 1, t, createAABBBoundingBox(1., 1.), OBSTACLE_CODE);
+      e = allocEntity(x, y, 1, 1, -1, 1, t, createAABBBoundingBox(1., 1.), code);
       if (e != NULL) addEntityToList(&level->obstacles, e);
       else r = 0;
       break;
 
     case DESTRUCTIBLE_CODE:
       t = createTextureToList(&(level->textures), SRC_DESTRUCTIBLE_OBSTACLE, 1, 1);
-      e = allocEntity(x, y, 1, 1, 1, 1, t, createAABBBoundingBox(1., 1.), DESTRUCTIBLE_CODE);
+      e = allocEntity(x, y, 1, 1, 1, 1, t, createAABBBoundingBox(1., 1.), code);
       if (e != NULL) {
         addEntityToList(&level->obstacles, e);
         // On ajoute un bonus aléatoire en dessous (1 chance sur 3)
@@ -113,28 +116,28 @@ int addEntityToLevel(EntityCode code, Level *level, float x, float y) {
       break;
 
     case PROJECTILE_CODE:
-      e = allocEntity(x, y, 0.0, 0.0, 1, 1, NULL, NULL, PROJECTILE_CODE);
+      e = allocEntity(x, y, 0.0, 0.0, 1, 1, NULL, NULL, code);
       if (e != NULL) addEntityToList(&level->projectiles, e);
       else r = 0;
       break;
 
     case SPEED_BONUS:
       t = createTextureToList(&(level->textures), SRC_SPEED_BONUS, 2, 10);
-      e = allocEntity(x + 0.25, y + 0.25, 0.5, 0.5, 1, 0, t, createCircleBoundingBox(0.5), SPEED_BONUS);
+      e = allocEntity(x + 0.25, y + 0.25, 0.5, 0.5, 1, 0, t, createCircleBoundingBox(0.5), code);
       if (e != NULL) addEntityToList(&level->bonus, e);
       else r = 0;
       break;
 
     case SHOT_BONUS:
       t = createTextureToList(&(level->textures), SRC_SHOT_BONUS, 2, 10);
-      e = allocEntity(x + 0.25, y + 0.25, 0.5, 0.5, 1, 0, t, createCircleBoundingBox(0.5), SHOT_BONUS);
+      e = allocEntity(x + 0.25, y + 0.25, 0.5, 0.5, 1, 0, t, createCircleBoundingBox(0.5), code);
       if (e != NULL) addEntityToList(&level->bonus, e);
       else r = 0;
       break;
 
     case LIFE_BONUS:
       t = createTextureToList(&(level->textures), SRC_HEART, 1, 1);
-      e = allocEntity(x + 0.25, y + 0.25, 0.5, 0.5, 1, 0, t, createCircleBoundingBox(0.5), LIFE_BONUS);
+      e = allocEntity(x + 0.25, y + 0.25, 0.5, 0.5, 1, 0, t, createCircleBoundingBox(0.5), code);
       if (e != NULL) addEntityToList(&level->bonus, e);
       else r = 0;
       break;

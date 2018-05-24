@@ -23,4 +23,8 @@ void entityShot(Entity E, Level* level, float sizeX, float sizeY, Texture *t, fl
 
 void playerShot(Level* level);
 
+void ennemyOneShot(Level *level, Entity *ennemy);
+
+void ennemiesShot(Level *level, float xMax);
+
 #endif

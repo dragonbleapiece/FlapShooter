@@ -28,3 +28,22 @@ void playerShot(Level* level) {
     entityShot(*(level->player), level, 16. / (float) UNITE, 16. / (float) UNITE, t, LEVEL_SPEED * level->speedCoeff + PROJECTILE_SPEED, 0., createAABBBoundingBox(1, 0.5));
   else printf("Memory run out !\n");
 }
+
+void ennemyOneShot(Level *level, Entity *ennemy) {
+
+  Texture *t = createTextureToList(&(level->textures), SRC_PIP, 1, 1);
+  if (t != NULL)
+    entityShot(*ennemy, level, 16. / (float) UNITE, 16. / (float) UNITE, t, -PROJECTILE_SPEED, 0., createAABBBoundingBox(0.25, 0.25));
+  else printf("Memory run out !\n");
+  ennemy->lastShot = SDL_GetTicks();
+}
+
+void ennemiesShot(Level *level, float xMax) {
+  EntityList ennemies = level->ennemies;
+  while(ennemies != NULL && ennemies->x < xMax) {
+    if(ennemies->lastShot + ennemies->shotFrequency * 1000 < SDL_GetTicks()) {
+      ennemyOneShot(level, ennemies);
+    }
+    ennemies = ennemies->next;
+  }
+}

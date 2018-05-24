@@ -70,6 +70,7 @@
 #define SRC_DESTRUCTIBLE_OBSTACLE SRC_RESOURCES_FOLDER "img/wood_box.png"
 #define SRC_OBSTACLE SRC_RESOURCES_FOLDER "img/obstacle.png"
 #define SRC_CARROTBALL SRC_RESOURCES_FOLDER "img/carrotball.png"
+#define SRC_PIP SRC_RESOURCES_FOLDER "img/pip.png"
 
 /* ----------- Configuration des éléments du jeu ----------- */
 
@@ -98,5 +99,7 @@
 #define ENNEMYONE_MOVE_X 0
 #define ENNEMYONE_MOVE_Y 0.5
 #define ENNEMYONE_MOVE_DURATION 1
+
+#define ENNEMY_SHOT_FREQUENCY 0.5
 
 #endif
