@@ -79,7 +79,7 @@ int addEntityToLevel(EntityCode code, Level *level, float x, float y) {
 
     case ENNEMYONE_CODE:
       t = createTextureToList(&(level->textures), SRC_RATON, 4, 16);
-      e = allocEntity(x, y, 0.6, 1.2, 1, 1, t, createAABBBoundingBox(1., 1.), code);
+      e = allocEntity(x, y, 0.6, 1.2, 1, 1, t, createAABBBoundingBox(0.8, 0.5), code);
       if (e != NULL) {
         initRouteListForEnnemyOne(e);
         e->shotFrequency = ENNEMY_SHOT_FREQUENCY;
