@@ -120,9 +120,33 @@ void translateCamera(Camera *cam, float x, float y);
  */
 void displayEntityListOnCam(EntityList *L, Camera cam, int nextSprite);
 
+/*
+ * displayEntityHeartsUi
+ * Affiche l'interface de la vie de l'utilisateur
+ * <*interface> : Pointeur sur l'interface
+ * <numbers> : Nombre de coeurs a afficher
+ * <cam> : Camera sur laquelle on affiche
+ */
+void displayEntityHeartsUi(UI *interface, int numbers, Camera cam);
 
-void displayEntityListUILevel(UI *interface, Camera cam, int nextSprite, Level level);
+/*
+ * displayEntityEndScreenUi
+ * Affiche l'écran de fin du jeu en fonction de playerStatus
+ * <*interface> : Pointeur sur l'interface
+ * <playerStatus> : Statuts du joueur
+ * <cam> : Camera sur laquelle on affiche
+ */
+void displayEntityEndScreenUi(UI *interface, int playerStatus, Camera cam);
 
+/*
+ * displayUILevel
+ * Affiche tous les éléments de l'interface en fonction de l'état du niveau
+ * <*interface> : Pointeur sur l'interface
+ * <cam> : Camera sur laquelle on affiche
+ * <level> : Structure du niveau actuel
+ */
 void displayUILevel(UI *interface, Camera cam, Level level);
+
+
 
 #endif

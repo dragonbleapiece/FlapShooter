@@ -196,32 +196,38 @@ void displayEntityListOnCam(EntityList *L, Camera cam, int nextSprite) {
   }
 }
 
-void displayEntityListUILevel(UI *interface, Camera cam, int nextSprite, Level level) {
-  EntityList cursor = interface->items;
-  EntityList tmp;
-  Texture *heart = getTextureFromList(interface->textures, SRC_HEART);
+void displayEntityHeartsUi(UI *interface, int numbers, Camera cam) {
+  EntityList cursor = interface->hearts;
   int heartCount = 0;
 
   while (cursor != NULL) {
     if (isTextured(*cursor)) {
-      if (nextSprite && upXSpriteEntity(cursor) && cursor->life == 0) { // dernière sprite de destruction
-        tmp = cursor->next;
-        removeEntityToList(&(interface->items), cursor);
-        cursor = tmp;
-      } else {
-        if ((cursor->texture == heart && heartCount < level.player->life) || (cursor->texture != heart)) {
-          displayTexturedEntity(cursor, cam.xMin, cam.yMin);
-          if (cursor->texture == heart) ++heartCount;
-        }
-        cursor = cursor->next;
-      }
-    } else {
-      displayEntity(cursor, cam.xMin, cam.yMin);
-      cursor = cursor->next;
+      if (heartCount >= numbers)
+        return;
+      displayTexturedEntity(cursor, cam.xMin, cam.yMin);
+      ++heartCount;
     }
+    cursor = cursor->next;
+  }
+}
+
+void displayEntityEndScreenUi(UI *interface, int playerStatus, Camera cam) {
+  EntityList cursor = interface->endScreens;
+  Texture *winUi = getTextureFromList(interface->textures, SRC_WIN_UI);
+  Texture *loseUi = getTextureFromList(interface->textures, SRC_LOSE_UI);
+  while (cursor != NULL) {
+    if (isTextured(*cursor)) {
+      if ((cursor->texture == winUi && playerStatus == 2) || (cursor->texture == loseUi && playerStatus == 0)) {
+        displayTexturedEntity(cursor, cam.xMin, cam.yMin);
+      }
+    }
+    cursor = cursor->next;
   }
 }
 
 void displayUILevel(UI *interface, Camera cam, Level level) {
-  displayEntityListUILevel(interface, cam, 0, level);
+  if (level.playerStatus == 1)
+    displayEntityHeartsUi(interface, level.player->life, cam);
+  else
+    displayEntityEndScreenUi(interface, level.playerStatus, cam);
 }

@@ -94,6 +94,10 @@ int main(int argc, char** argv) {
   while (loop) {
     /* Récupération du temps au début de la boucle */
     Uint32 startTime = SDL_GetTicks();
+    if (level.player == NULL) // le joueur est mort
+      level.playerStatus = 0;
+    else if (level.player->x > level.width) // le joueur c'est dépacé la fin du niveau
+      level.playerStatus = 2;
 
     glClear(GL_COLOR_BUFFER_BIT);
     glClearColor(0, 0, 0, 1);
@@ -102,12 +106,9 @@ int main(int argc, char** argv) {
     glLoadIdentity();
     gluOrtho2D(cam.xMin, cam.xMax, cam.yMax, cam.yMin);
     displayLevel(&level, cam);
-    if (level.player == NULL) // le joueur est mort
-      level.playerStatus = 0;
-    else if (level.player->x > level.width) // le joueur c'est dépacé la fin du niveau
-      level.playerStatus = 2;
-    else if (level.playerStatus == 1) { // si le joueur est en jeu
-      displayUILevel(&interface, cam, level);
+    displayUILevel(&interface, cam, level);
+    
+    if (level.playerStatus == 1) { // Si le joueur est en jeu
       eventsInLevel(&level, cam);
       executeControls(controls, &level, cam);
       removeLevelBehind(&level, cam.xMin);
@@ -243,6 +244,7 @@ int main(int argc, char** argv) {
   }
 
   freeLevel(&level);
+  freeUi(&interface);
   SDL_Quit();
 
 
